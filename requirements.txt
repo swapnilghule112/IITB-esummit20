@@ -75,7 +75,7 @@ parso==0.6.0
 pexpect==4.2.1
 pgcli==2.2.0
 pgspecial==1.11.9
-Pillow==5.1.0
+Pillow==6.2.0
 pluggy==0.13.1
 prompt-toolkit==2.0.10
 protobuf==3.11.2
