@@ -1,0 +1,2 @@
+FLASK_APP=supply_chain.py
+FLASK_DEBUG=1

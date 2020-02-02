@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <style>
+        img{
+          height:50px;
+          border-radius: 100%;
+          object-fit: cover;
+          background-position:center;
+          }
+        </style>
+
+    <p>
+        <h1 style="color:rgb(230, 197, 66); text-align-last: center; border-style: solid;" >
+            Search results found <br>
+        </h1>
+        <h3 style="color:rgb(230, 197, 66); text-align-last: center;">
+            <b>SerialNo:</b><span>{{result[0]['asset']['data']['sack']['serial_number'] }}</span> <br>
+            <b>Manufacturer: </b><span>{{result[0]['asset']['data']['sack']['manufacturer'] }}</span><br>
+        </h3>
+
+        <ul style="color:black; text-align-last: center;" >
+                {% for message in result %}
+                <div style="border-style: outset;">
+                <br><br><br>
+                <img src="http://efalcon.in/wp-content/uploads/2019/06/checkmark.gif" style="width:50px">
+               <b> Operation:</b> <span> {{ message['operation'] }} </span><br>
+               <b> Transaction Id:</b> <span> {{ message['id'] }} </span><br>
+               <b> Owner Pub_key:</b> <span> {{ message['outputs'][0]['public_keys'][0] }} </span><br>
+               <b> Prev Owner:</b> <span> {{ message['inputs'][0]['owners_before'][0] }} </span><br>
+               <b>TimeStamp:</b> <span> {{ message['metadata']['timestamp']}} </span>
+                </div>
+                {% endfor %}   
+            
+            </ul>
+    </p>
+</head>
+    
+{% endblock %}
