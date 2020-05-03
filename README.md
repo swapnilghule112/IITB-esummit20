@@ -1,6 +1,6 @@
-# IITB-esummit20
+# jute Supply Chain Management system
 
-# Team RESTfull
+# Team Houdini
 
 ## Clone this repository and do:
 
