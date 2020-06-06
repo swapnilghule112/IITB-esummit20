@@ -22,19 +22,16 @@ __pycache__
 # Installer logs
 pip-log.txt
 
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
+#logs
+bigchaindb-errors.log
+bigchaindb.log
 
 # Translations
 *.mo
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-venv
+# environments
+myenv
 app.db
-microblog.log*
+.log*
+
+
