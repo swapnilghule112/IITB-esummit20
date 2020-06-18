@@ -10,6 +10,8 @@ from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
 from datetime import datetime
 from werkzeug.http import HTTP_STATUS_CODES
+import sys
+import json
 
 
 bdb_root_url = 'localhost:9984'
@@ -25,7 +27,9 @@ def error_response(status_code, message=None):
     return response
 
 def bad_request(error_str):
-    pass
+    response = jsonify({"error":str(error_str)})
+    response.status_code = 404
+    return response
 
 # #buggy code starts here
 def transfer_asset(username,serial_no,priv_key):
@@ -115,20 +119,19 @@ def transfer_asset(username,serial_no,priv_key):
 
             
 #non buggy code starts here
-def search_asset(form):
+def search_asset(serial_no):
     try:
-        result = bdb.assets.get(search = form.search.data)
+        result = bdb.assets.get(search = serial_no)
         if result:
             creation_tx = bdb.transactions.get(asset_id = result[0]['id'])
-            if creation_tx:
-                # print(type(creation_tx))
+            if creation_tx:		
                 return creation_tx
             else:
-                return None
+                return {}
         else:
             flash("no results were found for this query")
     except Exception:
-        return None
+        return {}
 
 def createasset(username,serial_no,cost,private_key):
 
@@ -161,10 +164,13 @@ def createasset(username,serial_no,cost,private_key):
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
             return commit_json
         except:
-            flash("Something went wrong")
+            strk = sys.exc_info()[0]
+            flash("Something went wrong: "+str(strk))
             return None
     
     except Exception:
+        strm = sys.exc_info()[0]
+        flash("Something went wrong: "+str(strm))
         return None
 
 
@@ -173,7 +179,16 @@ def createasset(username,serial_no,cost,private_key):
 @login_required
 def index():
     # return redirect(url_for('manufacturer'))
-    return render_template('index.html', title='Home')
+    user = session['username']
+    fin = mongo.db.users.find_one({ 'username':user })
+    flash('Pub: '+fin['public_key'])
+    flash('Pri: '+fin['private_key'])
+    s = ""
+    for i in fin['owned']:
+        s = s +", " + i
+    flash('owned: '+s)
+    role = fin['Role']
+    return render_template('index.html', title='Home',user=user, role=role)
 
 
 
@@ -197,6 +212,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         else:
+            #return redirect(url_for('index'))
             return render_template('index.html', title='Sign In',role = role_,form=form)
         return redirect(next_page)         
     return render_template('login.html', title='Sign In',role = role_,form=form)
@@ -223,7 +239,7 @@ def register():
             pub_key = user.public_key
             priv_key = user.private_key
             password_hash = generate_password_hash(form.password.data)
-            users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key})
+            users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key, 'owned':[]})
             # u = users.find_one({'username': form.username.data})
             # login_user(u)
             flash(f'Remember and keep your private key in a safe place {priv_key}')
@@ -236,17 +252,22 @@ def register():
 @app.route('/manufacture',methods=['GET', 'POST'])
 @login_required
 def create_assets():
-    # print(session)    
     form = ManufacturerForm()
     if form.validate_on_submit():
         serial_no = form.serialnumber.data
+        ast_check = mongo.db.assets.find_one({'data.sack.serial_number':serial_no })
+        if ast_check is not None:
+            srn = str(serial_no)
+            flash(srn+" is Already Taken Duplicate AssetID")
+            return render_template('manufacturer.html', form = form)
         cost = form.cost.data
         private_key = form.private_key.data
-        for i in range(1000):
+        for i in range(1):
             create = createasset(session["username"],serial_no,cost,private_key)
         if create is not None:
-           flash("Asset created succesfully")
-           return redirect(url_for('create_assets'))
+            mongo.db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
+            flash("Asset created succesfully")
+            return redirect(url_for('create_assets'))
     return render_template('manufacturer.html', form = form)
 
 
@@ -258,8 +279,10 @@ def transaction():
     if form.validate_on_submit():
         serial_no = form.serialnumber.data
         priv_key = form.private_key.data
-        transact = transfer_asset(session["username"],serial_no,priv_key)
+        transact = transfer_asset(form.username.data,serial_no,priv_key)
         if transact is not None:
+            mongo.db.users.update_one({'username':form.username.data },{ '$addToSet': { 'owned':serial_no } } )
+            mongo.db.users.update_one({'username':session["username"] },{ '$pull': { 'owned':serial_no } } )
             flash('Transaction completed!!')
         else:
             flash('Transaction failed because asset was not found')
@@ -271,7 +294,8 @@ def transaction():
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        result = search_asset(form)
+        serial_no = form.search.data
+        result = search_asset(serial_no)
         if result is None:
             flash("not found")
         else:
@@ -284,20 +308,42 @@ def search():
 
 @app.route('/api/services/v1/getUserDetails', methods = ['POST'])
 def get_user_details_api():
-    data = request.get_json() or {}
-    user = mongo.db.users.find_one({'username':data['Data']['username']})
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = request.get_json() or {}
+        #data = json.loads(data)
+        # user = mongo.db.users.find_one({'username':data['Data']['username']
+        if (not ('username' in data['Data']) or not ('password' in data['Data'])):
+            return bad_request('must include username and password fields')
 
-    if ('username' not in data['Data'] or 'password' not in data['Data']):
-        return bad_request('must include username and password fields')
-
-    if user is None:
-        return bad_request('Username does not exist')
-
-    if check_password_hash(user['password_hash'],data['Data']['password']):
-        return bad_request('Password not matching')
+        if not('username' in data["Data"]) or data["Data"]["username"] == "" or data["Data"]["username"] == None:
+            return bad_request('enter valid username')
     
-    response = jsonify({'ReturnMsg':'Success','user':user})
-    response.status_code = 200
+
+        if not('password' in data["Data"]) or data["Data"]["password"] == "" or data["Data"]["password"] == None:
+            return bad_request('enter valid password')
+    
+        try:
+            user = mongo.db.users.find_one({'username':data['Data']['username']})
+        except Exception as e:
+            print(e)
+
+        if user is None:
+            return bad_request('Username does not exist')
+
+        if check_password_hash(user['password_hash'],data['Data']['password']) == False:
+            return bad_request('Password not matching')
+        else:
+            user_obj = {}
+            user_obj["username"] = user["username"]
+            user_obj["email"] = user["email"]
+            user_obj["role"] = user["Role"]
+            user_obj["public_key"] = user["public_key"]
+            response = jsonify({'ReturnMsg':'Success','user':user_obj})
+            response.status_code = 200
+    except Exception as e:
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno))
     return response
 
 
@@ -333,7 +379,13 @@ def transfer_asset_api():
 
 @app.route('/api/services/v1/search',methods = ['POST'])
 def search_api():
-    return {}
+    data = request.data
+    data = json.loads(data)
+    serial_no = data["Data"]["serial_no"]
+    response = search_asset(serial_no)
+    response = jsonify(response)
+    response.status_code = 200
+    return response
 
 @app.route('/api/services/v1/getCurrentOwnedAssets',methods = ['POST'])
 def get_current_owned_assets():
