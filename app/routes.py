@@ -131,7 +131,9 @@ def search_asset(serial_no):
         else:
             flash("no results were found for this query")
     except Exception:
-        return {}
+        exc_info = sys.exc_info()
+        info = str(exc_info[0]) + " " + str(exc_info[2].tb_lineno)
+        return bad_request(info)
 
 def createasset(username,serial_no,cost,private_key):
 
@@ -311,9 +313,10 @@ def get_user_details_api():
     response = jsonify({})
     response.status_code = 404
     try:
-        data = request.get_json() or {}
-        #data = json.loads(data)
+        #data = request.get_json() or {}
+        data = json.loads(request.data)
         # user = mongo.db.users.find_one({'username':data['Data']['username']
+        #data = {"Data": {"username": "preyash", "password": "12345"}}
         if (not ('username' in data['Data']) or not ('password' in data['Data'])):
             return bad_request('must include username and password fields')
 
@@ -343,7 +346,7 @@ def get_user_details_api():
             response = jsonify({'ReturnMsg':'Success','user':user_obj})
             response.status_code = 200
     except Exception as e:
-        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno))
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -379,13 +382,18 @@ def transfer_asset_api():
 
 @app.route('/api/services/v1/search',methods = ['POST'])
 def search_api():
-    data = request.data
-    data = json.loads(data)
-    serial_no = data["Data"]["serial_no"]
-    response = search_asset(serial_no)
-    response = jsonify(response)
-    response.status_code = 200
-    return response
+    response = {}
+    try:
+        data = request.data
+        data = json.loads(data)
+        serial_no = data["Data"]["serial_no"]
+        response = search_asset(serial_no)
+        response = jsonify(response)
+        response.status_code = 200
+        return response
+    except:
+        exc_info = sys.exc_info()
+        return bad_request(str(exc_info[0]) + " " + str(exc_info[2].tb_lineno) + json.dumps(data))
 
 @app.route('/api/services/v1/getCurrentOwnedAssets',methods = ['POST'])
 def get_current_owned_assets():
