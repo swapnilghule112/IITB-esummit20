@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
  
 class ManufacturerForm(FlaskForm):
-    serialnumber = StringField('Serial Number :', validators=[DataRequired()])
+    serialnumber = StringField('Batch Number :', validators=[DataRequired()])
     cost = StringField('Cost :', validators=[DataRequired()])
     private_key = StringField('Private Key :', validators=[DataRequired()])
     submit = SubmitField('Create')

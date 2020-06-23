@@ -114,6 +114,8 @@ def transfer_asset(username,serial_no,priv_key):
                 commit_json = bdb.transactions.send_commit(fulfilled_transfer_tx)
                 return commit_json
     except Exception:
+        strk = sys.exc_info()[0]
+        flash("Something went wrong: "+str(strk))
         return None
 
 
@@ -288,13 +290,17 @@ def transaction():
             flash('Transaction completed!!')
         else:
             flash('Transaction failed because asset was not found')
-    return render_template('transaction.html', form = form)
+    fin = mongo.db.users.find_one({ 'username':session['username'] })
+    role = fin['Role']
+    return render_template('transaction.html', form = form, role = role)
 
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = SearchForm()
+    fin = mongo.db.users.find_one({ 'username':session['username'] })
+    role = fin['Role']
     if form.validate_on_submit():
         serial_no = form.search.data
         result = search_asset(serial_no)
@@ -302,8 +308,8 @@ def search():
             flash("not found")
         else:
             # flash(result)
-            return render_template('result.html', result=result)
-    return render_template('search.html', form = form)
+            return render_template('result.html', result=result,role=role)
+    return render_template('search.html', form = form,role=role)
 
 
 # API routes starts from here
