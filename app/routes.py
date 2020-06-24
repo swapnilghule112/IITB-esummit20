@@ -358,7 +358,9 @@ def get_user_details_api():
 
 @app.route('/api/services/v1/creatAsset',methods = ['POST'])
 def create_asset_api():
-    data = request.get_json() or {}
+    # data = request.get_json() or {}
+    data = request.data
+    data = json.loads(data)
     if 'serial_no' not in data['Data'] or 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
         return bad_request('One or more missing fields')
     
@@ -372,7 +374,8 @@ def create_asset_api():
 
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
 def transfer_asset_api():
-    data = request.get_json() or {}
+    data = request.data
+    data = json.loads(data)
     if 'serial_no' not in data['Data'] or 'number_of_assets' not in data['Data'] or 'public_key' not in data['Data'] or 'private_key' not in data['Data']:
         return bad_request('One or more missing fields')
     
