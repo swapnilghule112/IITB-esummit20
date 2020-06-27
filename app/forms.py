@@ -46,4 +46,23 @@ class SearchForm(FlaskForm):
     #     if 'csrf_enabled' not in kwargs:
     #         kwargs['csrf_enabled'] = False
     #     super(SearchForm, self).__init__(*args, **kwargs)
-    
+   
+class Purchase_O(FlaskForm):
+    po_rx = StringField('Send PO to :', validators=[DataRequired()])
+    quantity = StringField('Product Name :', validators=[DataRequired()])
+    amount = StringField('Value :', validators=[DataRequired()])
+    TC = StringField('Details :', validators=[DataRequired()])
+    submit = SubmitField('Publish')
+
+class Sales_O(FlaskForm):
+    so_rx = StringField('Send SO to:', validators=[DataRequired()])
+    org = StringField('Organisation:', validators=[DataRequired()])
+    loc_ship  = StringField('Shipping Address :', validators=[DataRequired()])
+    quant = StringField('Quantity :', validators=[DataRequired()])
+    amount = StringField('Amount :', validators=[DataRequired()])
+    TC = StringField('Details :', validators=[DataRequired()])
+    submit = SubmitField('Submit Sales Order')
+
+class EndTrans(FlaskForm):
+    so_id = StringField('SO ID:', validators=[DataRequired()])
+    submit = SubmitField('Complete transaction')

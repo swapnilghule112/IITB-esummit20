@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request, session,jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
-from app.forms import LoginForm, RegistrationForm, ManufacturerForm, BrokerForm, SearchForm
-from app import app, mongo
+from app.forms import LoginForm, RegistrationForm, ManufacturerForm, BrokerForm, SearchForm,Purchase_O , Sales_O, EndTrans
+from app import app, mongo,db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from app.models import User
@@ -10,6 +10,7 @@ from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
 from datetime import datetime
 from werkzeug.http import HTTP_STATUS_CODES
+from bson.objectid import ObjectId
 import sys
 import json
 
@@ -201,7 +202,7 @@ def login():
     role_ = ""
     form = LoginForm()
     if form.validate_on_submit():
-        users = mongo.db.users
+        users = db.users
         login_u = users.find_one({'username':form.username.data})
         if login_u is None or not (check_password_hash(login_u['password_hash'],form.password.data)):
             flash('Invalid username or password')
@@ -233,7 +234,7 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        users = mongo.db.users
+        users = db.users
         existing_user = users.find_one({'username': form.username.data})
 
         if existing_user:
@@ -312,6 +313,121 @@ def search():
     return render_template('search.html', form = form,role=role)
 
 
+
+@app.route('/purchase_order' , methods = ['GET', 'POST'])
+@login_required
+def purchase_order():
+    usern = session['username']
+    form = Purchase_O()
+    if form.validate_on_submit():
+        po = db.po
+        po_rx = form.po_rx.data
+        _id = po.insert({ 'po_sx': usern , 'po_rx': form.po_rx.data ,'quantity': form.quantity.data,'amount': form.amount.data , 'TC': form.TC.data, 'Status': 'Pending', 'assets': []})
+        id = str(_id)
+        flash('Purchase Order sent to '+ po_rx + ' with PO_ID: ' + id )
+        return redirect(url_for('index'))
+    return render_template('purc_ord.html', title='Purchase Order',form=form, usern=usern)
+
+@app.route('/po_notify' , methods = ['GET', 'POST'])
+@login_required
+def po_notify():
+    usern = session['username']
+    pos_r = list(db.po.find({"po_rx": usern}))
+    pos_s = list(db.po.find({"po_sx": usern}))
+    return render_template('po_notify.html', title='Notification',pos_r=pos_r, pos_s =pos_s, usern=usern)
+
+@app.route('/so_notify' , methods = ['GET', 'POST'])
+@login_required
+def so_notify():
+    usern = session['username']
+    sos_r = list(db.so.find({"so_rx": usern}))
+    sos_s = list(db.so.find({"so_sx": usern}))
+    return render_template('so_notify.html', title='Sales Notification',sos_r=sos_r , sos_s = sos_s, usern=usern)
+
+
+@app.route('/sales' , methods = ['GET', 'POST'])
+@login_required
+def sales():
+    if request.method == "POST":
+        req = request.form
+        id = req.get("po_id")
+        return redirect(url_for('sales_order', po_id = id))
+    return render_template('base.html')
+
+@app.route('/end' , methods = ['GET', 'POST'])
+@login_required
+def end():
+    if request.method == "POST":
+        req = request.form
+        id = req.get("so_id")
+    
+        return redirect(url_for('ends', so_id = id))
+    return render_template('index.html')
+
+
+@app.route('/cancel_so' , methods = ['GET', 'POST'])
+@login_required
+def cancel_so():
+    if request.method == "POST":
+        req = request.form
+        id = req.get("so_id")
+        db.so.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        doc = db.so.find_one({'_id': ObjectId(id) }) 
+        po_id = doc['po_id']
+        db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
+        flash('Sales order cancelled '+ id)
+    return render_template('index.html')
+
+
+@app.route('/cancel_po' , methods = ['GET', 'POST'])
+@login_required
+def cancel_po():
+    if request.method == "POST":
+        req = request.form
+        id = req.get("po_id")
+        db.po.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        flash('Purchased order cancelled '+ id)
+    return render_template('index.html')
+
+
+@app.route('/sales_order' , methods = ['GET', 'POST'])
+@login_required
+def sales_order():
+    po_id = request.args.get('po_id', None)
+    doc = db.po.find_one({'_id': ObjectId(po_id)})
+    usern = session['username']
+    form = Sales_O()
+    if form.validate_on_submit():
+        so_rx= form.so_rx.data
+        _id = db.so.insert({'po_id': po_id, 'so_sx': usern , 'so_rx': form.so_rx.data , 'org': form.org.data,'loc_ship': form.loc_ship.data , 'quant': form.quant.data, 'amount':form.amount.data , 'TC': form.TC.data, 'Status': 'Pending'})
+        id = str(_id)
+        db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+        flash('Sales Order placed to '+ so_rx + ' with SO_ID '+ id)
+        return redirect(url_for('index'))
+    return render_template('sales_ord.html', title = 'Sales order FORM', form =form, po_id = po_id, usern = usern)
+
+
+@app.route('/ends' , methods = ['GET', 'POST'])
+@login_required
+def ends():
+    so_id = request.args.get('so_id', None)
+    doc = db.so.find_one({'_id': ObjectId(so_id)})
+    usern = session['username']
+    po_id = doc['po_id']
+    db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Completed'}})
+    db.so.update({'_id': ObjectId(so_id)}, {'$set':{'Status':'Completed'}})
+    flash('Transaction completed with PO_ID: '+ po_id+ ' and SO_ID: '+ so_id)
+    return redirect(url_for('so_notify'))
+
+
+
+
+
+
+
+
+
+
 # API routes starts from here
 
 @app.route('/api/services/v1/getUserDetails', methods = ['POST'])
@@ -358,23 +474,30 @@ def get_user_details_api():
 
 @app.route('/api/services/v1/createAsset',methods = ['POST'])
 def create_asset_api():
+    app.logger.info("Inside create asset api")
     data = request.data
     data = json.loads(data)
+    app.logger.info(data)
     if 'serial_no' not in data['Data'] or 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
+    #if False:
         return bad_request('One or more missing fields')
     
     response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
+    app.logger.info("createasset response")
+    app.logger.info(response)
     if response is None:
         return bad_request('Failed')
     
-    response = (response)
+    response["ReturnMsg"] = "Success"
+    response = jsonify(response)
     response.status_code = 200
     return response
-
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
 def transfer_asset_api():
     data = request.data
     data = json.loads(data)
+    app.logger.info("Request packet")
+    app.logger.info(data)
     if 'serial_no' not in data['Data'] or 'number_of_assets' not in data['Data'] or 'public_key' not in data['Data'] or 'private_key' not in data['Data']:
         return bad_request('One or more missing fields')
     
@@ -394,6 +517,7 @@ def search_api():
     try:
         data = request.data
         data = json.loads(data)
+        app.logger.info(data)
         serial_no = data["Data"]["serial_no"]
         response = search_asset(serial_no)
         response = jsonify(response)

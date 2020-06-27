@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block app_content %}
+<h1> Hello {{ usern }}</h1>
+    <br><br>
+    <h2 style="color:maroon;">Received Sales order is:</h2>
+    <br>
+    {% for so in sos_r %}
+    <h2>{{so._id}}</h2>
+    <h3>Sales Order from {{ so.so_sx }}</h3>
+    <h3 style="color:#00796b;">Status: {{so.Status}}</h3>
+    {% if so.Status == 'Pending' %}
+        <form action="/end" method="POST">
+        <button class="button" name="so_id" value="{{ so._id }}">Finalize</button>
+        </form>
+        <form action="/cancel_so"  onsubmit = "return myFunction(this);"  method="POST">
+            <button class="button" name="so_id" value="{{ so._id }}">Cancel</button>
+        </form>
+    {% endif %}
+    <br><br><br>
+    {% endfor %}
+    <h2 style="color:maroon;">Sent Sales order is:</h2>
+    <br>
+    {% for so in sos_s %}
+    <h2>{{so._id}}</h2>
+    <h3>Sales Order from {{ so.so_sx }} to {{so.so_rx}}</h3>
+    <h3 style="color:#00796b;">Status: {{so.Status}}</h3>
+    <br><br><br>
+    {% endfor %}
+    
+    <script type="text/javascript">
+        function myFunction(form) {
+        var id = prompt("Enter your username");
+        if("{{ usern }}"!= id)
+        {
+            alert('Username mismatch...try');
+            return false;
+
+        }
+        alert('Click OK to cancel');
+        return true;
+
+}
+
+    </script>
+
+{% endblock %}
