@@ -185,7 +185,7 @@ def createasset(username,serial_no,cost,private_key):
 def index():
     # return redirect(url_for('manufacturer'))
     user = session['username']
-    fin = mongo.db.users.find_one({ 'username':user })
+    fin = db.users.find_one({ 'username':user })
     flash('Pub: '+fin['public_key'])
     flash('Pri: '+fin['private_key'])
     s = ""
