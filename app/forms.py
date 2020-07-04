@@ -13,7 +13,10 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Username :', validators=[DataRequired()])
     email = StringField('Email :', validators=[DataRequired(), Email()])
+    org = StringField('Organization :',validators=[DataRequired()])
     role = SelectField('Role :',choices=[('1','Manufacturer'), ('2','Broker'),('3','Retailer')])
+    location = StringField('Location :',validators=[DataRequired()])
+    details = StringField('Details :')
     password = PasswordField('Password :', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])

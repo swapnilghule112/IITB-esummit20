@@ -185,7 +185,7 @@ def createasset(username,serial_no,cost,private_key):
 def index():
     # return redirect(url_for('manufacturer'))
     user = session['username']
-    fin = db.users.find_one({ 'username':user })
+    fin = mongo.db.users.find_one({ 'username':user })
     flash('Pub: '+fin['public_key'])
     flash('Pri: '+fin['private_key'])
     s = ""
@@ -202,7 +202,7 @@ def login():
     role_ = ""
     form = LoginForm()
     if form.validate_on_submit():
-        users = db.users
+        users = mongo.db.users
         login_u = users.find_one({'username':form.username.data})
         if login_u is None or not (check_password_hash(login_u['password_hash'],form.password.data)):
             flash('Invalid username or password')
@@ -218,9 +218,9 @@ def login():
             next_page = url_for('index')
         else:
             #return redirect(url_for('index'))
-            return render_template('index.html', title='Sign In',role = role_,form=form)
+            return render_template('index.html', title='Sign In',role = "1",form=form)
         return redirect(next_page)         
-    return render_template('login.html', title='Sign In',role = role_,form=form)
+    return render_template('login.html', title='Sign In',role = "1",form=form)
 
 
 
@@ -244,7 +244,8 @@ def register():
             pub_key = user.public_key
             priv_key = user.private_key
             password_hash = generate_password_hash(form.password.data)
-            users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key, 'owned':[]})
+            mongo.db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key, 'owned':[]})
+            db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data,'Org':form.org.data,'location':form.location.data,'details':form.details.data})
             # u = users.find_one({'username': form.username.data})
             # login_user(u)
             flash(f'Remember and keep your private key in a safe place {priv_key}')
@@ -465,6 +466,7 @@ def get_user_details_api():
             user_obj["email"] = user["email"]
             user_obj["role"] = user["Role"]
             user_obj["public_key"] = user["public_key"]
+            user_obj["owned_assets"] = len(user["owned"])
             response = jsonify({'ReturnMsg':'Success','user':user_obj})
             response.status_code = 200
     except Exception as e:
@@ -490,10 +492,13 @@ def create_asset_api():
     
     response["ReturnMsg"] = "Success"
     response = jsonify(response)
+    app.logger.info("Response")
+    app.logger.info(response)
     response.status_code = 200
     return response
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
 def transfer_asset_api():
+    app.logger.info("Into Transfer asset API ")
     data = request.data
     data = json.loads(data)
     app.logger.info("Request packet")
