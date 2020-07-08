@@ -1,0 +1,88 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+
+.cardk {
+  font-family: 'Raleway', sans-serif;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  flex-basis: 250px;
+  flex-shrink: 0;
+  -webkit-box-flex: 0;
+          flex-grow: 0;
+  max-width: 100%;
+  height: 500px;
+  background-color: #FFF;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.cardk-img {
+  padding-bottom: 56.25%;
+  position: relative;
+}
+.cardk-img img {
+  position: absolute;
+  width: 80%;
+}
+
+.cardk-body {
+  padding: 0.5rem;
+}
+
+.cardk:hover {
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+.cardk-title {
+  font-size: 1.25rem;
+  line-height: 1.33;
+  font-weight: 700;
+}
+
+
+.cardk-intro {
+  margin-top: .75rem;
+  line-height: 1.5;
+}
+
+
+
+.containerk {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  flex-wrap: wrap;
+}
+img {
+  padding: 5px;
+  width: 300px;
+}
+.button {
+  background-color: orange;
+  /* background-color: rgb(250, 215, 74); */
+  border-radius: 30px;
+  /* background-color: #4CAF50; */
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+

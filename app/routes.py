@@ -180,6 +180,11 @@ def createasset(username,serial_no,cost,private_key):
 
 
 @app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+
 @app.route('/index')
 @login_required
 def index():
@@ -496,6 +501,7 @@ def create_asset_api():
     app.logger.info(response)
     response.status_code = 200
     return response
+
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
 def transfer_asset_api():
     app.logger.info("Into Transfer asset API ")
