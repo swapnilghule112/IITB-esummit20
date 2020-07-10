@@ -13,7 +13,7 @@ from werkzeug.http import HTTP_STATUS_CODES
 from bson.objectid import ObjectId
 import sys
 import json
-
+import bson
 
 bdb_root_url = 'localhost:9984'
 
@@ -186,10 +186,11 @@ def index():
     # return redirect(url_for('manufacturer'))
     user = session['username']
     fin = mongo.db.users.find_one({ 'username':user })
+    own = db.users.find_one({ 'username':user })
     flash('Pub: '+fin['public_key'])
     flash('Pri: '+fin['private_key'])
     s = ""
-    for i in fin['owned']:
+    for i in own['owned']:
         s = s +", " + i
     flash('owned: '+s)
     role = fin['Role']
@@ -244,8 +245,8 @@ def register():
             pub_key = user.public_key
             priv_key = user.private_key
             password_hash = generate_password_hash(form.password.data)
-            mongo.db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key, 'owned':[]})
-            db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data,'Org':form.org.data,'location':form.location.data,'details':form.details.data})
+            mongo.db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key})
+            db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data,'Org':form.org.data,'location':form.location.data,'details':form.details.data, 'owned':[], 'lock':[]})
             # u = users.find_one({'username': form.username.data})
             # login_user(u)
             flash(f'Remember and keep your private key in a safe place {priv_key}')
@@ -271,7 +272,7 @@ def create_assets():
         for i in range(1):
             create = createasset(session["username"],serial_no,cost,private_key)
         if create is not None:
-            mongo.db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
+            db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
             flash("Asset created succesfully")
             return redirect(url_for('create_assets'))
     return render_template('manufacturer.html', form = form)
@@ -287,8 +288,8 @@ def transaction():
         priv_key = form.private_key.data
         transact = transfer_asset(form.username.data,serial_no,priv_key)
         if transact is not None:
-            mongo.db.users.update_one({'username':form.username.data },{ '$addToSet': { 'owned':serial_no } } )
-            mongo.db.users.update_one({'username':session["username"] },{ '$pull': { 'owned':serial_no } } )
+            db.users.update_one({'username':form.username.data },{ '$addToSet': { 'owned':serial_no } } )
+            db.users.update_one({'username':session["username"] },{ '$pull': { 'owned':serial_no } } )
             flash('Transaction completed!!')
         else:
             flash('Transaction failed because asset was not found')
@@ -323,7 +324,7 @@ def purchase_order():
     if form.validate_on_submit():
         po = db.po
         po_rx = form.po_rx.data
-        _id = po.insert({ 'po_sx': usern , 'po_rx': form.po_rx.data ,'quantity': form.quantity.data,'amount': form.amount.data , 'TC': form.TC.data, 'Status': 'Pending', 'assets': []})
+        _id = po.insert({ 'po_sx': usern , 'po_rx': form.po_rx.data ,'prod_name': form.prod_name.data ,'quantity': form.quantity.data,'amount': form.amount.data , 'TC': form.TC.data, 'Status': 'Pending', 'assets': []})
         id = str(_id)
         flash('Purchase Order sent to '+ po_rx + ' with PO_ID: ' + id )
         return redirect(url_for('index'))
@@ -349,9 +350,17 @@ def so_notify():
 @app.route('/sales' , methods = ['GET', 'POST'])
 @login_required
 def sales():
+    usern = session['username']
     if request.method == "POST":
         req = request.form
         id = req.get("po_id")
+        own = db.users.find_one({ 'username': usern })
+        amount = db.po.find_one({'_id': ObjectId(id)})
+        owned = len(own['owned'])
+        quantity = int(amount['quantity'])
+        if(owned < quantity):
+            flash("You have less Assets, Cannot Complete your Order")
+            return redirect(url_for('index'))
         return redirect(url_for('sales_order', po_id = id))
     return render_template('base.html')
 
@@ -396,13 +405,25 @@ def cancel_po():
 def sales_order():
     po_id = request.args.get('po_id', None)
     doc = db.po.find_one({'_id': ObjectId(po_id)})
+    qunt = int(doc['quantity'])
     usern = session['username']
+    own = db.users.find_one({ 'username': usern })
+    own = own['owned']
+    ownt = own
     form = Sales_O()
+    poid = []
     if form.validate_on_submit():
         so_rx= form.so_rx.data
         _id = db.so.insert({'po_id': po_id, 'so_sx': usern , 'so_rx': form.so_rx.data , 'org': form.org.data,'loc_ship': form.loc_ship.data , 'quant': form.quant.data, 'amount':form.amount.data , 'TC': form.TC.data, 'Status': 'Pending'})
         id = str(_id)
         db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+        for i in range(0,qunt):
+            poid.append(own[i])
+            ownt.remove(own[i])
+        db.users.update({ "username" : usern}, { "$set": {'owned': ownt}})
+        data = {po_id:poid}
+        db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
+        db.po.update({'_id': ObjectId(po_id)}, {'$set':{'assets': poid}})
         flash('Sales Order placed to '+ so_rx + ' with SO_ID '+ id)
         return redirect(url_for('index'))
     return render_template('sales_ord.html', title = 'Sales order FORM', form =form, po_id = po_id, usern = usern)
@@ -415,6 +436,21 @@ def ends():
     doc = db.so.find_one({'_id': ObjectId(so_id)})
     usern = session['username']
     po_id = doc['po_id']
+    assets = db.po.find_one({'_id': ObjectId(po_id)})
+    assets = assets['assets']
+    so_sx = doc['so_sx']
+    #Transaction Functio
+    lock = db.users.find_one({"username": so_sx})
+    lock = lock["lock"]
+    for i in range(0,len(lock)):
+        if po_id in lock[i]:
+            lock.pop(i)
+            break
+    ast = db.users.find_one({"username":usern})
+    ast = ast["owned"]
+    assets.extend(ast)
+    db.users.update({"username":so_sx},{'$set':{'lock':lock}})
+    db.users.update({"username":usern},{"$set": {'owned': assets }})
     db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Completed'}})
     db.so.update({'_id': ObjectId(so_id)}, {'$set':{'Status':'Completed'}})
     flash('Transaction completed with PO_ID: '+ po_id+ ' and SO_ID: '+ so_id)
