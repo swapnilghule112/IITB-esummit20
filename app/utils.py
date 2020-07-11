@@ -26,11 +26,17 @@ def error_response(status_code, message=None):
         payload['message'] = message
     response = jsonify(payload)
     response.status_code = status_code
+    app.logger.error("Into error response")
+    app.logger.error(response)
+    app.logger.error("Exit from error_response")
     return response
 
 def bad_request(error_str):
     response = jsonify({"error":str(error_str)})
     response.status_code = 404
+    app.logger.info("Into bad_request")
+    app.logger.info(response)
+    app.logger.info("Exit from bad_request")
     return response
 
 # #buggy code starts here
@@ -116,8 +122,11 @@ def transfer_asset(username,serial_no,priv_key):
                 commit_json = bdb.transactions.send_commit(fulfilled_transfer_tx)
                 return commit_json
     except Exception:
-        strk = sys.exc_info()[0]
+        exc_info,exc_obj,exc_tb = sys.exc_info()
         flash("Something went wrong: "+str(strk))
+        app.logger.error("Exception in transfer_asset")
+        app.logger.error(exc_info)
+        app.logger.error("on line no:" + exc_tb.tb_lineno)
         return None
 
 
@@ -125,6 +134,8 @@ def transfer_asset(username,serial_no,priv_key):
 #non buggy code starts here
 def search_asset(serial_no):
     try:
+        app.logger.info("Into search asset")
+        app.logger.info("serial number: " + str(serial_no))
         result = bdb.assets.get(search = serial_no)
         if result:
             creation_tx = bdb.transactions.get(asset_id = result[0]['id'])
@@ -136,12 +147,17 @@ def search_asset(serial_no):
             flash("no results were found for this query")
     except Exception:
         exc_info = sys.exc_info()
-        info = str(exc_info[0]) + " " + str(exc_info[2].tb_lineno)
+        info = str(exc_info[0]) + " on line no: " + str(exc_info[2].tb_lineno)
+        app.logger.error(info)
         return bad_request(info)
 
 def createasset(username,serial_no,cost,private_key):
 
     try:
+        app.logger.info("Into create asset")
+        app.logger.info("username: "+ str(username))
+        app.logger.info("serial number" + str(serial_no))
+        app.logger.info("cost: "+ str(cost))
         t = datetime.utcnow()
         sack = {
             'data': {
@@ -170,11 +186,20 @@ def createasset(username,serial_no,cost,private_key):
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
             return commit_json
         except:
-            strk = sys.exc_info()[0]
             flash("Something went wrong: "+str(strk))
+            exc_info,exc_obj,exc_tb = sys.exc_info()
+            flash("Something went wrong: "+str(strk))
+            app.logger.error("Exception in create asset")
+            app.logger.error(exc_info)
+            app.logger.error("on line no:" + exc_tb.tb_lineno)
             return None
     
     except Exception:
         strm = sys.exc_info()[0]
         flash("Something went wrong: "+str(strm))
+        exc_info,exc_obj,exc_tb = sys.exc_info()
+        flash("Something went wrong: "+str(strk))
+        app.logger.error("Exception in create asset")
+        app.logger.error(exc_info)
+        app.logger.error("on line no:" + exc_tb.tb_lineno)
         return None

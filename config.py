@@ -10,3 +10,5 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['swapnilghule2015@gmail.com','gothanepreyash@gmail.com','kunduosara@gmail.com']
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
+    ASSETS_PER_TRANS = 4000

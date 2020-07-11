@@ -14,7 +14,9 @@ from bson.objectid import ObjectId
 
 import sys
 import json
+
 from .utils import *
+from .tasks import *
 
 # bdb_root_url = 'localhost:9984'
 
@@ -114,9 +116,11 @@ def create_assets():
             return render_template('manufacturer.html', form = form)
         cost = form.cost.data
         private_key = form.private_key.data
+        no_of_assets = form.quantity.data
+
         for i in range(1):
-            create = createasset(session["username"],serial_no,cost,private_key)
-        if create is not None:
+            created = create_asset_async(session["username"],serial_no,cost,private_key,no_of_assets)
+        if created:
             mongo.db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
             flash("Asset created succesfully")
             return redirect(url_for('create_assets'))
@@ -131,8 +135,9 @@ def transaction():
     if form.validate_on_submit():
         serial_no = form.serialnumber.data
         priv_key = form.private_key.data
-        transact = transfer_asset(form.username.data,serial_no,priv_key)
-        if transact is not None:
+        no_of_assets = form.quantity.data
+        transact = transfer_asset_async(form.username.data,serial_no,priv_key,no_of_assets)
+        if transact:
             mongo.db.users.update_one({'username':form.username.data },{ '$addToSet': { 'owned':serial_no } } )
             mongo.db.users.update_one({'username':session["username"] },{ '$pull': { 'owned':serial_no } } )
             flash('Transaction completed!!')
