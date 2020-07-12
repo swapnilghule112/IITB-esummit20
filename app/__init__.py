@@ -20,7 +20,7 @@ client = MongoClient("mongodb+srv://Houdini:Houdini@clustermain-0hrue.mongodb.ne
 db = client.get_database('trans')
 bootstrap = Bootstrap(app)
 redis_app = app.config.get('REDIS_URL','redis://')
-task_queue = rq.Queue('jute-tasks', connection=app.redis)
+task_queue = rq.Queue('jute-tasks', connection=redis_app)
 
 from app import routes,models,errors
 
