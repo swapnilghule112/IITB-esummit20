@@ -54,8 +54,9 @@ class SearchForm(FlaskForm):
    
 class Purchase_O(FlaskForm):
     po_rx = StringField('Send PO to :', validators=[DataRequired()])
-    quantity = StringField('Product Name :', validators=[DataRequired()])
+    prod_name = StringField('Product Name :', validators=[DataRequired()])
     amount = StringField('Value :', validators=[DataRequired()])
+    quantity = StringField('Quantity:', validators=[DataRequired()])
     TC = StringField('Details :', validators=[DataRequired()])
     submit = SubmitField('Publish')
 
@@ -71,3 +72,4 @@ class Sales_O(FlaskForm):
 class EndTrans(FlaskForm):
     so_id = StringField('SO ID:', validators=[DataRequired()])
     submit = SubmitField('Complete transaction')
+

@@ -156,7 +156,7 @@ def createasset(username,serial_no,cost,private_key):
     try:
         app.logger.info("Into create asset")
         app.logger.info("username: "+ str(username))
-        app.logger.info("serial number" + str(serial_no))
+        app.logger.info("serial number " + str(serial_no))
         app.logger.info("cost: "+ str(cost))
         t = datetime.utcnow()
         sack = {
@@ -184,6 +184,7 @@ def createasset(username,serial_no,cost,private_key):
 
 
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
+            
             return commit_json
         except:
             exc_info,exc_obj,exc_tb = sys.exc_info()

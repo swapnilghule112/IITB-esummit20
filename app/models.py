@@ -47,10 +47,10 @@ class User(UserMixin):
         return f'{self.user_json}'
 
 class Task():
-    def __init__(self,id,name,username,description,user_id):
+    def __init__(self,id,name,description,user_id):
         self.id = id
         self.name = name
-        self.user_id = username
+        self.user_id = user_id
         self.description = description
         self.complete = False
     
