@@ -15,8 +15,22 @@ class User(UserMixin):
         return str(object_id)
 
     def launch_task(self, name, description, *args, **kwargs):
-        rq_job = task_queue.enqueue('app.tasks.' + name, self.id, *args, **kwargs)
-        task = Task(id=rq_job.get_id(), name=name, description=description, user=self)
+        app.logger.info("Task queue")
+        app.logger.info(task_queue)
+        # app.logger.info(dir(task_queue))
+        # app.logger.info(*args)
+        # app.logger.info(**kwargs)
+        # app.logger.info('app.tasks.'+ name)
+        # app.logger.info(self)
+        if name == "create_n_assets":
+            from app.tasks import create_n_assets
+            rq_job = task_queue.enqueue(create_n_assets, *args, **kwargs)
+        elif name == "transfer_n_assets":
+            from app.tasks import transfer_n_assets
+            rq_job = task_queue.enqueue(transfer_n_assets, *args, **kwargs)
+        app.logger.info("RQ JOB")
+        app.logger.info(rq_job)
+        task = Task(id=rq_job.get_id(), name=name, description=description, user_id=self.username)
         mongo.db.tasks.insert({"name":name,"description":description,"user_id":self.username,"id":rq_job.get_id(),"complete":False})
         return task
 
@@ -27,6 +41,7 @@ class User(UserMixin):
     def get_task_in_progress(self, name):
         result = mongo.db.tasks.find_one({"name":name,"user_id":self.username,"complete":False})
         return result
+
 
     def __repr__(self):
         return f'{self.user_json}'

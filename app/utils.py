@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegistrationForm, ManufacturerForm, BrokerForm,
 from app import app, mongo,db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from app.models import User
+from app.models import User,Task
 from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
 from datetime import datetime
@@ -123,7 +123,7 @@ def transfer_asset(username,serial_no,priv_key):
                 return commit_json
     except Exception:
         exc_info,exc_obj,exc_tb = sys.exc_info()
-        flash("Something went wrong: "+str(strk))
+        flash("Something went wrong: "+str(exc_info))
         app.logger.error("Exception in transfer_asset")
         app.logger.error(exc_info)
         app.logger.error("on line no:" + exc_tb.tb_lineno)
@@ -186,12 +186,11 @@ def createasset(username,serial_no,cost,private_key):
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
             return commit_json
         except:
-            flash("Something went wrong: "+str(strk))
             exc_info,exc_obj,exc_tb = sys.exc_info()
-            flash("Something went wrong: "+str(strk))
+            # flash("Something went wrong: "+str(exc_info))
             app.logger.error("Exception in create asset")
             app.logger.error(exc_info)
-            app.logger.error("on line no:" + exc_tb.tb_lineno)
+            app.logger.error("on line no:" + str(exc_tb.tb_lineno))
             return None
     
     except Exception:
