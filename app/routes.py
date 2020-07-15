@@ -14,7 +14,10 @@ from bson.objectid import ObjectId
 
 import sys
 import json
+import requests
+import copy
 from .utils import *
+from .tasks import *
 
 # bdb_root_url = 'localhost:9984'
 
@@ -26,20 +29,24 @@ def home():
     return render_template('home.html')
 
 
+
+@app.route('/')
 @app.route('/index')
 @login_required
 def index():
     # return redirect(url_for('manufacturer'))
     user = session['username']
     fin = mongo.db.users.find_one({ 'username':user })
+    own = db.users.find_one({ 'username':user })
     flash('Pub: '+fin['public_key'])
     flash('Pri: '+fin['private_key'])
     s = ""
-    for i in fin['owned']:
+    for i in own['owned']:
         s = s +", " + i
     flash('owned: '+s)
     role = fin['Role']
     return render_template('index.html', title='Home',user=user, role=role)
+
 
 
 
@@ -76,6 +83,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -90,14 +98,15 @@ def register():
             pub_key = user.public_key
             priv_key = user.private_key
             password_hash = generate_password_hash(form.password.data)
-            mongo.db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key, 'owned':[]})
-            db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data,'Org':form.org.data,'location':form.location.data,'details':form.details.data})
+            mongo.db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data, 'password_hash': password_hash, 'public_key': pub_key, 'private_key': priv_key})
+            db.users.insert({'username': form.username.data,'email': form.email.data,'Role':form.role.data,'Org':form.org.data,'location':form.location.data,'details':form.details.data, 'owned':[], 'lock':[]})
             # u = users.find_one({'username': form.username.data})
             # login_user(u)
             flash(f'Remember and keep your private key in a safe place {priv_key}')
             return redirect(url_for('index'))
-    
+
     return render_template('register.html',title = 'Register', form =form)
+
 
 
 
@@ -108,16 +117,15 @@ def create_assets():
     if form.validate_on_submit():
         serial_no = form.serialnumber.data
         ast_check = mongo.db.assets.find_one({'data.sack.serial_number':serial_no })
-        if ast_check is not None:
+        if ast_check:
             srn = str(serial_no)
             flash(srn+" is Already Taken Duplicate AssetID")
             return render_template('manufacturer.html', form = form)
         cost = form.cost.data
         private_key = form.private_key.data
-        for i in range(1):
-            create = createasset(session["username"],serial_no,cost,private_key)
-        if create is not None:
-            mongo.db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
+        no_of_assets = form.quantity.data
+        created = create_asset_async(session["username"],serial_no,cost,private_key,no_of_assets)
+        if created:
             flash("Asset created succesfully")
             return redirect(url_for('create_assets'))
     return render_template('manufacturer.html', form = form)
@@ -131,8 +139,10 @@ def transaction():
     if form.validate_on_submit():
         serial_no = form.serialnumber.data
         priv_key = form.private_key.data
-        transact = transfer_asset(form.username.data,serial_no,priv_key)
-        if transact is not None:
+        no_of_assets = form.quantity.data
+        assets = []
+        transact = transfer_asset_async(form.username.data,serial_no,priv_key,no_of_assets,assets)
+        if transact:
             mongo.db.users.update_one({'username':form.username.data },{ '$addToSet': { 'owned':serial_no } } )
             mongo.db.users.update_one({'username':session["username"] },{ '$pull': { 'owned':serial_no } } )
             flash('Transaction completed!!')
@@ -169,11 +179,12 @@ def purchase_order():
     if form.validate_on_submit():
         po = db.po
         po_rx = form.po_rx.data
-        _id = po.insert({ 'po_sx': usern , 'po_rx': form.po_rx.data ,'quantity': form.quantity.data,'amount': form.amount.data , 'TC': form.TC.data, 'Status': 'Pending', 'assets': []})
+        _id = po.insert({ 'po_sx': usern , 'po_rx': form.po_rx.data ,'prod_name': form.prod_name.data ,'quantity': form.quantity.data,'amount': form.amount.data , 'TC': form.TC.data, 'Status': 'Pending', 'assets': []})
         id = str(_id)
         flash('Purchase Order sent to '+ po_rx + ' with PO_ID: ' + id )
         return redirect(url_for('index'))
     return render_template('purc_ord.html', title='Purchase Order',form=form, usern=usern)
+
 
 @app.route('/po_notify' , methods = ['GET', 'POST'])
 @login_required
@@ -192,14 +203,24 @@ def so_notify():
     return render_template('so_notify.html', title='Sales Notification',sos_r=sos_r , sos_s = sos_s, usern=usern)
 
 
+
 @app.route('/sales' , methods = ['GET', 'POST'])
 @login_required
 def sales():
+    usern = session['username']
     if request.method == "POST":
         req = request.form
         id = req.get("po_id")
+        own = db.users.find_one({ 'username': usern })
+        amount = db.po.find_one({'_id': ObjectId(id)})
+        owned = len(own['owned'])
+        quantity = int(amount['quantity'])
+        if(owned < quantity):
+            flash("You have less Assets, Cannot Complete your Order")
+            return redirect(url_for('index'))
         return redirect(url_for('sales_order', po_id = id))
     return render_template('base.html')
+
 
 @app.route('/end' , methods = ['GET', 'POST'])
 @login_required
@@ -236,24 +257,58 @@ def cancel_po():
         flash('Purchased order cancelled '+ id)
     return render_template('index.html')
 
-
 @app.route('/sales_order' , methods = ['GET', 'POST'])
 @login_required
 def sales_order():
     po_id = request.args.get('po_id', None)
     doc = db.po.find_one({'_id': ObjectId(po_id)})
+    qunt = int(doc['quantity'])
     usern = session['username']
+    own = db.users.find_one({ 'username': usern })
+    own = own['owned']
+    ownt = copy.deepcopy(own)
     form = Sales_O()
+    poid = []
     if form.validate_on_submit():
         so_rx= form.so_rx.data
         _id = db.so.insert({'po_id': po_id, 'so_sx': usern , 'so_rx': form.so_rx.data , 'org': form.org.data,'loc_ship': form.loc_ship.data , 'quant': form.quant.data, 'amount':form.amount.data , 'TC': form.TC.data, 'Status': 'Pending'})
         id = str(_id)
         db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+        print(own)
+        print("quant")
+        print(qunt)
+        for i in range(0,qunt):
+            poid.append(own[i])
+            ownt.remove(own[i])
+        db.users.update({ "username" : usern}, { "$set": {'owned': ownt}})
+        data = {po_id:poid}
+        db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
+        db.po.update({'_id': ObjectId(po_id)}, {'$set':{'assets': poid}})
         flash('Sales Order placed to '+ so_rx + ' with SO_ID '+ id)
         return redirect(url_for('index'))
     return render_template('sales_ord.html', title = 'Sales order FORM', form =form, po_id = po_id, usern = usern)
 
 
+
+def get_priv_key_by_username(username):
+    # urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key",
+    # "http://3.215.183.155/api/services/v1/get_priv_key"]
+    urls = ["http://localhost:5000/api/services/v1/get_priv_key"]
+    # headers = {"Content-Type":"application/json"}
+    data = {"username":username}
+    print("Inside get_priv_key fun")
+    data = json.dumps(data)
+    print(data)
+    for url in urls:
+        api_resp = requests.post(url,data)
+        print(api_resp)
+        print(type(api_resp.text))
+        api_resp = json.loads(api_resp.text)
+        if "priv_key" in api_resp:
+            return api_resp["priv_key"]
+    else:
+        return None
+    
 @app.route('/ends' , methods = ['GET', 'POST'])
 @login_required
 def ends():
@@ -261,10 +316,33 @@ def ends():
     doc = db.so.find_one({'_id': ObjectId(so_id)})
     usern = session['username']
     po_id = doc['po_id']
+    assets = db.po.find_one({'_id': ObjectId(po_id)})
+    assets = assets['assets']
+    so_sx = doc['so_sx']
+
+    priv_key = get_priv_key_by_username(so_sx)
+    if priv_key is None:
+        flash("User not found")
+        return redirect(url_for('index'))
+    transferred = transfer_asset_async(usern,'random',priv_key,len(assets),assets)
+    lock = db.users.find_one({"username": so_sx})
+    lock = lock["lock"]
+    for i in range(0,len(lock)):
+        if po_id in lock[i]:
+            lock.pop(i)
+            break
+    ast = db.users.find_one({"username":usern})
+    ast = ast["owned"]
+    assets.extend(ast)
+    db.users.update({"username":so_sx},{'$set':{'lock':lock}})
+    db.users.update({"username":usern},{"$set": {'owned': assets }})
     db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Completed'}})
     db.so.update({'_id': ObjectId(so_id)}, {'$set':{'Status':'Completed'}})
     flash('Transaction completed with PO_ID: '+ po_id+ ' and SO_ID: '+ so_id)
     return redirect(url_for('so_notify'))
+
+
+
 
 
 
@@ -398,6 +476,31 @@ def get_current_owned_assets():
     # print(len(set1)- len(set2))
     response[0]["no_of_assets"] = len(set2)- len(set1)
     return jsonify(response)
+
+@app.route('/api/services/v1/get_priv_key',methods=["POST"])
+def get_priv_key():
+    try:
+        resp = jsonify({})
+        data = request.data
+        data = json.loads(data)
+        username = data["username"]
+        print("In API")
+        print(username)
+        user_details = mongo.db.users.find_one({"username":username})
+        # app.logger.info(user_details)
+        if user_details:
+            priv_key = user_details["private_key"]
+        else:
+            priv_key = None
+            return bad_request("Not found")
+        resp = {"priv_key":priv_key}
+        resp = jsonify(resp)
+        resp.status_code = 200
+        return resp
+    except:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        app.logger.error(str(exc_type) + str(exc_tb.tb_lineno))
+
 
 @app.route('/api/services/v1/getTrackingInfo', methods = ['POST'])
 def get_tracking_info_api():

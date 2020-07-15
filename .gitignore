@@ -25,7 +25,11 @@ pip-log.txt
 #logs
 bigchaindb-errors.log
 bigchaindb.log
+<<<<<<< HEAD
 *.log
+=======
+logs
+>>>>>>> 76eaf535f8e7fce443ccdb82e62018bd92b88015
 # Translations
 *.mo
 
@@ -33,5 +37,5 @@ bigchaindb.log
 myenv
 app.db
 .log*
-
+.vscode
 

@@ -27,6 +27,7 @@ class ManufacturerForm(FlaskForm):
     serialnumber = StringField('Batch Number :', validators=[DataRequired()])
     cost = StringField('Cost :', validators=[DataRequired()])
     private_key = StringField('Private Key :', validators=[DataRequired()])
+    quantity = StringField('Quantity :', validators=[DataRequired()])
     submit = SubmitField('Create')
 
 class BrokerForm(FlaskForm):
@@ -34,6 +35,7 @@ class BrokerForm(FlaskForm):
     username = StringField('Buyer Username :', validators=[DataRequired()])
     serialnumber = StringField('Serial Number :', validators=[DataRequired()])
     private_key = StringField('Private Key :', validators=[DataRequired()])
+    quantity = StringField('Quantity :', validators=[DataRequired()])
     submit = SubmitField('Transfer')
 
 class TrackForm(FlaskForm):
@@ -52,8 +54,9 @@ class SearchForm(FlaskForm):
    
 class Purchase_O(FlaskForm):
     po_rx = StringField('Send PO to :', validators=[DataRequired()])
-    quantity = StringField('Product Name :', validators=[DataRequired()])
+    prod_name = StringField('Product Name :', validators=[DataRequired()])
     amount = StringField('Value :', validators=[DataRequired()])
+    quantity = StringField('Quantity:', validators=[DataRequired()])
     TC = StringField('Details :', validators=[DataRequired()])
     submit = SubmitField('Publish')
 
@@ -69,3 +72,4 @@ class Sales_O(FlaskForm):
 class EndTrans(FlaskForm):
     so_id = StringField('SO ID:', validators=[DataRequired()])
     submit = SubmitField('Complete transaction')
+
