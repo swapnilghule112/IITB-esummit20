@@ -142,6 +142,12 @@ def search_asset(serial_no):
 def createasset(username,serial_no,cost,private_key):
 
     try:
+        print("Into createasset")
+        print(username)
+        print(serial_no)
+        print(cost)
+        print(private_key)
+
         t = datetime.utcnow()
         sack = {
             'data': {
@@ -168,13 +174,18 @@ def createasset(username,serial_no,cost,private_key):
 
 
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
+            print("commited successfully")
+            print(commit_json)
             return commit_json
         except:
             strk = sys.exc_info()[0]
+            print("error")
+            print(strk)
             flash("Something went wrong: "+str(strk))
             return None
     
     except Exception:
         strm = sys.exc_info()[0]
         flash("Something went wrong: "+str(strm))
+        print(strm)
         return None
