@@ -184,7 +184,7 @@ def createasset(username,serial_no,cost,private_key):
 
 
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
-            
+            db.users.update_one({'username':username },{ '$addToSet': { 'owned':serial_no } } )
             return commit_json
         except:
             exc_info,exc_obj,exc_tb = sys.exc_info()

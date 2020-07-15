@@ -14,7 +14,8 @@ from bson.objectid import ObjectId
 
 import sys
 import json
-
+import requests
+import copy
 from .utils import *
 from .tasks import *
 
@@ -125,7 +126,6 @@ def create_assets():
         no_of_assets = form.quantity.data
         created = create_asset_async(session["username"],serial_no,cost,private_key,no_of_assets)
         if created:
-            mongo.db.users.update_one({'username':session["username"] },{ '$addToSet': { 'owned':serial_no } } )
             flash("Asset created succesfully")
             return redirect(url_for('create_assets'))
     return render_template('manufacturer.html', form = form)
@@ -266,7 +266,7 @@ def sales_order():
     usern = session['username']
     own = db.users.find_one({ 'username': usern })
     own = own['owned']
-    ownt = own
+    ownt = copy.deepcopy(own)
     form = Sales_O()
     poid = []
     if form.validate_on_submit():
@@ -274,6 +274,9 @@ def sales_order():
         _id = db.so.insert({'po_id': po_id, 'so_sx': usern , 'so_rx': form.so_rx.data , 'org': form.org.data,'loc_ship': form.loc_ship.data , 'quant': form.quant.data, 'amount':form.amount.data , 'TC': form.TC.data, 'Status': 'Pending'})
         id = str(_id)
         db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+        print(own)
+        print("quant")
+        print(qunt)
         for i in range(0,qunt):
             poid.append(own[i])
             ownt.remove(own[i])
@@ -287,7 +290,25 @@ def sales_order():
 
 
 
-
+def get_priv_key_by_username(username):
+    # urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key",
+    # "http://3.215.183.155/api/services/v1/get_priv_key"]
+    urls = ["http://localhost:5000/api/services/v1/get_priv_key"]
+    # headers = {"Content-Type":"application/json"}
+    data = {"username":username}
+    print("Inside get_priv_key fun")
+    data = json.dumps(data)
+    print(data)
+    for url in urls:
+        api_resp = requests.post(url,data)
+        print(api_resp)
+        print(type(api_resp.text))
+        api_resp = json.loads(api_resp.text)
+        if "priv_key" in api_resp:
+            return api_resp["priv_key"]
+    else:
+        return None
+    
 @app.route('/ends' , methods = ['GET', 'POST'])
 @login_required
 def ends():
@@ -298,7 +319,11 @@ def ends():
     assets = db.po.find_one({'_id': ObjectId(po_id)})
     assets = assets['assets']
     so_sx = doc['so_sx']
-    priv_key = "AecRyNf5n1nZChqGF33EKQjQSqb7b33Y6n73jDZYcx8g" # update this
+
+    priv_key = get_priv_key_by_username(so_sx)
+    if priv_key is None:
+        flash("User not found")
+        return redirect(url_for('index'))
     transferred = transfer_asset_async(usern,'random',priv_key,len(assets),assets)
     lock = db.users.find_one({"username": so_sx})
     lock = lock["lock"]
@@ -451,6 +476,31 @@ def get_current_owned_assets():
     # print(len(set1)- len(set2))
     response[0]["no_of_assets"] = len(set2)- len(set1)
     return jsonify(response)
+
+@app.route('/api/services/v1/get_priv_key',methods=["POST"])
+def get_priv_key():
+    try:
+        resp = jsonify({})
+        data = request.data
+        data = json.loads(data)
+        username = data["username"]
+        print("In API")
+        print(username)
+        user_details = mongo.db.users.find_one({"username":username})
+        # app.logger.info(user_details)
+        if user_details:
+            priv_key = user_details["private_key"]
+        else:
+            priv_key = None
+            return bad_request("Not found")
+        resp = {"priv_key":priv_key}
+        resp = jsonify(resp)
+        resp.status_code = 200
+        return resp
+    except:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        app.logger.error(str(exc_type) + str(exc_tb.tb_lineno))
+
 
 @app.route('/api/services/v1/getTrackingInfo', methods = ['POST'])
 def get_tracking_info_api():
