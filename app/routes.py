@@ -509,6 +509,26 @@ def get_sales_order():
     return response
 
 
+@app.route('/api/services/v1/so_cancel', methods = ['POST'])
+def so_cancel():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('so_id' in data['Data'])):
+            return bad_request('Sales Order Not Found')
+        id = data['Data']['so_id']
+        db.so.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        doc = db.so.find_one({'_id': ObjectId(id) }) 
+        po_id = doc['po_id']
+        db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
+        response = jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'})
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
 
 
 @app.route('/api/services/v1/get_purchase_order', methods = ['POST'])
