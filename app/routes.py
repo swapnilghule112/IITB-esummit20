@@ -469,6 +469,48 @@ def ends():
 
 
 
+
+@app.route('/api/services/v1/get_sales_order', methods = ['POST'])
+def get_sales_order():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])  or not ('po_id' in data['Data'])  or not ('so_rx' in data['Data']) or not ('org' in data['Data']) or not ('loc_ship' in data['Data']) or not ('TC' in data['Data'])):
+            return bad_request('Content Incomplete Not Found')
+        usern = data['Data']['username']
+        existing_user = db.users.find_one({'username': data['Data']['so_rx']})
+        if existing_user:
+            so_rx = data['Data']['so_rx']
+            po_id = data['Data']['po_id']
+            pos = db.po.find_one({'_id':ObjectId(po_id)})
+            quant = pos['quantity']
+            amount = pos['amount']
+            own = db.users.find_one({ 'username': usern })
+            own = own['owned']
+            ownt = own
+            poid = []
+            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending' })
+            _id = str(_id)
+            db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+            for i in range(0,int(quant)):
+                poid.append(own[i])
+                ownt.remove(own[i])
+            db.users.update({ "username" : usern}, { "$set": {'owned': ownt}})
+            data = {po_id:poid}
+            db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
+            db.po.update({'_id': ObjectId(po_id)}, {'$set':{'assets': poid}})
+            response = jsonify({'ReturnMsg':'Success','id':_id})
+            response.status_code = 200
+        else:
+            return bad_request("Username Not Found")
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+
 @app.route('/api/services/v1/get_purchase_order', methods = ['POST'])
 def get_purchase_order():
     response = jsonify({})
