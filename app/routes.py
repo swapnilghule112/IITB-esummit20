@@ -740,6 +740,7 @@ def get_user_details_api():
     
         try:
             user = mongo.db.users.find_one({'username':data['Data']['username']})
+            own = db.users.find_one({'username':data['Data']['username']})
         except Exception as e:
             print(e)
 
@@ -754,7 +755,7 @@ def get_user_details_api():
             user_obj["email"] = user["email"]
             user_obj["role"] = user["Role"]
             user_obj["public_key"] = user["public_key"]
-            user_obj["owned_assets"] = len(user["owned"])
+            user_obj["owned_assets"] = len(own["owned"])
             response = jsonify({'ReturnMsg':'Success','user':user_obj})
             response.status_code = 200
     except Exception as e:
