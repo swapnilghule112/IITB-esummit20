@@ -26,3 +26,63 @@ TypeError: must be str, not list
 [2020-07-16 16:19:19,164] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-16 16:19:19,219] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-16 16:19:19,268] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:21:01,314] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
+    for i in own['owned']:
+KeyError: 'owned'
+[2020-07-16 16:21:05,674] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
+    for i in own['owned']:
+KeyError: 'owned'
+[2020-07-16 16:21:33,257] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
+    for i in own['owned']:
+KeyError: 'owned'
+[2020-07-16 16:30:46,198] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:30:46,221] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:30:46,286] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
