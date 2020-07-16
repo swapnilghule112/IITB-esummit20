@@ -20,3 +20,6 @@ TypeError: must be str, not list
 [2020-07-10 13:50:54,060] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-10 13:50:54,115] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-10 13:50:54,181] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:15:30,846] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:15:30,857] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:15:30,969] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]

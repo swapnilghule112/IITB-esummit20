@@ -467,6 +467,258 @@ def ends():
 
 # API routes starts from here
 
+
+@app.route('/api/services/v1/get_sales_order', methods = ['POST'])
+def get_sales_order():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])  or not ('po_id' in data['Data'])  or not ('so_rx' in data['Data']) or not ('org' in data['Data']) or not ('loc_ship' in data['Data']) or not ('TC' in data['Data'])):
+            return bad_request('Content Incomplete Not Found')
+        usern = data['Data']['username']
+        existing_user = db.users.find_one({'username': data['Data']['so_rx']})
+        if existing_user:
+            so_rx = data['Data']['so_rx']
+            po_id = data['Data']['po_id']
+            pos = db.po.find_one({'_id':ObjectId(po_id)})
+            quant = pos['quantity']
+            amount = pos['amount']
+            own = db.users.find_one({ 'username': usern })
+            own = own['owned']
+            ownt = own
+            poid = []
+            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending' })
+            _id = str(_id)
+            db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
+            for i in range(0,int(quant)):
+                poid.append(own[i])
+                ownt.remove(own[i])
+            db.users.update({ "username" : usern}, { "$set": {'owned': ownt}})
+            data = {po_id:poid}
+            db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
+            db.po.update({'_id': ObjectId(po_id)}, {'$set':{'assets': poid}})
+            response = jsonify({'ReturnMsg':'Success','id':_id})
+            response.status_code = 200
+        else:
+            return bad_request("Username Not Found")
+    except Exception as e:
+        print(e)
+    return response
+
+
+@app.route('/api/services/v1/so_cancel', methods = ['POST'])
+def so_cancel():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('so_id' in data['Data'])):
+            return bad_request('Sales Order Not Found')
+        id = data['Data']['so_id']
+        db.so.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        doc = db.so.find_one({'_id': ObjectId(id) }) 
+        po_id = doc['po_id']
+        db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
+        response = jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'})
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+@app.route('/api/services/v1/get_purchase_order', methods = ['POST'])
+def get_purchase_order():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('po_rx' in data['Data']) or not ('prod_name' in data['Data']) or not ('quantity' in data['Data']) or not ('amount' in data['Data']) or not ('TC' in data['Data'])):
+            return bad_request('Content Incomplete Not Found')
+        usern = data['Data']['username']
+        existing_user = db.users.find_one({'username': data['Data']['po_rx']})
+        if existing_user:
+            po = db.po
+            po_rx = data['Data']['po_rx']
+            _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'assets':[]})
+            _id = str(_id)
+            response = jsonify({'ReturnMsg':'Success','id':_id})
+            response.status_code = 200
+        else:
+            return bad_request("Username Not Found")
+    except Exception as e:
+        print(e)
+    return response
+
+
+@app.route('/api/services/v1/po_cancel', methods = ['POST'])
+def po_cancel():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('po_id' in data['Data'])):
+            return bad_request('Purchase Order Not Found')
+        id = data['Data']['po_id']
+        db.po.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        response = jsonify({'ReturnMsg':'Success','Status':'Purchased order cancelled'})
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+@app.route('/api/services/v1/po_accept', methods = ['POST'])
+def po_accept():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('po_id' in data['Data'])):
+            return bad_request('Content PO ID Not Found')
+        id = data['Data']['po_id']
+        amount = db.po.find_one({'_id': ObjectId(id)})
+        usern = amount['po_rx']
+        own = db.users.find_one({ 'username': usern })
+        owned = len(own['owned'])
+        quantity = int(amount['quantity'])
+        if(owned < quantity):
+            response = jsonify({'ReturnMsg':'Success','Status':'false'})
+            response.status_code = 200
+            return response
+        response = jsonify({'ReturnMsg':'Success','Status':'true'})
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+
+@app.route('/api/services/v1/po_notify_r', methods = ['POST'])
+def get_po_notify_r():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])):
+            return bad_request('Username Not Found')
+        usern = data['Data']['username']
+        pos_r = db.po.find({"po_rx": usern})
+        #pos_s = list(db.po.find({"po_sx": usern}))
+        user_obj = {user_obj: {} for user_obj in range(pos_r.count())} #Creating Empty Nested Dic
+        for k in range(0,pos_r.count()):   #Inserting Values into that Dic
+            id = str(pos_r[k]["_id"])
+            user_obj[k]["po_id"] = id
+            user_obj[k]["po_sx"] = pos_r[k]["po_sx"]
+            user_obj[k]["po_rx"] = pos_r[k]["po_rx"]
+            user_obj[k]["quantity"] = pos_r[k]["quantity"]
+            user_obj[k]["amount"] = pos_r[k]["amount"]
+            user_obj[k]["TC"] = pos_r[k]["TC"]
+            user_obj[k]["Status"] = pos_r[k]["Status"]
+            user_obj[k]["assets"] = pos_r[k]["assets"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+@app.route('/api/services/v1/po_notify_s', methods = ['POST'])
+def get_po_notify_s():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])):
+            return bad_request('Username Not Found')
+        usern = data['Data']['username']
+        pos_r = db.po.find({"po_sx": usern})
+        user_obj = {user_obj: {} for user_obj in range(pos_r.count())} #Creating Empty Nested Dic
+        for k in range(0,pos_r.count()):   #Inserting Values into that Dic
+            id = str(pos_r[k]["_id"])
+            user_obj[k]["po_id"] = id
+            user_obj[k]["po_sx"] = pos_r[k]["po_sx"]
+            user_obj[k]["po_rx"] = pos_r[k]["po_rx"]
+            user_obj[k]["quantity"] = pos_r[k]["quantity"]
+            user_obj[k]["amount"] = pos_r[k]["amount"]
+            user_obj[k]["TC"] = pos_r[k]["TC"]
+            user_obj[k]["Status"] = pos_r[k]["Status"]
+            user_obj[k]["assets"] = pos_r[k]["assets"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+@app.route('/api/services/v1/so_notify_s', methods = ['POST'])
+def get_so_notify_s():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])):
+            return bad_request('Username Not Found')
+        usern = data['Data']['username']
+        pos_s = db.so.find({"so_sx": usern})
+        user_obj = {user_obj: {} for user_obj in range(pos_s.count())} #Creating Empty Nested Dic
+        for k in range(0,pos_s.count()):   #Inserting Values into that Dic
+            id = str(pos_s[k]["_id"])
+            user_obj[k]["so_id"] = id
+            user_obj[k]["po_id"] = pos_s[k]["po_id"]
+            user_obj[k]["so_sx"] = pos_s[k]["so_sx"]
+            user_obj[k]["so_rx"] = pos_s[k]["so_rx"]
+            user_obj[k]["org"] = pos_s[k]["org"]
+            user_obj[k]["loc_ship"] = pos_s[k]["loc_ship"]
+            user_obj[k]["quant"] = pos_s[k]["quant"]
+            user_obj[k]["amount"] = pos_s[k]["amount"]
+            user_obj[k]["TC"] = pos_s[k]["TC"]
+            user_obj[k]["Status"] = pos_s[k]["Status"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+@app.route('/api/services/v1/so_notify_r', methods = ['POST'])
+def get_so_notify_r():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data'])):
+            return bad_request('Username Not Found')
+        usern = data['Data']['username']
+        pos_s = db.so.find({"so_rx": usern})
+        user_obj = {user_obj: {} for user_obj in range(pos_s.count())} #Creating Empty Nested Dic
+        for k in range(0,pos_s.count()):   #Inserting Values into that Dic
+            id = str(pos_s[k]["_id"])
+            user_obj[k]["so_id"] = id
+            user_obj[k]["po_id"] = pos_s[k]["po_id"]
+            user_obj[k]["so_sx"] = pos_s[k]["so_sx"]
+            user_obj[k]["so_rx"] = pos_s[k]["so_rx"]
+            user_obj[k]["org"] = pos_s[k]["org"]
+            user_obj[k]["loc_ship"] = pos_s[k]["loc_ship"]
+            user_obj[k]["quant"] = pos_s[k]["quant"]
+            user_obj[k]["amount"] = pos_s[k]["amount"]
+            user_obj[k]["TC"] = pos_s[k]["TC"]
+            user_obj[k]["Status"] = pos_s[k]["Status"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
+        response.status_code = 200
+    except Exception as e:
+        print(e)
+    return response
+
+
+
+
+
 @app.route('/api/services/v1/getUserDetails', methods = ['POST'])
 def get_user_details_api():
     response = jsonify({})
