@@ -744,6 +744,7 @@ def get_user_details_api():
     
         try:
             user = mongo.db.users.find_one({'username':data['Data']['username']})
+            own = db.users.find_one({'username':data['Data']['username']})
         except Exception as e:
             print(e)
 
@@ -758,12 +759,16 @@ def get_user_details_api():
             user_obj["email"] = user["email"]
             user_obj["role"] = user["Role"]
             user_obj["public_key"] = user["public_key"]
-            user_obj["owned_assets"] = len(user["owned"])
+            user_obj["owned_assets"] = len(own["owned"])
             response = jsonify({'ReturnMsg':'Success','user':user_obj})
             response.status_code = 200
     except Exception as e:
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
+
+
+
+
 
 
 @app.route('/api/services/v1/createAsset',methods = ['POST'])
