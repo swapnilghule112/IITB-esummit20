@@ -28,3 +28,8 @@
 [2020-07-16 15:27:06,815] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-16 15:27:06,847] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
 [2020-07-16 15:27:06,950] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:06:34,534] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:822]
+[2020-07-16 16:08:14,972] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:822]
+[2020-07-16 16:29:44,755] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:29:44,795] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+[2020-07-16 16:29:44,821] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]

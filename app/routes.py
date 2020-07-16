@@ -849,6 +849,31 @@ def get_current_owned_assets():
     response[0]["no_of_assets"] = len(set2)- len(set1)
     return jsonify(response)
 
+@app.route('/api/services/v1/get_priv_key',methods=["POST"])
+def get_priv_key():
+    try:
+        resp = jsonify({})
+        data = request.data
+        data = json.loads(data)
+        username = data["username"]
+        print("In API")
+        print(username)
+        user_details = mongo.db.users.find_one({"username":username})
+        # app.logger.info(user_details)
+        if user_details:
+            priv_key = user_details["private_key"]
+        else:
+            priv_key = None
+            return bad_request("Not found")
+        resp = {"priv_key":priv_key}
+        resp = jsonify(resp)
+        resp.status_code = 200
+        return resp
+    except:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        app.logger.error(str(exc_type) + str(exc_tb.tb_lineno))
+
+
 @app.route('/api/services/v1/getTrackingInfo', methods = ['POST'])
 def get_tracking_info_api():
     return {}
