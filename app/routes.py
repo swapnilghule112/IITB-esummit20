@@ -650,29 +650,49 @@ def get_user_details_api():
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
+@app.route('/api/services/v1/get_asset_list',methods = ['POST'])
+def get_asset_list():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info("Inside get asset api")
+        data = request.data
+        data = json.loads(data)
+        app.logger.info(data)
+        if 'username' not in data['Data']:
+            return bad_request('Username Not Found')
+        own = db.users.find_one({'username':data['Data']['username']})
+        user_obj = {}
+        user_obj["owned_assets"] = own["owned"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj})
+        response.status_code = 200
+    except Exception as e:
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
+    return response
+
 
 @app.route('/api/services/v1/createAsset',methods = ['POST'])
 def create_asset_api():
-    app.logger.info("Inside create asset api")
-    data = request.data
-    data = json.loads(data)
-    app.logger.info(data)
-    if 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
-    #if False:
-        return bad_request('One or more missing fields')
-    serial_no = "12345"
-    response = create_asset_async(data['Data']["username"],serial_no,data['Data']['cost'],data['Data']['private_key'],data['Data']['number_of_assets'])
-    #response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
-    app.logger.info("createasset response")
-    app.logger.info(response)
-    if response is None:
-        return bad_request('Failed')
-    
-    response["ReturnMsg"] = "Success"
-    response = jsonify(response)
-    app.logger.info("Response")
-    app.logger.info(response)
-    response.status_code = 200
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info("Inside create asset api")
+        data = request.data
+        data = json.loads(data)
+        app.logger.info(data)
+        if 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
+            return bad_request('One or more missing fields')
+        serial_no = "12345"
+        responses = create_asset_async(data['Data']["username"],serial_no,data['Data']['cost'],data['Data']['private_key'],data['Data']['number_of_assets'])
+        #response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
+        app.logger.info("createasset response")
+        app.logger.info(responses)
+        response = jsonify({'ReturnMsg':'Success'})
+        app.logger.info("Response")
+        app.logger.info(response)
+        response.status_code = 200
+    except Exception as e:
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
