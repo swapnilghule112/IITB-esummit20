@@ -657,11 +657,12 @@ def create_asset_api():
     data = request.data
     data = json.loads(data)
     app.logger.info(data)
-    if 'serial_no' not in data['Data'] or 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
+    if 'number_of_assets' not in data['Data'] or 'cost' not in data['Data'] or 'username' not in data['Data'] or 'private_key' not in data['Data']:
     #if False:
         return bad_request('One or more missing fields')
-    
-    response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
+    serial_no = "12345"
+    response = create_asset_async(data['Data']["username"],serial_no,data['Data']['cost'],data['Data']['private_key'],data['Data']['number_of_assets'])
+    #response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
     app.logger.info("createasset response")
     app.logger.info(response)
     if response is None:
