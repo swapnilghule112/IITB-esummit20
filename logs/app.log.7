@@ -1,4 +1,4 @@
-[2020-07-07 16:58:10,449] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-07 18:26:09,574] [ERROR]: Exception on /sales_order [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -14,10 +14,12 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 355, in sales
-    own = mongo.db.users.find({ 'username': usern })
-NameError: name 'usern' is not defined
-[2020-07-07 17:01:20,007] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 410, in sales_order
+    own = own['owned']
+  File "/usr/local/lib/python3.6/dist-packages/pymongo/cursor.py", line 618, in __getitem__
+    "instances" % index)
+TypeError: index 'owned' cannot be applied to Cursor instances
+[2020-07-07 18:27:37,680] [ERROR]: Exception on /sales_order [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -33,6 +35,8 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 355, in sales
-    own = mongo.db.users.find({ 'username': usern })
-NameError: name 'usern' is not defined
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 410, in sales_order
+    own = own['owned']
+  File "/usr/local/lib/python3.6/dist-packages/pymongo/cursor.py", line 618, in __getitem__
+    "instances" % index)
+TypeError: index 'owned' cannot be applied to Cursor instances

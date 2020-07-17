@@ -1,32 +1,4 @@
-[2020-07-10 13:44:55,293] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
-[2020-07-10 13:50:54,060] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:50:54,115] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:50:54,181] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,846] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,857] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,969] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,164] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,219] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,268] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:21:01,314] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-07-17 05:41:13,734] [ERROR]: Exception on /index [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -42,47 +14,12 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 198, in index
     for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:21:05,674] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
-    for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:21:33,257] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
-    for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:30:46,198] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:30:46,221] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:30:46,286] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+TypeError: 'NoneType' object is not subscriptable
+[2020-07-17 05:48:44,042] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-17 05:51:50,191] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-17 05:51:50,192] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-17 05:51:50,193] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-17 05:51:50,193] [INFO]: <Job 14abe5cf-6154-4410-83a7-470e7f38074d: app.tasks.transfer_n_assets('manav_broker', 'random', 'Hihhi2azeYkqRsgA19YyiRdePJgVwBMaYd5ushJLNcfF', 1, ['W8CrDHEHjFFnLLoCxznVcq'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
+[2020-07-17 05:51:50,561] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
