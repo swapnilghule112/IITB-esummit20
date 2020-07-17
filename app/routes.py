@@ -15,6 +15,11 @@ import sys
 import json
 import bson
 
+import requests
+import copy
+from .utils import *
+from .tasks import *
+
 bdb_root_url = 'localhost:9984'
 
 bdb = BigchainDB(bdb_root_url)
@@ -428,6 +433,21 @@ def sales_order():
         return redirect(url_for('index'))
     return render_template('sales_ord.html', title = 'Sales order FORM', form =form, po_id = po_id, usern = usern)
 
+def get_priv_key_by_username(username):
+    urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key","http://3.215.183.155/api/services/v1/get_priv_key"]
+    data = {"username":username}
+    print("Inside get_priv_key fun")
+    data = json.dumps(data)
+    print(data)
+    for url in urls:
+        api_resp = requests.post(url,data)
+        print(api_resp)
+        print(type(api_resp.text))
+        api_resp = json.loads(api_resp.text)
+        if "priv_key" in api_resp:
+            return api_resp["priv_key"]
+    else:
+        return None
 
 @app.route('/ends' , methods = ['GET', 'POST'])
 @login_required
@@ -439,7 +459,12 @@ def ends():
     assets = db.po.find_one({'_id': ObjectId(po_id)})
     assets = assets['assets']
     so_sx = doc['so_sx']
-    #Transaction Functio
+    
+    priv_key = get_priv_key_by_username(so_sx)
+    if priv_key is None:
+        flash("User not found")
+        return redirect(url_for('index'))
+    transferred = transfer_asset_async(usern,'random',priv_key,len(assets),assets)
     lock = db.users.find_one({"username": so_sx})
     lock = lock["lock"]
     for i in range(0,len(lock)):

@@ -27,6 +27,7 @@ class ManufacturerForm(FlaskForm):
     serialnumber = StringField('Batch Number :', validators=[DataRequired()])
     cost = StringField('Cost :', validators=[DataRequired()])
     private_key = StringField('Private Key :', validators=[DataRequired()])
+    quantity = StringField('Quantity :', validators=[DataRequired()])
     submit = SubmitField('Create')
 
 class BrokerForm(FlaskForm):
@@ -34,6 +35,7 @@ class BrokerForm(FlaskForm):
     username = StringField('Buyer Username :', validators=[DataRequired()])
     serialnumber = StringField('Serial Number :', validators=[DataRequired()])
     private_key = StringField('Private Key :', validators=[DataRequired()])
+    quantity = StringField('Quantity :', validators=[DataRequired()])
     submit = SubmitField('Transfer')
 
 class TrackForm(FlaskForm):

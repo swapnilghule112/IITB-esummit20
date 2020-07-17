@@ -8,7 +8,8 @@ import os
 import logging
 from logging.handlers import SMTPHandler
 from pymongo import MongoClient
-
+from redis import Redis
+import rq
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -18,6 +19,9 @@ mongo = PyMongo(app)
 client = MongoClient("mongodb+srv://Houdini:Houdini@clustermain-0hrue.mongodb.net/Houdini?retryWrites=true&w=majority")
 db = client.get_database('trans')
 bootstrap = Bootstrap(app)
+redis_app = app.config.get('REDIS_URL','redis://')
+# task_queue = rq.Queue('jute-tasks', connection='redis://')
+task_queue = rq.Queue('jute-tasks', connection=Redis.from_url('redis://'))
 
 from app import routes,models,errors
 
