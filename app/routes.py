@@ -791,6 +791,28 @@ def get_user_details_api():
     return response
 
 
+@app.route('/api/services/v1/get_asset_list',methods = ['POST'])
+def get_asset_list():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info("Inside get asset api")
+        data = request.data
+        data = json.loads(data)
+        app.logger.info(data)
+        if 'username' not in data['Data']:
+            return bad_request('Username Not Found')
+        own = db.users.find_one({'username':data['Data']['username']})
+        user_obj = {}
+        user_obj["owned_assets"] = own["owned"]
+        response = jsonify({'ReturnMsg':'Success','user':user_obj})
+        response.status_code = 200
+    except Exception as e:
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
+    return response
+
+
+
 @app.route('/api/services/v1/createAsset',methods = ['POST'])
 def create_asset_api():
     app.logger.info("Inside create asset api")

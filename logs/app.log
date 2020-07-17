@@ -23,3 +23,8 @@ TypeError: 'NoneType' object is not subscriptable
 [2020-07-17 05:51:50,193] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
 [2020-07-17 05:51:50,193] [INFO]: <Job 14abe5cf-6154-4410-83a7-470e7f38074d: app.tasks.transfer_n_assets('manav_broker', 'random', 'Hihhi2azeYkqRsgA19YyiRdePJgVwBMaYd5ushJLNcfF', 1, ['W8CrDHEHjFFnLLoCxznVcq'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
 [2020-07-17 05:51:50,561] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-17 13:17:43,055] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:842]
+[2020-07-17 13:18:06,611] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:842]
+[2020-07-17 14:21:38,697] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:38,753] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:38,753] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
