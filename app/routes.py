@@ -308,7 +308,11 @@ def get_priv_key_by_username(username):
             return api_resp["priv_key"]
     else:
         return None
-    
+
+
+
+
+
 @app.route('/ends' , methods = ['GET', 'POST'])
 @login_required
 def ends():
@@ -342,18 +346,51 @@ def ends():
     return redirect(url_for('so_notify'))
 
 
-
-
-
-
-
-
-
-
-
-
-
 # API routes starts from here
+
+
+@app.route('/api/services/v1/order_finalize', methods = ['POST'])
+def order_finalize():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('so_id' in data['Data'])):
+            return bad_request('Content Incomplete Not Found')
+        so_id = data['Data']['so_id']
+        doc = db.so.find_one({'_id': ObjectId(so_id)})
+        usern = data['Data']['username']
+        po_id = doc['po_id']
+        assets = db.po.find_one({'_id': ObjectId(po_id)})
+        assets = assets['assets']
+        so_sx = doc['so_sx']
+        priv_key = get_priv_key_by_username(so_sx)
+        if priv_key is None:
+            return bad_request("User not found")
+        transferred = transfer_asset_async(usern,'random',priv_key,len(assets),assets)
+        lock = db.users.find_one({"username": so_sx})
+        lock = lock["lock"]
+        for i in range(0,len(lock)):
+            if po_id in lock[i]:
+                lock.pop(i)
+                break
+        ast = db.users.find_one({"username":usern})
+        ast = ast["owned"]
+        assets.extend(ast)
+        db.users.update({"username":so_sx},{'$set':{'lock':lock}})
+        db.users.update({"username":usern},{"$set": {'owned': assets }})
+        db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Completed'}})
+        db.so.update({'_id': ObjectId(so_id)}, {'$set':{'Status':'Completed'}})
+        user_obj = {}
+        user_obj["po_id"] = po_id
+        user_obj["so_id"] = so_id
+        response = jsonify({'ReturnMsg':'Success','user':user_obj})
+        response.status_code = 200
+    except Exception as e:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
+    return response
 
 
 @app.route('/api/services/v1/get_sales_order', methods = ['POST'])
