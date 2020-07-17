@@ -60,3 +60,8 @@
 [2020-07-17 06:24:51,304] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
 [2020-07-17 06:24:51,304] [INFO]: <Job 79aaa30a-b8b3-48fa-9b50-90398f35790d: app.tasks.transfer_n_assets('preyash_seller', 'random', '5CM4mjdoqvWRKVWM8k4qYHbChgShCLZD6BneZTWaLrfZ', 1, ['W8CrDHEHjFFnLLoCxznVcq'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
 [2020-07-17 06:24:51,699] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-17 13:17:43,028] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:847]
+[2020-07-17 13:18:06,610] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:847]
+[2020-07-17 14:21:15,685] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:15,710] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:15,735] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
