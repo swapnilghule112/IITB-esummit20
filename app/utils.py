@@ -154,19 +154,10 @@ def search_asset(serial_no):
 def createasset(username,serial_no,cost,private_key):
 
     try:
-<<<<<<< HEAD
-        print("Into createasset")
-        print(username)
-        print(serial_no)
-        print(cost)
-        print(private_key)
-
-=======
         app.logger.info("Into create asset")
         app.logger.info("username: "+ str(username))
         app.logger.info("serial number " + str(serial_no))
         app.logger.info("cost: "+ str(cost))
->>>>>>> 76eaf535f8e7fce443ccdb82e62018bd92b88015
         t = datetime.utcnow()
         sack = {
             'data': {
@@ -193,16 +184,6 @@ def createasset(username,serial_no,cost,private_key):
 
 
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
-<<<<<<< HEAD
-            print("commited successfully")
-            print(commit_json)
-            return commit_json
-        except:
-            strk = sys.exc_info()[0]
-            print("error")
-            print(strk)
-            flash("Something went wrong: "+str(strk))
-=======
             db.users.update_one({'username':username },{ '$addToSet': { 'owned':serial_no } } )
             return commit_json
         except:
@@ -211,20 +192,14 @@ def createasset(username,serial_no,cost,private_key):
             app.logger.error("Exception in create asset")
             app.logger.error(exc_info)
             app.logger.error("on line no:" + str(exc_tb.tb_lineno))
->>>>>>> 76eaf535f8e7fce443ccdb82e62018bd92b88015
             return None
     
     except Exception:
         strm = sys.exc_info()[0]
         flash("Something went wrong: "+str(strm))
-<<<<<<< HEAD
-        print(strm)
-        return None
-=======
         exc_info,exc_obj,exc_tb = sys.exc_info()
         flash("Something went wrong: "+str(strk))
         app.logger.error("Exception in create asset")
         app.logger.error(exc_info)
         app.logger.error("on line no:" + exc_tb.tb_lineno)
         return None
->>>>>>> 76eaf535f8e7fce443ccdb82e62018bd92b88015

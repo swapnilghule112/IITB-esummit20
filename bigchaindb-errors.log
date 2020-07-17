@@ -2985,3 +2985,1039 @@ Traceback (most recent call last):
   File "/home/swapnil/.local/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
     raise ConnectionError(e, request=request)
 requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8e029c4550>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:13:23] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 5667)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c102f98>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c102f98>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c102f98>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:13:43] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 5671)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:17:00] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 5669)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c1200b8>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c1200b8>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c1200b8>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:25:23] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 5668)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c11f048>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11f048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11f048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:40:13] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 5670)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c11e128>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11e128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11e128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:40:15] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8403)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f158c11d198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:45:37] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8590)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7faa173e4128>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7faa173e4128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7faa173e4128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:57:18] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8701)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f5e92a25048>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5e92a25048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5e92a25048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 08:58:04] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8703)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f5e930c8128>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5e930c8128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5e930c8128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 09:02:22] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8846)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fed09258048>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fed09258048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fed09258048>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 09:11:14] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8848)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fed09257128>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fed09257128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fed09257128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 09:14:05] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 8995)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fc1e13d6198>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc1e13d6198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc1e13d6198>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 09:21:02] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 9094)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fe204c5c0b8>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe204c5c0b8>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe204c5c0b8>: Failed to establish a new connection: [Errno 111] Connection refused',))
+[2020-06-10 09:24:23] [ERROR] (flask.app) Exception on /api/v1/transactions/ [POST] (bigchaindb_webapi - pid: 9183)
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 80, in create_connection
+    raise err
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.6/http/client.py", line 1264, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1310, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1259, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.6/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.6/http/client.py", line 976, in send
+    self.connect()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 181, in connect
+    conn = self._new_conn()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f6f72ef7128>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f6f72ef7128>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1805, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/app.py", line 1791, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask/views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/ubuntu/bigchaindb/bigchaindb/web/views/transactions.py", line 101, in post
+    status_code, message = bigchain.write_transaction(tx_obj, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 100, in write_transaction
+    response = self.post_transaction(transaction, mode)
+  File "/home/ubuntu/bigchaindb/bigchaindb/lib.py", line 95, in post_transaction
+    return requests.post(self.endpoint, json=payload)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/bigchaindb_venv/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=26657): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f6f72ef7128>: Failed to establish a new connection: [Errno 111] Connection refused',))

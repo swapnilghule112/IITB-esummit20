@@ -293,7 +293,7 @@ def sales_order():
 def get_priv_key_by_username(username):
     # urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key",
     # "http://3.215.183.155/api/services/v1/get_priv_key"]
-    urls = ["http://localhost:5000/api/services/v1/get_priv_key"]
+    urls = ["http://35.172.121.202/api/services/v1/get_priv_key"]
     # headers = {"Content-Type":"application/json"}
     data = {"username":username}
     print("Inside get_priv_key fun")
