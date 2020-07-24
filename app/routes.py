@@ -18,6 +18,8 @@ import requests
 import copy
 from .utils import *
 from .tasks import *
+import jinja2
+from xhtml2pdf import pisa
 
 # bdb_root_url = 'localhost:9984'
 
@@ -346,7 +348,92 @@ def ends():
     return redirect(url_for('so_notify'))
 
 
+
+
+
+
+
+
+
+
+
+
 # API routes starts from here
+
+
+
+
+
+
+# 5f15d368acea408be5a1964b.pdf
+@app.route('/api/services/v1/get_po_invoice', methods = ['POST'])
+def get_po_invoice():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info(request)
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('po_id' in data['Data'])):
+            bad_request('Content Incomplete')
+        templateLoader = jinja2.FileSystemLoader(searchpath="/home/ubuntu/SIH-2020/app/templates")
+        templateEnv = jinja2.Environment(loader=templateLoader)
+        app.logger.info("reached po invoice 1")
+        TEMPLATE_FILE = "recipt.html"
+        template = templateEnv.get_template(TEMPLATE_FILE)
+        content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+        user = db.users.find_one({'username':content['po_sx']})
+        ids = "po_"+data['Data']['po_id']+".pdf"
+        app.logger.info(ids)
+        sourceHtml = template.render(content=content, user=user, io="Purchase Order")
+        resultFile = open('/home/ubuntu/SIH-2020/app/static/po/'+ids, "w+b")
+        pisaStatus = pisa.CreatePDF(sourceHtml,dest=resultFile)
+        resultFile.close()
+        url = 'http://35.172.121.202/static/po/'+ids
+        app.logger.info(url)
+        response = jsonify({'ReturnMsg':'Success','url':url})
+        response.status_code = 200
+    except Exception as e:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
+    return response
+
+
+
+@app.route('/api/services/v1/get_so_invoice', methods = ['POST'])
+def get_so_invoice():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info(request)
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('so_id' in data['Data'])):
+            bad_request('Content Incomplete')
+        templateLoader = jinja2.FileSystemLoader(searchpath="/home/ubuntu/SIH-2020/app/templates")
+        templateEnv = jinja2.Environment(loader=templateLoader)
+        app.logger.info("reached so invoice 1")
+        TEMPLATE_FILE = "recipt.html"
+        template = templateEnv.get_template(TEMPLATE_FILE)
+        cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+        content = db.po.find_one({'_id':ObjectId(cont['po_id'])})
+        user = db.users.find_one({'username':cont['so_sx']})
+        ids = "so_"+data['Data']['so_id']+".pdf"
+        app.logger.info(ids)
+        sourceHtml = template.render(content=content, user=user, io="Sales Order")
+        resultFile = open('/home/ubuntu/SIH-2020/app/static/so/'+ids, "w+b")
+        pisaStatus = pisa.CreatePDF(sourceHtml,dest=resultFile)
+        resultFile.close()
+        url = 'http://35.172.121.202/static/so/'+ids
+        app.logger.info(url)
+        response = jsonify({'ReturnMsg':'Success','url':url})
+        response.status_code = 200
+    except Exception as e:
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
+    return response
+
+
 
 
 @app.route('/api/services/v1/order_finalize', methods = ['POST'])
@@ -413,7 +500,8 @@ def get_sales_order():
             own = own['owned']
             ownt = own
             poid = []
-            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending' })
+            date = str(datetime.utcnow())
+            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending', 'Date':date })
             _id = str(_id)
             db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
             for i in range(0,int(quant)):
@@ -428,8 +516,20 @@ def get_sales_order():
         else:
             return bad_request("Username Not Found")
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
+
+
+def rollback_ast(po_id):
+    rolb = db.po.find_one({'_id': ObjectId(po_id)})
+    assets = rolb['assets']
+    ast = db.users.find_one({"username":rolb['po_rx']})
+    ast = ast["owned"]
+    assets.extend(ast)
+    db.users.update({"username":rolb['po_rx']},{"$set": {'owned': assets }})
+    return True
 
 
 @app.route('/api/services/v1/so_cancel', methods = ['POST'])
@@ -444,11 +544,14 @@ def so_cancel():
         db.so.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
         doc = db.so.find_one({'_id': ObjectId(id) }) 
         po_id = doc['po_id']
+        rol = rollback_ast(po_id)
         db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
         response = jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'})
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -467,14 +570,17 @@ def get_purchase_order():
         if existing_user:
             po = db.po
             po_rx = data['Data']['po_rx']
-            _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'assets':[]})
+            date = str(datetime.utcnow())
+            _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'Date':date, 'assets':[]})
             _id = str(_id)
             response = jsonify({'ReturnMsg':'Success','id':_id})
             response.status_code = 200
         else:
             return bad_request("Username Not Found")
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -487,11 +593,19 @@ def po_cancel():
         if (not ('po_id' in data['Data'])):
             return bad_request('Purchase Order Not Found')
         id = data['Data']['po_id']
+        rolb = db.po.find_one({'_id': ObjectId(id)})
+        assets = rolb['assets']
         db.po.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        ast = db.users.find_one({"username":rolb['po_rx']})
+        ast = ast["owned"]
+        assets.extend(ast)
+        db.users.update({"username":rolb['po_rx']},{"$set": {'owned': assets }})
         response = jsonify({'ReturnMsg':'Success','Status':'Purchased order cancelled'})
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -517,7 +631,9 @@ def po_accept():
         response = jsonify({'ReturnMsg':'Success','Status':'true'})
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -548,7 +664,9 @@ def get_po_notify_r():
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -577,7 +695,9 @@ def get_po_notify_s():
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -609,7 +729,9 @@ def get_so_notify_s():
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
@@ -640,7 +762,9 @@ def get_so_notify_r():
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
-        print(e)
+        exc_type,exc_obj,exc_tb = sys.exc_info()
+        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
     return response
 
 
