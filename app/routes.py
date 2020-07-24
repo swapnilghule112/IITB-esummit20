@@ -413,7 +413,8 @@ def get_sales_order():
             own = own['owned']
             ownt = own
             poid = []
-            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending' })
+            date = str(datetime.utcnow())
+            _id =  db.so.insert({ 'po_id': po_id ,'so_sx': usern ,'so_rx': so_rx , 'org':data['Data']['org'] , 'loc_ship':data['Data']['loc_ship'] , 'quant': quant , 'amount': amount , 'TC': data['Data']['TC'], 'Status':'Pending', 'Date':date })
             _id = str(_id)
             db.po.update({'_id': ObjectId(po_id)}, {'$set':{'Status':'Accepted'}})
             for i in range(0,int(quant)):
@@ -432,6 +433,16 @@ def get_sales_order():
     return response
 
 
+def rollback_ast(po_id):
+    rolb = db.po.find_one({'_id': ObjectId(po_id)})
+    assets = rolb['assets']
+    ast = db.users.find_one({"username":rolb['po_rx']})
+    ast = ast["owned"]
+    assets.extend(ast)
+    db.users.update({"username":rolb['po_rx']},{"$set": {'owned': assets }})
+    return True
+
+
 @app.route('/api/services/v1/so_cancel', methods = ['POST'])
 def so_cancel():
     response = jsonify({})
@@ -444,6 +455,7 @@ def so_cancel():
         db.so.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
         doc = db.so.find_one({'_id': ObjectId(id) }) 
         po_id = doc['po_id']
+        rol = rollback_ast(po_id)
         db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
         response = jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'})
         response.status_code = 200
@@ -467,7 +479,8 @@ def get_purchase_order():
         if existing_user:
             po = db.po
             po_rx = data['Data']['po_rx']
-            _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'assets':[]})
+            date = str(datetime.utcnow())
+            _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'Date':date, 'assets':[]})
             _id = str(_id)
             response = jsonify({'ReturnMsg':'Success','id':_id})
             response.status_code = 200
@@ -487,7 +500,13 @@ def po_cancel():
         if (not ('po_id' in data['Data'])):
             return bad_request('Purchase Order Not Found')
         id = data['Data']['po_id']
+        rolb = db.po.find_one({'_id': ObjectId(id)})
+        assets = rolb['assets']
         db.po.update({'_id': ObjectId(id)}, {'$set':{'Status':'Cancelled'}})
+        ast = db.users.find_one({"username":rolb['po_rx']})
+        ast = ast["owned"]
+        assets.extend(ast)
+        db.users.update({"username":rolb['po_rx']},{"$set": {'owned': assets }})
         response = jsonify({'ReturnMsg':'Success','Status':'Purchased order cancelled'})
         response.status_code = 200
     except Exception as e:
