@@ -1,0 +1,94 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Order confirmation </title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<body>
+<div class="container">
+  <div class="invoice">
+    <div class="row">
+      <div class="col-5">
+        <h1 class="document-type display-4">{{ io }} </h1><h3> From: {{ content['po_sx'] }} <br> {{ user['email'] }} <br> {{ user['Org'] }}</h3>
+        <p class="text-right"><strong>Invoice ID #{{ content['_id'] }}</strong></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7">
+        <p>
+          <strong>Shipping Address</strong><br>
+          {{ user['location'] }}
+        </p>
+      </div>
+    </div>
+    <br>
+    <br>
+    <h6>Date (1st Novembre 2016 - 30 Novembre 2016)</h6>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Units</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ content['prod_name'] }}</td>
+          <td>{{ content['quantity'] }}</td>
+          <td>1</td>
+          <td class="text-right">$ {{ content['amount'] }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-8">
+      </div>
+      <div class="col-4">
+        <table class="table table-sm text-right">
+          <tr>
+            <td><strong>Total</strong></td>
+            <td class="text-right">{{ content['amount'] }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <p class="conditions">
+      Terms & Conditions
+      <br>
+      {{ content['TC'] }}
+    </p>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <p class="bottom-page text-right">
+      Status<br>
+      <h1>{{ content['Status'] }}</h1>
+    </p>
+  </div>
+</div>
+{% for i in content['assets'] %}
+<h4>{{i}}</h4>
+{% endfor %}
+</body>
+</html>
