@@ -112,7 +112,9 @@ description: authentication service
 >data:{'Data':{'username':username , 'password':password}}
 
 return code 200 success
+
             500 internal server error
+            
             404 not found
 
 sample request:
@@ -130,8 +132,11 @@ description: Create an asset for a given user. All fields are mandatory.
  >data:{'Data':{'serial_no':serial_no, 'number_of_assets':number_of_assets, 'cost':cost,'username':username, 'private_key':private_key}}
  
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 not found
 
 sample request:
@@ -150,8 +155,11 @@ description: Transfer an asset for a given user. All fields are mandatory.
 >data:{'Data':{'buyer_username':buyer_username, 'serial_number':serial_number,'public_key':pub_key,'number_of_assets':number_of_assets, 'private_key':private_key}}
  
 return code 200 success
+
              401 Not authorized
+             
              500 internal server error
+             
              404 not found
 
 sample request:
@@ -169,7 +177,9 @@ description:
 >data:{'Data':{'serial_no':serial_no}}
  
  return code 200 success
+ 
              500 internal server error
+             
              404 not found
 
 sample request:
@@ -187,8 +197,11 @@ description:
 >data:{'Data':{'pub_key':pub_key, 'priv_key':priv_key}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -206,8 +219,11 @@ description:
 >data:{'Data':{'':serial_no}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -224,8 +240,11 @@ description:
 >data:{'Data':{'':serial_no}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -241,8 +260,11 @@ description:
 >data:{'Data':{'':serial_no}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -259,8 +281,11 @@ description:
 >data:{'Data':{'username':session_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -277,8 +302,11 @@ description:
 >data:{'Data':{'username':session_user, 'po_id': po_id }}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -295,8 +323,11 @@ description:
 >data:{'Data':{'username':session_user, 'so_id': so_id }}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -313,8 +344,11 @@ description:
 >data:{'Data':{'username':session_user, 'so_id': so_id }}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -331,8 +365,11 @@ description:
 >data:{'Data':{'username':session_user, 'po_id': po_id, 'so_rx': SoReceiver, 'org': Organisation, 'loc_ship': Shipping Address, 'TC': Terms }}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -349,8 +386,11 @@ description:
 >data:{'Data':{'so_id': so_id}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -367,8 +407,11 @@ description:
 >data:{'Data':{'po_id': po_id}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -385,8 +428,11 @@ description:
 >data:{'Data':{'po_id': po_id}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -403,8 +449,11 @@ description:
 >data:{'Data':{'po_id': po_id}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -421,8 +470,11 @@ description:
 >data:{'Data':{'username': current_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -439,8 +491,11 @@ description:
 >data:{'Data':{'username': current_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -457,8 +512,11 @@ description:
 >data:{'Data':{'username': current_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -475,8 +533,11 @@ description:
 >data:{'Data':{'username': current_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
@@ -493,8 +554,11 @@ description:
 >data:{'Data':{'username': current_user}}
 
  return code 200 success
+ 
              401 Not authorized
+             
              500 internal server error
+             
              404 Not found
 
 sample request:
