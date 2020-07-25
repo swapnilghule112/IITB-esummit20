@@ -1,57 +1,88 @@
-[2020-07-10 13:44:11,008] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-17 05:41:13,734] [ERROR]: Exception on /index [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
-[2020-07-10 13:44:44,175] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
-[2020-07-10 13:45:09,965] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 198, in index
+    for i in own['owned']:
+TypeError: 'NoneType' object is not subscriptable
+[2020-07-17 05:48:44,042] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-17 05:51:50,191] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-17 05:51:50,192] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-17 05:51:50,193] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-17 05:51:50,193] [INFO]: <Job 14abe5cf-6154-4410-83a7-470e7f38074d: app.tasks.transfer_n_assets('manav_broker', 'random', 'Hihhi2azeYkqRsgA19YyiRdePJgVwBMaYd5ushJLNcfF', 1, ['W8CrDHEHjFFnLLoCxznVcq'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
+[2020-07-17 05:51:50,561] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-17 13:17:43,055] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:842]
+[2020-07-17 13:18:06,611] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:842]
+[2020-07-17 14:21:38,697] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:38,753] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 14:21:38,753] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 16:50:42,994] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 16:50:43,050] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-17 16:50:43,080] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-18 08:23:02,960] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-18 08:23:19,107] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 08:57:43,832] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 08:57:50,586] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'exp://192.168.0.106:19000'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 08:58:23,447] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 10:23:37,201] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-20 10:23:37,201] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-20 10:23:37,204] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-20 10:23:37,204] [INFO]: <Job 26e78b67-4b22-4dd0-a2ba-f50a391e3526: app.tasks.transfer_n_assets('manav_broker', 'random', '8eM7PJv7xBTQSmG6rTwMx55EiomP76H96C9xQfCBwWTA', 1, ['J9k7PV7m3uGocLPSbdJdYv'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
+[2020-07-20 10:23:37,561] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-20 10:26:47,388] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 10:27:58,847] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 10:33:50,317] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:32:21,694] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:04,318] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:10,969] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:26,300] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:37,785] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:42,623] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 13:33:47,516] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 14:05:12,150] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:07:15,283] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:15:14,135] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:15:25,917] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:15:46,047] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'Manav'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:18:09,469] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:19:32,479] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 15:19:37,328] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:07:36,909] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:11:42,437] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-20 17:11:42,437] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-20 17:11:42,439] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-20 17:11:42,439] [INFO]: <Job 659a413c-f530-49d5-8005-c0e51d0d8668: app.tasks.transfer_n_assets('manav_broker', 'random', '8eM7PJv7xBTQSmG6rTwMx55EiomP76H96C9xQfCBwWTA', 1, ['J9k7PV7m3uGocLPSbdJdYv'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
+[2020-07-20 17:11:42,811] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-20 17:12:05,404] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:19:20,913] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'nDdSyk5aBKvVwZzvtaBdwp'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:20:28,073] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:20:51,919] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:21:50,317] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:21:52,482] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:23:16,468] [INFO]: {'provider': 'username', 'Data': {'serial_no': '2458615240843'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:24:34,622] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:26:31,625] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-20 17:26:31,626] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-20 17:26:31,626] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-20 17:26:31,627] [INFO]: <Job 0b7ee12b-3d3f-4865-bc4c-0f9af7fd03d7: app.tasks.transfer_n_assets('manav_broker', 'random', '8eM7PJv7xBTQSmG6rTwMx55EiomP76H96C9xQfCBwWTA', 5, ['nDdSyk5aBKvVwZzvtaBdwp', 'b96vS8QVJjuDPaJwfwhVot', 'HdYeoJosgKww7u7cG2zWU...)> [in /home/ubuntu/SIH-2020/app/models.py:31]
+[2020-07-20 17:26:32,041] [INFO]: Supply Chain Startup [in ./app/__init__.py:54]
+[2020-07-20 17:26:53,318] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'nDdSyk5aBKvVwZzvtaBdwp'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 17:45:34,891] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'nDdSyk5aBKvVwZzvtaBdwp'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-20 18:15:39,890] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-21 08:57:56,964] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:843]
+[2020-07-21 08:57:56,964] [INFO]: {'provider': 'username', 'Data': {'username': 'manav_broker'}} [in /home/ubuntu/SIH-2020/app/routes.py:846]
+[2020-07-21 09:12:48,711] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:908]
+[2020-07-21 10:45:33,664] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-21 10:45:33,664] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]

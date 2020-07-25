@@ -1,19 +1,23 @@
-[2020-07-10 13:44:09,041] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-17 05:41:10,940] [ERROR]: Exception on /index [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 198, in index
+    for i in own['owned']:
+TypeError: 'NoneType' object is not subscriptable
+[2020-07-17 05:48:43,618] [INFO]: Task queue [in /home/ubuntu/SIH-2020/app/models.py:17]
+[2020-07-17 05:48:43,618] [INFO]: <Queue jute-tasks> [in /home/ubuntu/SIH-2020/app/models.py:18]
+[2020-07-17 05:48:43,621] [INFO]: RQ JOB [in /home/ubuntu/SIH-2020/app/models.py:30]
+[2020-07-17 05:48:43,621] [INFO]: <Job 8f64260e-1b25-4f37-8206-42abf469df24: app.tasks.transfer_n_assets('sneha_broker', 'random', '8eM7PJv7xBTQSmG6rTwMx55EiomP76H96C9xQfCBwWTA', 1, ['W8CrDHEHjFFnLLoCxznVcq'])> [in /home/ubuntu/SIH-2020/app/models.py:31]
