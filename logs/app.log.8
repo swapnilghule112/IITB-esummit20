@@ -1,38 +1,150 @@
-[2020-07-07 16:58:10,449] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-20 10:33:50,545] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 13:32:21,712] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 13:33:26,338] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 13:33:47,522] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 15:07:15,506] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 15:15:14,155] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 17:19:20,920] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'nDdSyk5aBKvVwZzvtaBdwp'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 17:21:52,488] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 17:23:16,459] [INFO]: {'provider': 'username', 'Data': {'serial_no': '2458615240843'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-20 17:24:34,654] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-21 09:12:48,710] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
+[2020-07-21 10:01:16,160] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
+    the :attr:`before_first_request_funcs` and only exactly once per
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
+    @setupmethod
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
+    self.add_template_global(f, name=name)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
+    from io import StringIO
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
+    return f
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 355, in sales
-    own = mongo.db.users.find({ 'username': usern })
-NameError: name 'usern' is not defined
-[2020-07-07 17:01:20,007] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 10:14:20,518] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
+    the :attr:`before_first_request_funcs` and only exactly once per
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
+    @setupmethod
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
+    self.add_template_global(f, name=name)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
+    from io import StringIO
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
+    return f
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 355, in sales
-    own = mongo.db.users.find({ 'username': usern })
-NameError: name 'usern' is not defined
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 10:14:21,730] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    the :attr:`before_first_request_funcs` and only exactly once per
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    @setupmethod
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    self.add_template_global(f, name=name)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    from io import StringIO
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    return f
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 10:15:13,697] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    the :attr:`before_first_request_funcs` and only exactly once per
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    @setupmethod
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    self.add_template_global(f, name=name)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    from io import StringIO
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    return f
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 10:16:33,148] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    the :attr:`before_first_request_funcs` and only exactly once per
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    @setupmethod
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    self.add_template_global(f, name=name)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    from io import StringIO
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    return f
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 10:16:35,064] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
+    assets = assets['assets']
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    the :attr:`before_first_request_funcs` and only exactly once per
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    @setupmethod
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    self.add_template_global(f, name=name)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    from io import StringIO
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    return f
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-21 11:29:43,233] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'exp://192.168.0.103:19000'}} [in /home/ubuntu/SIH-2020/app/routes.py:906]
