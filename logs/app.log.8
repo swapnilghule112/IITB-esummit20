@@ -1,4 +1,4 @@
-[2020-07-07 19:06:43,867] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-10 13:44:11,008] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -14,16 +14,10 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 358, in sales
-    owned = len(own['owned'])
-TypeError: 'NoneType' object is not subscriptable
-[2020-07-07 19:10:36,786] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-07 19:10:36,876] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-07 19:10:36,880] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,592] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,598] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,607] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:14:26,037] [ERROR]: Exception on /sales_order [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
+    s = s +", " + i
+TypeError: must be str, not list
+[2020-07-10 13:44:44,175] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -39,35 +33,10 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 425, in sales_order
-    db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 1003, in update_one
-    session=session),
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 856, in _update_retryable
-    _update, session)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/mongo_client.py", line 1491, in _retryable_write
-    return self._retry_with_session(retryable, func, s, None)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/mongo_client.py", line 1384, in _retry_with_session
-    return func(session, sock_info, retryable)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 852, in _update
-    retryable_write=retryable_write)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 823, in _update
-    _check_write_command_response(result)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/helpers.py", line 221, in _check_write_command_response
-    _raise_last_write_error(write_errors)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/helpers.py", line 203, in _raise_last_write_error
-    raise WriteError(error.get("errmsg"), error.get("code"), error)
-pymongo.errors.WriteError: The field 'lock' must be an array but is of type object in document {_id: ObjectId('5f059b52ad822dd94c074f8e')}
-[2020-07-08 10:22:25,296] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:22:25,305] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:22:25,337] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,621] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,685] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,748] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,808] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,891] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,924] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:46:46,547] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
+    s = s +", " + i
+TypeError: must be str, not list
+[2020-07-10 13:45:09,965] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -83,50 +52,6 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    db.users.find({"username":so_sx}).forEach(bson.Code('''
-AttributeError: 'Cursor' object has no attribute 'forEach'
-[2020-07-08 10:55:34,976] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:55:35,059] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:55:35,066] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:57:22,131] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    db.users.find_one({"username":so_sx}).forEach(bson.Code('''
-AttributeError: 'dict' object has no attribute 'forEach'
-[2020-07-10 13:36:43,778] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    lock = db.users.find_one({"username": so_sx})
-AttributeError: 'dict' object has no attribute 'forEach'
-[2020-07-10 13:41:51,026] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:41:51,063] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:41:51,160] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
+    s = s +", " + i
+TypeError: must be str, not list
