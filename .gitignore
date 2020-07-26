@@ -33,6 +33,8 @@ logs
 # Translations
 *.mo
 
+# pdfs
+*.pdf
 # environments
 myenv
 app.db
