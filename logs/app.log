@@ -1,26 +1,40 @@
-[2020-07-23 20:50:39,138] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 508, in order_finalize
-    assets = assets['assets']
-TypeError: 'NoneType' object is not subscriptable
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    the :attr:`before_first_request_funcs` and only exactly once per
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    @setupmethod
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    self.add_template_global(f, name=name)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    from io import StringIO
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    return f
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 534, in order_finalize
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-25 11:53:37,015] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-25 11:53:37,081] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-25 11:53:37,108] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-25 17:38:26,363] [INFO]: http://35.172.121.202/static/so/so_5f0edd6edda1eb1bdc8122cc.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:11:18,894] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-26 08:11:19,070] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-26 08:11:19,141] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-26 08:13:12,668] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-26 08:13:12,669] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-26 08:13:12,681] [INFO]: so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-26 08:13:12,763] [INFO]: http://35.172.121.202/static/so/so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:13:18,626] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-26 08:13:18,627] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-26 08:13:18,653] [INFO]: so_5f0ed46adda1eb1bdc8122c9.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-26 08:13:18,736] [INFO]: http://35.172.121.202/static/so/so_5f0ed46adda1eb1bdc8122c9.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:13:24,925] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-26 08:13:24,925] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-26 08:13:24,934] [INFO]: so_5f0edd57dda1eb1bdc8122ca.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-26 08:13:25,004] [INFO]: http://35.172.121.202/static/so/so_5f0edd57dda1eb1bdc8122ca.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:13:31,434] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-26 08:13:31,434] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-26 08:13:31,446] [INFO]: so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-26 08:13:31,528] [INFO]: http://35.172.121.202/static/so/so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:13:38,201] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-26 08:13:38,202] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-26 08:13:38,210] [INFO]: so_5f0edd58358cf725a32459b0.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-26 08:13:38,279] [INFO]: http://35.172.121.202/static/so/so_5f0edd58358cf725a32459b0.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-26 08:13:46,033] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-26 08:13:46,034] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-26 08:13:46,042] [INFO]: po_5f0a16b1c3a643032b96f8d2.pdf [in /home/ubuntu/SIH-2020/app/routes.py:515]
+[2020-07-26 08:13:46,113] [INFO]: http://35.172.121.202/static/po/po_5f0a16b1c3a643032b96f8d2.pdf [in /home/ubuntu/SIH-2020/app/routes.py:521]
+[2020-07-26 08:13:53,581] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-26 08:13:53,582] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-26 08:13:53,673] [INFO]: po_5f114408e257dd728e757d66.pdf [in /home/ubuntu/SIH-2020/app/routes.py:515]
+[2020-07-26 08:13:53,745] [INFO]: http://35.172.121.202/static/po/po_5f114408e257dd728e757d66.pdf [in /home/ubuntu/SIH-2020/app/routes.py:521]
+[2020-07-26 08:13:59,598] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-26 08:13:59,599] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-26 08:13:59,606] [INFO]: po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:515]
+[2020-07-26 08:13:59,679] [INFO]: http://35.172.121.202/static/po/po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:521]
+[2020-07-26 08:14:06,337] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-26 08:14:06,338] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-26 08:14:06,346] [INFO]: po_5f0a16b1c3a643032b96f8d2.pdf [in /home/ubuntu/SIH-2020/app/routes.py:515]
+[2020-07-26 08:14:06,416] [INFO]: http://35.172.121.202/static/po/po_5f0a16b1c3a643032b96f8d2.pdf [in /home/ubuntu/SIH-2020/app/routes.py:521]
