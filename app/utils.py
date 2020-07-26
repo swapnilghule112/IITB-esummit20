@@ -20,6 +20,26 @@ bdb_root_url = 'localhost:9984'
 
 bdb = BigchainDB(bdb_root_url)
 
+
+# def authenticate(username, password):
+#     user = mongo.db.users.find_one({'username':username})
+#     if user and check_password_hash(user['password_hash'], password.encode('utf-8')):
+#         return user
+
+
+# def identity(payload):
+#     app.logger.info("Identity Payload")
+#     app.logger.info(payload)
+#     user_id = payload['identity']
+#     return mongo.db.users.find_one({'_id':ObjectId(user_id)})
+    # return userid_table.get(user_id, None)
+
+def add_headers(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    return response
+
 def error_response(status_code, message=None):
     payload = {'error': HTTP_STATUS_CODES.get(status_code, 'Unknown error')}
     if message:
@@ -33,11 +53,15 @@ def error_response(status_code, message=None):
 
 def bad_request(error_str):
     response = jsonify({"error":str(error_str)})
-    response.status_code = 404
+    response = make_response(response)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    # response.status_code = 404
     app.logger.info("Into bad_request")
     app.logger.info(response)
     app.logger.info("Exit from bad_request")
-    return response
+    return response,404
 
 # #buggy code starts here
 def transfer_asset(username,serial_no,priv_key):

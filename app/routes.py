@@ -1,9 +1,9 @@
-from flask import render_template, flash, redirect, url_for, request, session,jsonify
+from flask import render_template, flash, redirect, url_for, request, session,jsonify,make_response
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, ManufacturerForm, BrokerForm, SearchForm,Purchase_O , Sales_O, EndTrans
 from app import app, mongo,db
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash,safe_str_cmp
 from datetime import datetime
 from app.models import User
 from bigchaindb_driver import BigchainDB
@@ -11,6 +11,10 @@ from bigchaindb_driver.crypto import generate_keypair
 from datetime import datetime
 from werkzeug.http import HTTP_STATUS_CODES
 from bson.objectid import ObjectId
+from flask_jwt_simple import (
+    JWTManager, jwt_required, create_jwt, get_jwt_identity
+)
+
 
 import sys
 import json
@@ -24,6 +28,10 @@ from xhtml2pdf import pisa
 # bdb_root_url = 'localhost:9984'
 
 # bdb = BigchainDB(bdb_root_url)
+
+# jwt = JWT(app, authenticate, identity)
+jwt = JWTManager(app)
+
 
 @app.route('/')
 @app.route('/home')
@@ -367,9 +375,10 @@ def ends():
 
 # 5f15d368acea408be5a1964b.pdf
 @app.route('/api/services/v1/get_po_invoice', methods = ['POST'])
+@jwt_required
 def get_po_invoice():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info(request)
         data = json.loads(request.data)
@@ -388,22 +397,24 @@ def get_po_invoice():
         resultFile = open('/home/ubuntu/SIH-2020/app/static/po/'+ids, "w+b")
         pisaStatus = pisa.CreatePDF(sourceHtml,dest=resultFile)
         resultFile.close()
-        url = 'http://35.172.121.202/static/po/'+ids
+        url = 'http://35.172.121.202/static/po/'+ids # change ip
         app.logger.info(url)
-        response = jsonify({'ReturnMsg':'Success','url':url})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','url':url}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 @app.route('/api/services/v1/get_so_invoice', methods = ['POST'])
+@jwt_required
 def get_so_invoice():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info(request)
         data = json.loads(request.data)
@@ -423,23 +434,25 @@ def get_so_invoice():
         resultFile = open('/home/ubuntu/SIH-2020/app/static/so/'+ids, "w+b")
         pisaStatus = pisa.CreatePDF(sourceHtml,dest=resultFile)
         resultFile.close()
-        url = 'http://35.172.121.202/static/so/'+ids
+        url = 'http://35.172.121.202/static/so/'+ids # change ip
         app.logger.info(url)
-        response = jsonify({'ReturnMsg':'Success','url':url})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','url':url}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 
 @app.route('/api/services/v1/order_finalize', methods = ['POST'])
+@jwt_required
 def order_finalize():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data']) or not ('so_id' in data['Data'])):
@@ -471,19 +484,21 @@ def order_finalize():
         user_obj = {}
         user_obj["po_id"] = po_id
         user_obj["so_id"] = so_id
-        response = jsonify({'ReturnMsg':'Success','user':user_obj})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 @app.route('/api/services/v1/get_sales_order', methods = ['POST'])
+@jwt_required
 def get_sales_order():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data'])  or not ('po_id' in data['Data'])  or not ('so_rx' in data['Data']) or not ('org' in data['Data']) or not ('loc_ship' in data['Data']) or not ('TC' in data['Data'])):
@@ -511,15 +526,16 @@ def get_sales_order():
             data = {po_id:poid}
             db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
             db.po.update({'_id': ObjectId(po_id)}, {'$set':{'assets': poid}})
-            response = jsonify({'ReturnMsg':'Success','id':_id})
-            response.status_code = 200
+            response = make_response(jsonify({'ReturnMsg':'Success','id':_id}))
+            status_code = 200
         else:
             return bad_request("Username Not Found")
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 def rollback_ast(po_id):
@@ -533,9 +549,10 @@ def rollback_ast(po_id):
 
 
 @app.route('/api/services/v1/so_cancel', methods = ['POST'])
+@jwt_required
 def so_cancel():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('so_id' in data['Data'])):
@@ -546,21 +563,23 @@ def so_cancel():
         po_id = doc['po_id']
         rol = rollback_ast(po_id)
         db.po.update({'po_id': ObjectId(id)}, {'$set':{'Status':'Cancelled SO'}})
-        response = jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','Status':'Sales order cancelled'}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 
 @app.route('/api/services/v1/get_purchase_order', methods = ['POST'])
+@jwt_required
 def get_purchase_order():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data']) or not ('po_rx' in data['Data']) or not ('prod_name' in data['Data']) or not ('quantity' in data['Data']) or not ('amount' in data['Data']) or not ('TC' in data['Data'])):
@@ -573,21 +592,23 @@ def get_purchase_order():
             date = str(datetime.utcnow())
             _id =  po.insert({ 'po_sx': usern , 'po_rx': po_rx ,'prod_name': data['Data']['prod_name'] ,'quantity': data['Data']['quantity'], 'amount': data['Data']['amount'], 'TC': data['Data']['TC'], 'Status':'Pending', 'Date':date, 'assets':[]})
             _id = str(_id)
-            response = jsonify({'ReturnMsg':'Success','id':_id})
-            response.status_code = 200
+            response = make_response(jsonify({'ReturnMsg':'Success','id':_id}))
+            status_code = 200
         else:
             return bad_request("Username Not Found")
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 @app.route('/api/services/v1/po_cancel', methods = ['POST'])
+@jwt_required
 def po_cancel():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('po_id' in data['Data'])):
@@ -600,20 +621,22 @@ def po_cancel():
         ast = ast["owned"]
         assets.extend(ast)
         db.users.update({"username":rolb['po_rx']},{"$set": {'owned': assets }})
-        response = jsonify({'ReturnMsg':'Success','Status':'Purchased order cancelled'})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','Status':'Purchased order cancelled'}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 @app.route('/api/services/v1/po_accept', methods = ['POST'])
+@jwt_required
 def po_accept():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('po_id' in data['Data'])):
@@ -625,24 +648,27 @@ def po_accept():
         owned = len(own['owned'])
         quantity = int(amount['quantity'])
         if(owned < quantity):
-            response = jsonify({'ReturnMsg':'Success','Status':'false'})
-            response.status_code = 200
-            return response
-        response = jsonify({'ReturnMsg':'Success','Status':'true'})
-        response.status_code = 200
+            response = make_response(jsonify({'ReturnMsg':'Success','Status':'false'}))
+            status_code = 200
+            response = add_headers(response)
+            return response,status_code
+        response = make_response(jsonify({'ReturnMsg':'Success','Status':'true'}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 
 @app.route('/api/services/v1/po_notify_r', methods = ['POST'])
+@jwt_required
 def get_po_notify_r():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data'])):
@@ -661,20 +687,23 @@ def get_po_notify_r():
             user_obj[k]["TC"] = pos_r[k]["TC"]
             user_obj[k]["Status"] = pos_r[k]["Status"]
             user_obj[k]["assets"] = pos_r[k]["assets"]
-        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
-        response.status_code = 200
+            user_obj[k]["Date"] = pos_r[k]["Date"]
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj})) 
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 @app.route('/api/services/v1/po_notify_s', methods = ['POST'])
+@jwt_required
 def get_po_notify_s():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data'])):
@@ -692,21 +721,24 @@ def get_po_notify_s():
             user_obj[k]["TC"] = pos_r[k]["TC"]
             user_obj[k]["Status"] = pos_r[k]["Status"]
             user_obj[k]["assets"] = pos_r[k]["assets"]
-        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
-        response.status_code = 200
+            user_obj[k]["Date"] = pos_r[k]["Date"]
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 
 @app.route('/api/services/v1/so_notify_s', methods = ['POST'])
+@jwt_required
 def get_so_notify_s():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data'])):
@@ -726,20 +758,23 @@ def get_so_notify_s():
             user_obj[k]["amount"] = pos_s[k]["amount"]
             user_obj[k]["TC"] = pos_s[k]["TC"]
             user_obj[k]["Status"] = pos_s[k]["Status"]
-        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
-        response.status_code = 200
+            user_obj[k]["Date"] = pos_s[k]["Date"]
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 
 @app.route('/api/services/v1/so_notify_r', methods = ['POST'])
+@jwt_required
 def get_so_notify_r():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         data = json.loads(request.data)
         if (not ('username' in data['Data'])):
@@ -759,24 +794,24 @@ def get_so_notify_r():
             user_obj[k]["amount"] = pos_s[k]["amount"]
             user_obj[k]["TC"] = pos_s[k]["TC"]
             user_obj[k]["Status"] = pos_s[k]["Status"]
-        response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
-        response.status_code = 200
+            user_obj[k]["Date"] = pos_s[k]["Date"]
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+        status_code = 200
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 @app.route('/api/services/v1/getUserDetails', methods = ['POST'])
+@jwt_required
 def get_user_details_api():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
-        #data = request.get_json() or {}
         data = json.loads(request.data)
-        # user = mongo.db.users.find_one({'username':data['Data']['username']
-        #data = {"Data": {"username": "preyash", "password": "12345"}}
         if (not ('username' in data['Data']) or not ('password' in data['Data'])):
             return bad_request('must include username and password fields')
 
@@ -805,16 +840,18 @@ def get_user_details_api():
             user_obj["role"] = user["Role"]
             user_obj["public_key"] = user["public_key"]
             user_obj["owned_assets"] = len(own["owned"])
-            response = jsonify({'ReturnMsg':'Success','user':user_obj})
-            response.status_code = 200
+            response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+            status_code = 200
     except Exception as e:
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 @app.route('/api/services/v1/get_asset_list',methods = ['POST'])
+@jwt_required
 def get_asset_list():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info("Inside get asset api")
         data = request.data
@@ -825,17 +862,19 @@ def get_asset_list():
         own = db.users.find_one({'username':data['Data']['username']})
         user_obj = {}
         user_obj["owned_assets"] = own["owned"]
-        response = jsonify({'ReturnMsg':'Success','user':user_obj})
-        response.status_code = 200
+        response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
+        status_code = 200
     except Exception as e:
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 
 @app.route('/api/services/v1/createAsset',methods = ['POST'])
+@jwt_required
 def create_asset_api():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info("Inside create asset api")
         data = request.data
@@ -848,15 +887,17 @@ def create_asset_api():
         #response = createasset(data['Data']['username'],data['Data']['serial_no'], data['Data']['cost'],data['Data']['private_key'])
         app.logger.info("createasset response")
         app.logger.info(responses)
-        response = jsonify({'ReturnMsg':'Success'})
+        response = make_response(jsonify({'ReturnMsg':'Success'}))
         app.logger.info("Response")
         app.logger.info(response)
-        response.status_code = 200
+        status_code = 200
     except Exception as e:
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    return response
+    response = add_headers(response)
+    return response,status_code
 
 @app.route('/api/services/v1/transferAsset',methods = ['POST'])
+@jwt_required
 def transfer_asset_api():
     app.logger.info("Into Transfer asset API ")
     data = request.data
@@ -869,12 +910,12 @@ def transfer_asset_api():
     response = transfer_asset(data['Data']['username'],data['Data']['serial_no'],data['Data']['private_key'])
     
     if response is not None:
-        response = jsonify(response)
-        response.status_code = 200
+        response = make_response(jsonify(response))
+        
     else:
-        response = jsonify(response)
-        response.status_code = 400
-    return response
+        response = make_response(jsonify(response))
+        response = add_headers(response)
+    return response,200
 
 @app.route('/api/services/v1/search',methods = ['POST'])
 def search_api():
@@ -885,14 +926,15 @@ def search_api():
         app.logger.info(data)
         serial_no = data["Data"]["serial_no"]
         response = search_asset(serial_no)
-        response = jsonify(response)
-        response.status_code = 200
-        return response
+        response = make_response(jsonify(response))
+        response = add_headers(response)
+        return response,200
     except:
         exc_info = sys.exc_info()
         return bad_request(str(exc_info[0]) + " " + str(exc_info[2].tb_lineno) + json.dumps(data))
 
 @app.route('/api/services/v1/getCurrentOwnedAssets',methods = ['POST'])
+@jwt_required
 def get_current_owned_assets():
     response = bdb.outputs.get('7gu4F9eUNAWG5y1Dc61mis3JSWHqayEVnHYNrjzSjHYL', spent = True)
 
@@ -902,49 +944,64 @@ def get_current_owned_assets():
 
     set2 = set([i["transaction_id"] for i in r])
 
-    # print(set1)
-    # print(set2)
-    # print()
-    # print()
-    # res = set1.intersection(set2)
-
-    # print(len(set1)- len(set2))
     response[0]["no_of_assets"] = len(set2)- len(set1)
-    return jsonify(response)
+    response =  make_response(jsonify(response))
+    response = add_headers(response)
+    return response,200
+
 
 @app.route('/api/services/v1/get_priv_key',methods=["POST"])
 def get_priv_key():
+    resp = make_response(jsonoify({}))
+    status_code = 404
     try:
-        resp = jsonify({})
+        resp = make_response(jsonify({}))
         data = request.data
         data = json.loads(data)
         username = data["username"]
-        print("In API")
-        print(username)
         user_details = mongo.db.users.find_one({"username":username})
-        # app.logger.info(user_details)
         if user_details:
             priv_key = user_details["private_key"]
         else:
             priv_key = None
             return bad_request("Not found")
         resp = {"priv_key":priv_key}
-        resp = jsonify(resp)
-        resp.status_code = 200
-        return resp
+        resp = make_response(jsonify(resp))
+        status_code = 200
+        
     except:
         exc_type,exc_obj,exc_tb = sys.exc_info()
         app.logger.error(str(exc_type) + str(exc_tb.tb_lineno))
+    resp = add_headers(resp)
+    return resp,status_code
 
+@app.route('/api/services/v1/auth', methods=['POST'])
+def auth():
+    if not request.is_json:
+        response = make_response(jsonify({"msg": "Missing JSON in request"}))
+        response = add_headers(response)
+        return response, 400
 
-@app.route('/api/services/v1/getTrackingInfo', methods = ['POST'])
-def get_tracking_info_api():
-    return {}
+    params = request.get_json()
+    username = params.get('client_id', None)
+    password = params.get('client_secret', None)
 
-@app.route('/api/services/v1/getUserInfo', methods = ['POST'])
-def get_user_info():
-    return {}
+    if not username:
+        response = make_response(jsonify({"msg": "Missing username parameter"}))
+        response = add_headers(response)
+        return response, 400
+    if not password:
+        response = make_response(jsonify({"msg": "Missing password parameter"}))
+        response = add_headers(response)
+        return response, 400
 
-@app.route('/api/services/v1/getAnalyticsInfo', methods = ['POST'])
-def get_analytics_info():
-    return {}
+    if username != 'houdini' or password != 'houdini':
+        response = make_response(jsonify({"msg": "Bad username or password"}))
+        response = add_headers(response)
+        return response, 401
+
+    # Identity can be any data that is json serializable
+    ret = {'jwt': create_jwt(identity=username)}
+    response = make_response(jsonify(ret))
+    response = add_headers(response)
+    return response, 200

@@ -12,3 +12,4 @@ class Config(object):
     ADMINS = ['swapnilghule2015@gmail.com','gothanepreyash@gmail.com','kunduosara@gmail.com']
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
     ASSETS_PER_TRANS = 40
+    JWT_SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
