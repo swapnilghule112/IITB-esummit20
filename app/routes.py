@@ -517,7 +517,7 @@ def get_po_invoice():
         resultFile = open('/home/ubuntu/SIH-2020/app/static/po/'+ids, "w+b")
         pisaStatus = pisa.CreatePDF(sourceHtml,dest=resultFile)
         resultFile.close()
-        url = 'http://35.172.121.202/static/po/'+ids
+        url = 'http://3.92.96.170/static/po/'+ids
         app.logger.info(url)
         response = jsonify({'ReturnMsg':'Success','url':url})
         response.status_code = 200
