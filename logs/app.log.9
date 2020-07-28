@@ -1,19 +1,145 @@
-[2020-07-10 13:44:09,041] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-27 13:57:50,219] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:28:01,106] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:28:01,107] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:28:01,112] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:34:41,594] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:34:41,595] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:34:41,604] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:34:56,097] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:34:56,097] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:34:56,102] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:43:44,371] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:43:44,372] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:43:44,378] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:48:29,908] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:926]
+[2020-07-27 14:48:29,908] [INFO]: {'provider': 'username', 'Data': {'username': 'manav_broker'}} [in /home/ubuntu/SIH-2020/app/routes.py:929]
+[2020-07-27 14:49:21,344] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:49:21,345] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:49:21,354] [INFO]: so_5f114426f671b692fd81950d.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
+[2020-07-27 14:49:21,429] [INFO]: http://3.215.183.155/static/so/so_5f114426f671b692fd81950d.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
+[2020-07-27 14:50:17,282] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:50:17,283] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:50:17,291] [INFO]: so_5f114426f671b692fd81950d.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
+[2020-07-27 14:50:17,365] [INFO]: http://3.215.183.155/static/so/so_5f114426f671b692fd81950d.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
+[2020-07-27 14:50:24,624] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:50:24,625] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:50:24,633] [INFO]: so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
+[2020-07-27 14:50:24,709] [INFO]: http://3.215.183.155/static/so/so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
+[2020-07-27 14:52:14,653] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:52:14,654] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:52:14,663] [INFO]: so_5f113c6d09ca0c419118e66c.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]

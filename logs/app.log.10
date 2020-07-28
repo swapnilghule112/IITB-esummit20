@@ -1,132 +1,157 @@
-[2020-07-07 19:06:43,867] [ERROR]: Exception on /sales [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-27 13:38:53,107] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 13:38:53,108] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 13:38:53,113] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 358, in sales
-    owned = len(own['owned'])
-TypeError: 'NoneType' object is not subscriptable
-[2020-07-07 19:10:36,786] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-07 19:10:36,876] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-07 19:10:36,880] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,592] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,598] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:03:34,607] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:14:26,037] [ERROR]: Exception on /sales_order [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 425, in sales_order
-    db.users.update_one({'username':usern },{ '$push': { 'lock': data } } )
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 1003, in update_one
-    session=session),
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 856, in _update_retryable
-    _update, session)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/mongo_client.py", line 1491, in _retryable_write
-    return self._retry_with_session(retryable, func, s, None)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/mongo_client.py", line 1384, in _retry_with_session
-    return func(session, sock_info, retryable)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 852, in _update
-    retryable_write=retryable_write)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/collection.py", line 823, in _update
-    _check_write_command_response(result)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/helpers.py", line 221, in _check_write_command_response
-    _raise_last_write_error(write_errors)
-  File "/usr/local/lib/python3.6/dist-packages/pymongo/helpers.py", line 203, in _raise_last_write_error
-    raise WriteError(error.get("errmsg"), error.get("code"), error)
-pymongo.errors.WriteError: The field 'lock' must be an array but is of type object in document {_id: ObjectId('5f059b52ad822dd94c074f8e')}
-[2020-07-08 10:22:25,296] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:22:25,305] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:22:25,337] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,621] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,685] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:33:02,748] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,808] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,891] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:45:10,924] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:46:46,547] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:24:14,474] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:24:14,475] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:24:14,481] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    db.users.find({"username":so_sx}).forEach(bson.Code('''
-AttributeError: 'Cursor' object has no attribute 'forEach'
-[2020-07-08 10:55:34,976] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:55:35,059] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:55:35,066] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-08 10:57:22,131] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    db.users.find_one({"username":so_sx}).forEach(bson.Code('''
-AttributeError: 'dict' object has no attribute 'forEach'
-[2020-07-10 13:36:43,778] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:25:23,760] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:25:23,760] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:25:23,765] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 443, in ends
-    lock = db.users.find_one({"username": so_sx})
-AttributeError: 'dict' object has no attribute 'forEach'
-[2020-07-10 13:41:51,026] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:41:51,063] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:41:51,160] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:27:49,453] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:27:49,453] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:27:49,458] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:28:37,064] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:28:37,064] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:28:37,069] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:43:41,569] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:43:41,569] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:43:41,574] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:51:04,557] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]

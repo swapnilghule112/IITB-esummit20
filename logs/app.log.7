@@ -1,32 +1,12 @@
-[2020-07-10 13:44:55,293] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1560]
+[2020-07-27 14:51:04,558] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:51:04,563] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 194, in index
-    s = s +", " + i
-TypeError: must be str, not list
-[2020-07-10 13:50:54,060] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:50:54,115] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-10 13:50:54,181] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,846] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,857] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:15:30,969] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,164] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,219] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:19:19,268] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:21:01,314] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -40,12 +20,19 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
-    for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:21:05,674] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:51:12,079] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:51:12,079] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:51:12,084] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -59,12 +46,23 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
-    for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:21:33,257] [ERROR]: Exception on / [GET] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:51:17,952] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:51:17,952] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:51:17,959] [INFO]: po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:517]
+[2020-07-27 14:51:18,044] [INFO]: http://3.215.183.155/static/po/po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:523]
+[2020-07-27 14:51:19,225] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:51:19,226] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:51:19,231] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -78,43 +76,60 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 193, in index
-    for i in own['owned']:
-KeyError: 'owned'
-[2020-07-16 16:30:46,198] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:30:46,221] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 16:30:46,286] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:50]
-[2020-07-16 17:25:08,109] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 17:37:06,241] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'cjx bvjdbjvdnvvdndvmn,vmnjjkdkjdkjdksjvkbjkbjkdkbkdfhkdsjhkdhskdshdskhdskhvkvdkkdkdhbhdjbhdkhbkbhdkhkbfhkfhfkfhkfhfhh'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 17:38:43,466] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 17:51:30,686] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'exp://192.168.0.106:19000'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 17:58:08,430] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:06:33,075] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:08:12,585] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:14:23,990] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:15:56,681] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:16:11,325] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:16:27,709] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'abc2'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:37:42,352] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:38:03,519] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:39:19,620] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:41:14,492] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:44:00,526] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:46:56,319] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:47:05,686] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 18:52:28,305] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'bis1'}} [in /home/ubuntu/SIH-2020/app/routes.py:814]
-[2020-07-16 19:36:20,053] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-16 19:36:20,121] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-16 19:36:20,234] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-16 19:40:03,950] [ERROR]: Unhandled exception [in /home/ubuntu/SIH-2020/app/tasks.py:70]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:51:46,904] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-07-27 14:51:46,905] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-07-27 14:51:46,910] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/tasks.py", line 67, in transfer_asset_async
-    username,serial_no,priv_key,no,assets[temp:])
-  File "/home/ubuntu/SIH-2020/app/models.py", line 15, in launch_task
-    app.logger.info("Task queue")
-NameError: name 'app' is not defined
-[2020-07-17 05:39:36,082] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-17 05:39:36,104] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-17 05:39:36,114] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:52:28,659] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:52:28,659] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
+[2020-07-27 14:52:28,666] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 550, in get_so_invoice
+    content = db.po.find_one({'_id':ObjectId(cont['po_id'])})
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 14:52:32,818] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-07-27 14:52:32,819] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
