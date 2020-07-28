@@ -35,6 +35,7 @@ bdb = BigchainDB(bdb_root_url)
     # return userid_table.get(user_id, None)
 
 def add_headers(response):
+    app.logger.info("added headers")
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add('Access-Control-Allow-Headers', "*")
     response.headers.add('Access-Control-Allow-Methods', "*")

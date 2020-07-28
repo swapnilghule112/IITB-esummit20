@@ -702,15 +702,20 @@ def get_po_notify_r():
 @app.route('/api/services/v1/po_notify_s', methods = ['POST'])
 @jwt_required
 def get_po_notify_s():
+    app.logger.info("Into po_notify_s")
     response = make_response(jsonify({}))
     status_code = 404
     try:
+        app.logger.info(request.data)
         data = json.loads(request.data)
         if (not ('username' in data['Data'])):
             return bad_request('Username Not Found')
         usern = data['Data']['username']
+        app.logger.info("before mongo query")
         pos_r = db.po.find({"po_sx": usern})
         user_obj = {user_obj: {} for user_obj in range(pos_r.count())} #Creating Empty Nested Dic
+        app.logger.info("after empty nested dic")
+        app.logger.info("before for loop")
         for k in range(0,pos_r.count()):   #Inserting Values into that Dic
             id = str(pos_r[k]["_id"])
             user_obj[k]["po_id"] = id
@@ -722,14 +727,17 @@ def get_po_notify_s():
             user_obj[k]["Status"] = pos_r[k]["Status"]
             user_obj[k]["assets"] = pos_r[k]["assets"]
             user_obj[k]["Date"] = pos_r[k]["Date"]
+        app.logger.info("here")
         response = make_response(jsonify({'ReturnMsg':'Success','user':user_obj}))
         status_code = 200
+        app.logger.info("after make response")
     except Exception as e:
         exc_type,exc_obj,exc_tb = sys.exc_info()
-        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        app.logger.info(str(e) + "on line no: " + exc_tb.tb_lineno)
         return bad_request(str(sys.exc_info()[0]) + " error on line no: " + str(sys.exc_info()[2].tb_lineno) + " Data received: " +  json.dumps(data))
-    response = add_headers(response)
-    return response,status_code
+    finally:
+        response = add_headers(response)
+        return response,status_code
 
 
 
@@ -808,6 +816,7 @@ def get_so_notify_r():
 @app.route('/api/services/v1/getUserDetails', methods = ['POST'])
 @jwt_required
 def get_user_details_api():
+    app.logger.info(request.data)
     response = make_response(jsonify({}))
     status_code = 404
     try:
@@ -977,6 +986,7 @@ def get_priv_key():
 
 @app.route('/api/services/v1/auth', methods=['POST'])
 def auth():
+    app.logger.info("Hit received on auth jwt")
     if not request.is_json:
         response = make_response(jsonify({"msg": "Missing JSON in request"}))
         response = add_headers(response)
