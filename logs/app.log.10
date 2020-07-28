@@ -1,56 +1,116 @@
-[2020-07-27 14:25:17,915] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:27:50,707] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:27:50,708] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:28:15,575] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:28:15,576] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:29:05,087] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:29:05,088] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:30:20,195] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:30:20,196] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:30:49,458] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:30:49,458] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:31:41,308] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:31:41,309] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:31:57,404] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:31:57,405] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:32:18,234] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:32:18,234] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:33:11,746] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:33:11,747] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:38:48,473] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:38:48,473] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:47:42,773] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
-[2020-07-27 14:47:42,773] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
-[2020-07-27 14:47:42,781] [INFO]: po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:515]
-[2020-07-27 14:47:42,854] [INFO]: http://35.172.121.202/static/po/po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:521]
-[2020-07-27 14:49:22,255] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 14:49:22,256] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 14:49:22,265] [INFO]: so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 14:49:22,340] [INFO]: http://35.172.121.202/static/so/so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-27 14:58:15,932] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 14:58:15,932] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 14:59:22,776] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'W8CrDHEHjFFnLLoCxznVcq'}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-27 15:03:42,481] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 15:03:42,481] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 15:03:43,872] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 15:03:43,872] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 15:04:45,148] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 15:04:45,148] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 15:15:45,845] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 15:15:45,846] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 15:16:54,620] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-27 15:16:54,621] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-27 15:17:36,917] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-27 17:41:04,175] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-27 17:50:36,770] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 17:50:36,771] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 17:50:36,780] [INFO]: so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 17:50:36,854] [INFO]: http://35.172.121.202/static/so/so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-27 17:50:51,834] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 17:50:51,835] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 17:50:51,850] [INFO]: so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 17:50:51,927] [INFO]: http://35.172.121.202/static/so/so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-27 17:51:03,532] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 17:51:03,534] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 17:51:03,544] [INFO]: so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 17:51:03,643] [INFO]: http://35.172.121.202/static/so/so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-27 18:49:29,884] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:50:24,876] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-27 18:50:24,877] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-27 18:50:24,882] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:50:26,389] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-27 18:50:26,390] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-27 18:50:26,395] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 19:38:14,566] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-27 19:47:34,272] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-27 19:47:38,881] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-27 19:50:16,704] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-27 19:50:16,705] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-27 19:51:00,485] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-27 19:51:00,486] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 08:04:58,428] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:04:58,771] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:06:50,860] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:06:50,868] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:08:10,277] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:08:36,870] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:09:48,074] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:09:53,984] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:07,427] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:15,822] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:18,168] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:19,287] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:30,454] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:30,804] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:33,997] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:34,342] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:55,789] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:10:55,866] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:12:09,709] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:12:09,813] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:12:36,032] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:16,117] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'W8CrDHEHjFFnLLoCxznVcq'}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:32,623] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:34,868] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:34,965] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:35,040] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 08:15:35,040] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 08:15:40,774] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:53,279] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:53,364] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:16,960] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:49,902] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:18:31,076] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]

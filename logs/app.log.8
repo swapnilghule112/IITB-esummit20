@@ -1,138 +1,41 @@
-[2020-07-27 18:31:32,182] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
-    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
-KeyError: 'po_id'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-27 18:32:09,410] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 18:32:09,410] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 18:32:09,419] [INFO]: so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 18:32:09,505] [INFO]: http://3.92.96.170/static/so/so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-27 18:32:10,829] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 18:32:10,830] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 18:32:10,835] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 544, in get_so_invoice
-    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
-KeyError: 'so_id'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 559, in get_so_invoice
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-27 18:32:17,337] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-27 18:32:17,338] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-27 18:32:17,347] [INFO]: so_5f0ed46adda1eb1bdc8122c9.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-27 18:32:17,417] [INFO]: http://3.92.96.170/static/so/so_5f0ed46adda1eb1bdc8122c9.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-27 18:38:56,089] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
-[2020-07-27 18:38:56,089] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
-[2020-07-27 18:38:56,095] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
-    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
-KeyError: 'po_id'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-27 18:39:09,905] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
-[2020-07-27 18:39:09,906] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
-[2020-07-27 18:39:09,911] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
-    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
-KeyError: 'po_id'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-27 18:40:05,451] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
-[2020-07-27 18:40:05,452] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
-[2020-07-27 18:40:05,457] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
-    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
-KeyError: 'po_id'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-27 18:49:29,877] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
-[2020-07-27 18:49:29,878] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-28 08:14:19,697] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:15:10,608] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 08:15:10,609] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 08:15:12,621] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 08:15:12,621] [INFO]: {'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 08:15:32,297] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:46,207] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:46,304] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:49,557] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:17:51,175] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:19:05,043] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:21:55,108] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:22:20,434] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:22:44,651] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:23:35,671] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:23:35,757] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:23:39,547] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:23:49,687] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:23:49,777] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:25:08,741] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:25:17,206] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:26:15,651] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:27:15,624] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:27:27,733] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:27:27,741] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:28:11,719] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:29:14,229] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:32:03,631] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:33:52,537] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:33:59,361] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:39:50,282] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 08:41:32,585] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 08:41:32,586] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 08:44:08,555] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 09:10:48,726] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
+[2020-07-28 10:04:33,710] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 10:04:33,711] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 10:05:26,017] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 10:05:26,017] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
+[2020-07-28 10:06:02,009] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+[2020-07-28 10:06:02,011] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]

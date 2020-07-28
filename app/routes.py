@@ -1056,3 +1056,63 @@ def get_user_info():
 @app.route('/api/services/v1/getAnalyticsInfo', methods = ['POST'])
 def get_analytics_info():
     return {}
+
+
+@app.route('/api/services/v1/get_register', methods = ['POST'])
+def get_register():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        data = json.loads(request.data)
+        if (
+            not ('Name' in data['Data'])
+            or not ('Email' in data['Data'])
+            or not ('Role' in data['Data'])
+            or not ('Org' in data['Data'])
+            or not ('Address' in data['Data'])
+            or not ('City' in data['Data'])
+            or not ('State' in data['Data'])
+            or not ('Zip' in data['Data'])
+        ):
+            return bad_request("Content Incomplete Not Found")
+        user = generate_keypair()
+        pub_key = user.public_key
+        priv_key = user.private_key
+        password_hash = generate_password_hash("12345")
+        mongo.db.users.insert(
+            {
+                "username": data['Data']['Name'],
+                "email": data['Data']['Email'],
+                "Role": data['Data']['Role'],
+                "password_hash": password_hash,
+                "public_key": pub_key,
+                "private_key": priv_key,
+            }
+        )
+        db.users.insert(
+            {
+                "username": data['Data']['Name'],
+                "email": data['Data']['Email'],
+                "Role": data['Data']['Role'],
+                "Org": data['Data']['Org'],
+                "location": data['Data']['City'],
+                "State": data['Data']['State'],
+                "details": data['Data']['Zip'],
+                "owned": [],
+                "lock": [],
+            }
+        )
+        response = jsonify({"ReturnMsg": "Success"})
+        status_code = 200
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        response,status_code = bad_request(
+            str(sys.exc_info()[0])
+            + " error on line no: "
+            + str(sys.exc_info()[2].tb_lineno)
+            + " Data received: "
+            + json.dumps(data)
+        )
+    return response
+
