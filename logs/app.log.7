@@ -1,8 +1,8 @@
-[2020-07-26 14:57:08,224] [ERROR]: Exception on /api/services/v1/order_finalize [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+[2020-07-27 18:31:33,333] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 579, in order_finalize
-    assets = assets['assets']
-TypeError: 'NoneType' object is not subscriptable
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
 
 During handling of the above exception, another exception occurred:
 
@@ -19,15 +19,19 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 605, in order_finalize
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-26 15:16:08,204] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 15:51:23,883] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-26 15:51:23,884] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-26 15:51:23,892] [INFO]: so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-26 15:51:23,961] [INFO]: http://35.172.121.202/static/so/so_5f0e06a2358cf725a32459af.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-26 15:55:29,995] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+[2020-07-27 18:31:33,894] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-27 18:31:33,895] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-27 18:31:33,900] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -41,12 +45,19 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 463, in ends
-    assets = assets['assets']
-TypeError: 'NoneType' object is not subscriptable
-[2020-07-26 15:56:11,255] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:31:49,809] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-27 18:31:49,810] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]
+[2020-07-27 18:31:49,815] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 512, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -60,12 +71,19 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 463, in ends
-    assets = assets['assets']
-TypeError: 'NoneType' object is not subscriptable
-[2020-07-26 15:56:29,122] [ERROR]: Exception on /ends [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 526, in get_po_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:32:18,828] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-27 18:32:18,829] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-27 18:32:18,834] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 544, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -79,12 +97,23 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 463, in ends
-    assets = assets['assets']
-TypeError: 'NoneType' object is not subscriptable
-[2020-07-26 17:07:25,103] [ERROR]: Exception on / [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 559, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:32:28,059] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-27 18:32:28,060] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-27 18:32:28,093] [INFO]: so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
+[2020-07-27 18:32:28,163] [INFO]: http://3.92.96.170/static/so/so_5f0edd572fcb0359780f4046.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
+[2020-07-27 18:32:29,438] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
+[2020-07-27 18:32:29,439] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
+[2020-07-27 18:32:29,444] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 544, in get_so_invoice
+    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
+KeyError: 'so_id'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -98,32 +127,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 195, in index
-    user = session['username']
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/werkzeug/local.py", line 378, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'username'
-[2020-07-26 17:10:18,256] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:535]
-[2020-07-26 17:10:18,257] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:541]
-[2020-07-26 17:10:18,267] [INFO]: so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:548]
-[2020-07-26 17:10:18,341] [INFO]: http://35.172.121.202/static/so/so_5f157264ea95723b48ff59f8.pdf [in /home/ubuntu/SIH-2020/app/routes.py:554]
-[2020-07-26 17:10:34,043] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-26 17:10:34,043] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-26 18:23:22,248] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-26 18:23:22,249] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-26 18:31:18,518] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 18:31:33,657] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 18:45:49,700] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
-[2020-07-26 18:45:49,700] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:927]
-[2020-07-26 19:18:47,897] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:20:27,839] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:22:34,318] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:22:56,198] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:26:40,483] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'NMVgRn5HGuNMYJ4onAetUJ'}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:27:01,760] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 19:35:09,961] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'cUQWnX8AKYHmSPRo8Vegdk'}} [in /home/ubuntu/SIH-2020/app/routes.py:989]
-[2020-07-26 20:25:16,346] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:924]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 559, in get_so_invoice
+    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+NameError: name 'logger' is not defined
+[2020-07-27 18:39:11,384] [INFO]: <Request 'http://3.92.96.170/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:503]
+[2020-07-27 18:39:11,384] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:509]

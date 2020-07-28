@@ -771,6 +771,7 @@ def get_po_notify_r():
             user_obj[k]["TC"] = pos_r[k]["TC"]
             user_obj[k]["Status"] = pos_r[k]["Status"]
             user_obj[k]["assets"] = pos_r[k]["assets"]
+            user_obj[k]["Date"] = pos_r[k]["Date"]
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
@@ -800,6 +801,7 @@ def get_po_notify_s():
             user_obj[k]["TC"] = pos_r[k]["TC"]
             user_obj[k]["Status"] = pos_r[k]["Status"]
             user_obj[k]["assets"] = pos_r[k]["assets"]
+            user_obj[k]["Date"] = pos_r[k]["Date"]
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
@@ -832,6 +834,7 @@ def get_so_notify_s():
             user_obj[k]["amount"] = pos_s[k]["amount"]
             user_obj[k]["TC"] = pos_s[k]["TC"]
             user_obj[k]["Status"] = pos_s[k]["Status"]
+            user_obj[k]["Date"] = pos_s[k]["Date"]
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
@@ -863,6 +866,7 @@ def get_so_notify_r():
             user_obj[k]["amount"] = pos_s[k]["amount"]
             user_obj[k]["TC"] = pos_s[k]["TC"]
             user_obj[k]["Status"] = pos_s[k]["Status"]
+            user_obj[k]["Date"] = pos_s[k]["Date"]
         response = jsonify({'ReturnMsg':'Success','user':user_obj}) 
         response.status_code = 200
     except Exception as e:
