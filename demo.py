@@ -3,56 +3,42 @@ from bigchaindb_driver.crypto import generate_keypair
 from time import sleep
 from sys import exit
 
-bdb_root_url = ''
-bdb = BigchainDB('http://localhost:9984')
+bdb_root_url = ""
+bdb = BigchainDB("http://localhost:9984")
 user1 = generate_keypair()
-user2= generate_keypair()
+user2 = generate_keypair()
 
-sack = {
-    'data': {
-        'sack': {
-            'serial_number': '5431abc',
-            'manufacturer': 'user1',
-            },
-        },
-    }
-metadata = {
-    'size': '4', 
-    'price': '2500'
-    }
+sack = {"data": {"sack": {"serial_number": "5431abc", "manufacturer": "user1"}}}
+metadata = {"size": "4", "price": "2500"}
 
 prepared_creation_tx = bdb.transactions.prepare(
-        operation='CREATE',
-        signers=user1.public_key,
-        asset=sack,
-        metadata=metadata,
-    )
+    operation="CREATE", signers=user1.public_key, asset=sack, metadata=metadata
+)
 
-fulfilled_creation_tx = bdb.transactions.fulfill(prepared_creation_tx, private_keys=user1.private_key)
+fulfilled_creation_tx = bdb.transactions.fulfill(
+    prepared_creation_tx, private_keys=user1.private_key
+)
 
-#checking
+# checking
 sent_creation_tx = bdb.transactions.send_commit(fulfilled_creation_tx)
 # --> True
-#________________________________________________________________________________________________________________________
-#Transcation id
+# ________________________________________________________________________________________________________________________
+# Transcation id
 
-txid = fulfilled_creation_tx['id']
-#txid
+txid = fulfilled_creation_tx["id"]
+# txid
 
-#accepting transaction
+# accepting transaction
 fulfilled_transfer_tx = bdb.transactions.fulfill(
-        prepared_transfer_tx,
-        private_keys=user1.private_key,
+    prepared_transfer_tx, private_keys=user1.private_key
 )
 
 sent_transfer_tx = bdb.transactions.send_commit(fulfilled_transfer_tx)
 
-#checking
+# checking
 sent_transfer_tx == fulfilled_transfer_tx
-#-->True
+# -->True
 
-#checking
-fulfilled_transfer_tx['outputs'][0]['public_keys'][0] == user2.public_key
-#-->True
-
-
+# checking
+fulfilled_transfer_tx["outputs"][0]["public_keys"][0] == user2.public_key
+# -->True
