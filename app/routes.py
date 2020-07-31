@@ -1372,7 +1372,7 @@ def acquire():
     response = jsonify({})
     response.status_code = 404
     try:
-        app.logger.info("Inside Acquire API")
+        app.logger.info("Inside Acquire api")
         data = json.loads(request.data)
         if (not ('username' in data['Data']) or not ('serial_no' in data['Data'])):
             return bad_request('Username Not Found')
