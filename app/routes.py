@@ -373,9 +373,8 @@ def sales_order():
 
 
 def get_priv_key_by_username(username):
-    # urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key",
-    # "http://3.215.183.155/api/services/v1/get_priv_key"]
-    urls = ["http://35.172.121.202/api/services/v1/get_priv_key"]
+    urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key","http://3.215.183.155/api/services/v1/get_priv_key"]
+    #urls = ["http://35.172.121.202/api/services/v1/get_priv_key"]
     # headers = {"Content-Type":"application/json"}
     data = {"username": username}
     print("Inside get_priv_key fun")
@@ -1329,4 +1328,72 @@ def get_register():
             + " Data received: "
             + json.dumps(data)
         )
+    return response
+
+
+@app.route('/api/services/v1/sold', methods = ['POST'])
+def sold():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info("Inside Sold API")
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('serial_no' in data['Data'])):
+            return bad_request('Username Not Found')
+        
+        priv_key = get_priv_key_by_username(data['Data']['username'])
+        if priv_key is None:
+            return bad_request("User not found")
+        response = transfer_asset("NJB",data['Data']['serial_no'],priv_key)
+        if response is not None:
+            db.users.update_one({'username':"NJB" },{ '$addToSet': { 'owned':data['Data']['serial_no'] } } )
+            db.users.update_one({'username':data['Data']["username"] },{ '$pull': { 'owned':data['Data']['serial_no'] } } )
+            response = jsonify({"ReturnMsg":"Success", "transact":"true"})
+            response.status_code = 200
+        else:
+            response = jsonify(response)
+            response.status_code = 400
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        response,status_code = bad_request(
+            str(sys.exc_info()[0])
+            + " error on line no: "
+            + str(sys.exc_info()[2].tb_lineno)
+            + " Data received: "
+            + json.dumps(data)
+        )
+    return response
+
+
+
+@app.route('/api/services/v1/acquire', methods = ['POST'])
+def acquire():
+    response = jsonify({})
+    response.status_code = 404
+    try:
+        app.logger.info("Inside Acquire API")
+        data = json.loads(request.data)
+        if (not ('username' in data['Data']) or not ('serial_no' in data['Data'])):
+            return bad_request('Username Not Found')
+        app.logger.info("passed 1 Acquire")
+        username = str(data['Data']['username'])
+        serial_no = str(data['Data']['serial_no'])
+        priv_key = get_priv_key_by_username("NJB")
+        if priv_key is None:
+            return bad_request("User not found")
+        response = transfer_asset(username,serial_no,priv_key)
+        if response is not None:
+            db.users.update_one({'username':username },{ '$addToSet': { 'owned':serial_no } } )
+            db.users.update_one({'username':"NJB" },{ '$pull': { 'owned':serial_no } } )
+            response = jsonify({"ReturnMsg":"Success", "transact":"true"})
+            response.status_code = 200
+        else:
+            response = jsonify(response)
+            response.status_code = 400
+    except Exception as e:
+        eror = str(e)
+        app.logger.info("Error")
+        app.logger.info(eror)
+        return bad_request(eror)
     return response
