@@ -1,87 +1,113 @@
-[2020-07-28 17:46:22,833] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 18:58:12,207] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 18:58:12,264] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 18:58:12,311] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 19:21:42,404] [ERROR]: Exception on /api/services/v1/get_register [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+[2020-07-31 11:48:30,318] [ERROR]: Exception on /api/services/v1/acquire [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1105, in get_register
-    response = make_response(jsonify({"ReturnMsg": "Success"}))
-NameError: name 'make_response' is not defined
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 1163, in acquire
+    data = json.loads(request.data)
+  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.6/json/decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1109, in get_register
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-28 19:23:42,025] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:23:42,134] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:23:56,984] [ERROR]: Exception on /api/services/v1/get_register [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 1186, in acquire
+    app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+TypeError: must be str, not int
+[2020-07-31 11:50:04,574] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:50:04,689] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:50:04,699] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:50:14,267] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:50:14,267] [INFO]: Error [in /home/ubuntu/SIH-2020/app/routes.py:1183]
+[2020-07-31 11:50:14,268] [INFO]: Expecting value: line 1 column 1 (char 0) [in /home/ubuntu/SIH-2020/app/routes.py:1184]
+[2020-07-31 11:50:14,268] [ERROR]: Exception on /api/services/v1/acquire [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1105, in get_register
-    response = make_response(jsonify({"ReturnMsg": "Success"}))
-NameError: name 'make_response' is not defined
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 1163, in acquire
+    data = json.loads(request.data)
+  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.6/json/decoder.py", line 357, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
     raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1109, in get_register
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-28 19:24:47,519] [ERROR]: Exception on /api/services/v1/get_register [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1105, in get_register
-    response = make_response(jsonify({"ReturnMsg": "Success"}))
-NameError: name 'make_response' is not defined
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1109, in get_register
-    logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-NameError: name 'logger' is not defined
-[2020-07-28 19:26:59,118] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:28:07,822] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 19:28:07,869] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 19:28:08,079] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-28 19:33:01,457] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:33:01,585] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:33:33,716] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:37:18,140] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
-[2020-07-28 19:37:18,198] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 1186, in acquire
+    app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+TypeError: must be str, not int
+[2020-07-31 11:51:05,756] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:51:05,858] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:51:05,886] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:51:19,700] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:51:19,700] [INFO]: Error [in /home/ubuntu/SIH-2020/app/routes.py:1183]
+[2020-07-31 11:51:19,700] [INFO]: Expecting value: line 1 column 1 (char 0) [in /home/ubuntu/SIH-2020/app/routes.py:1184]
+[2020-07-31 11:51:19,700] [ERROR]: Expecting value: line 1 column 1 (char 0)on line no: 1163 [in /home/ubuntu/SIH-2020/app/routes.py:1186]
+[2020-07-31 11:52:42,430] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:53:01,592] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:53:01,592] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
+[2020-07-31 11:56:20,204] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:56:20,266] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:56:20,374] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:56:32,422] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:56:32,422] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
+[2020-07-31 11:56:32,422] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
+[2020-07-31 11:56:32,437] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
+[2020-07-31 11:56:32,437] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
+[2020-07-31 11:59:23,501] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:59:23,641] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:59:23,661] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 11:59:32,031] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 11:59:32,032] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
+[2020-07-31 11:59:32,032] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
+[2020-07-31 11:59:32,046] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
+[2020-07-31 11:59:32,047] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
+[2020-07-31 11:59:32,070] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
+[2020-07-31 12:02:44,180] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:02:44,294] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:02:44,380] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:02:59,953] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 12:02:59,953] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
+[2020-07-31 12:02:59,954] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
+[2020-07-31 12:02:59,968] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
+[2020-07-31 12:02:59,968] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
+[2020-07-31 12:02:59,991] [INFO]: Something went wrong: <class 'TypeError'> [in /home/ubuntu/SIH-2020/app/routes.py:127]
+[2020-07-31 12:02:59,991] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
+[2020-07-31 12:04:33,961] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:04:34,046] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:04:34,177] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-07-31 12:04:43,737] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
+[2020-07-31 12:04:43,738] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
+[2020-07-31 12:04:43,738] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
+[2020-07-31 12:04:43,752] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
+[2020-07-31 12:04:43,752] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
+[2020-07-31 12:04:43,780] [ERROR]: 'NoneType' object is not subscriptableon line no: 108 [in /home/ubuntu/SIH-2020/app/routes.py:127]
+[2020-07-31 12:04:43,780] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
