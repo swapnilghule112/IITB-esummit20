@@ -1102,7 +1102,7 @@ def get_register():
                 "lock": [],
             }
         )
-        response = jsonify({"ReturnMsg": "Success"})
+        response = jsonify({"ReturnMsg": "Success","priv_key":priv_key})
         status_code = 200
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()

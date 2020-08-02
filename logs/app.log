@@ -1,17 +1,4 @@
-[2020-07-31 11:48:30,318] [ERROR]: Exception on /api/services/v1/acquire [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1163, in acquire
-    data = json.loads(request.data)
-  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
-    return _default_decoder.decode(s)
-  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-  File "/usr/lib/python3.6/json/decoder.py", line 357, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-
-During handling of the above exception, another exception occurred:
-
+[2020-08-02 02:56:11,318] [ERROR]: Exception on / [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -25,29 +12,16 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1186, in acquire
-    app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-TypeError: must be str, not int
-[2020-07-31 11:50:04,574] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:50:04,689] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:50:04,699] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:50:14,267] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:50:14,267] [INFO]: Error [in /home/ubuntu/SIH-2020/app/routes.py:1183]
-[2020-07-31 11:50:14,268] [INFO]: Expecting value: line 1 column 1 (char 0) [in /home/ubuntu/SIH-2020/app/routes.py:1184]
-[2020-07-31 11:50:14,268] [ERROR]: Exception on /api/services/v1/acquire [POST] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1163, in acquire
-    data = json.loads(request.data)
-  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
-    return _default_decoder.decode(s)
-  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-  File "/usr/lib/python3.6/json/decoder.py", line 357, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-
-During handling of the above exception, another exception occurred:
-
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 195, in index
+    user = session['username']
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/werkzeug/local.py", line 378, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/sessions.py", line 83, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'username'
+[2020-08-02 02:56:14,198] [ERROR]: Exception on /index [GET] [in /home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -61,53 +35,27 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 1186, in acquire
-    app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
-TypeError: must be str, not int
-[2020-07-31 11:51:05,756] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:51:05,858] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:51:05,886] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:51:19,700] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:51:19,700] [INFO]: Error [in /home/ubuntu/SIH-2020/app/routes.py:1183]
-[2020-07-31 11:51:19,700] [INFO]: Expecting value: line 1 column 1 (char 0) [in /home/ubuntu/SIH-2020/app/routes.py:1184]
-[2020-07-31 11:51:19,700] [ERROR]: Expecting value: line 1 column 1 (char 0)on line no: 1163 [in /home/ubuntu/SIH-2020/app/routes.py:1186]
-[2020-07-31 11:52:42,430] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:53:01,592] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:53:01,592] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
-[2020-07-31 11:56:20,204] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:56:20,266] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:56:20,374] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:56:32,422] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:56:32,422] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
-[2020-07-31 11:56:32,422] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
-[2020-07-31 11:56:32,437] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
-[2020-07-31 11:56:32,437] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
-[2020-07-31 11:59:23,501] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:59:23,641] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:59:23,661] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 11:59:32,031] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 11:59:32,032] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
-[2020-07-31 11:59:32,032] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
-[2020-07-31 11:59:32,046] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
-[2020-07-31 11:59:32,047] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
-[2020-07-31 11:59:32,070] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
-[2020-07-31 12:02:44,180] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:02:44,294] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:02:44,380] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:02:59,953] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 12:02:59,953] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
-[2020-07-31 12:02:59,954] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
-[2020-07-31 12:02:59,968] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
-[2020-07-31 12:02:59,968] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
-[2020-07-31 12:02:59,991] [INFO]: Something went wrong: <class 'TypeError'> [in /home/ubuntu/SIH-2020/app/routes.py:127]
-[2020-07-31 12:02:59,991] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
-[2020-07-31 12:04:33,961] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:04:34,046] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:04:34,177] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
-[2020-07-31 12:04:43,737] [INFO]: Inside Acquire API [in /home/ubuntu/SIH-2020/app/routes.py:1162]
-[2020-07-31 12:04:43,738] [INFO]: passed 1 Acquire [in /home/ubuntu/SIH-2020/app/routes.py:1166]
-[2020-07-31 12:04:43,738] [INFO]: J9k7PV7m3uGocLPSbdJdYv [in /home/ubuntu/SIH-2020/app/routes.py:1169]
-[2020-07-31 12:04:43,752] [INFO]: J3jbL3XqMivvy9KzegwxDKiqwfvWQhgHo2bqjZpE92Ge [in /home/ubuntu/SIH-2020/app/routes.py:1171]
-[2020-07-31 12:04:43,752] [INFO]: Inside Transfer Function [in /home/ubuntu/SIH-2020/app/routes.py:1174]
-[2020-07-31 12:04:43,780] [ERROR]: 'NoneType' object is not subscriptableon line no: 108 [in /home/ubuntu/SIH-2020/app/routes.py:127]
-[2020-07-31 12:04:43,780] [INFO]: None [in /home/ubuntu/SIH-2020/app/routes.py:1176]
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 195, in index
+    user = session['username']
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/werkzeug/local.py", line 378, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/ubuntu/.local/lib/python3.6/site-packages/flask/sessions.py", line 83, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'username'
+[2020-08-02 04:55:43,136] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:928]
+[2020-08-02 04:55:43,137] [INFO]: {'provider': 'username', 'Data': {'username': 'preyash_seller'}} [in /home/ubuntu/SIH-2020/app/routes.py:931]
+[2020-08-02 05:06:29,724] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:928]
+[2020-08-02 05:06:29,724] [INFO]: {'provider': 'username', 'Data': {'username': 'swapnil_recycler'}} [in /home/ubuntu/SIH-2020/app/routes.py:931]
+[2020-08-02 06:13:43,859] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'ik8mZzkWQ4inKPZxcQUWot'}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:34:22,798] [INFO]: {'Data': {'serial_no': 'QWuSbJUP6tB4kshgAi73yf'}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:39:20,536] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:39:20,720] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:45:49,365] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'ETDjbaT4dLdTDkRGqvtLSr'}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:46:53,988] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-08-02 09:46:54,001] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-08-02 09:46:54,044] [INFO]: Supply Chain Startup [in /home/ubuntu/SIH-2020/app/__init__.py:54]
+[2020-08-02 09:47:10,485] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'C7ZzdHdaVeJAZFQH2gnJZo'}} [in /home/ubuntu/SIH-2020/app/routes.py:993]
+[2020-08-02 09:47:43,335] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:928]
+[2020-08-02 09:47:43,336] [INFO]: {'provider': 'username', 'Data': {'username': 'ghosh_recycler'}} [in /home/ubuntu/SIH-2020/app/routes.py:931]
