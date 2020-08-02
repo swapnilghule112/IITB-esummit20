@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
     email = StringField("Email :", validators=[DataRequired(), Email()])
     org = StringField("Organization :", validators=[DataRequired()])
     role = SelectField(
-        "Role :", choices=[("1", "Manufacturer"), ("2", "Broker"), ("3", "Retailer")]
+        "Role :", choices=[("1", "Manufacturer"), ("2", "Broker"), ("3", "Retailer"), ("4", "Recycler")]
     )
     location = StringField("Location :", validators=[DataRequired()])
     details = StringField("Details :")
