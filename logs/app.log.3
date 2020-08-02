@@ -1,4 +1,4 @@
-[2020-07-30 09:46:39,612] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-08-01 16:58:00,512] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
     content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
@@ -22,13 +22,9 @@ Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-30 09:46:49,713] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
-[2020-07-30 09:46:49,713] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
-[2020-07-30 09:46:49,720] [INFO]: po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:517]
-[2020-07-30 09:46:49,808] [INFO]: http://3.215.183.155/static/po/po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:523]
-[2020-07-30 09:46:50,707] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
-[2020-07-30 09:46:50,707] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
-[2020-07-30 09:46:50,712] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-08-01 16:58:11,519] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:58:11,520] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:58:11,525] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
     content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
@@ -52,9 +48,13 @@ Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-30 09:47:11,823] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
-[2020-07-30 09:47:11,823] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
-[2020-07-30 09:47:11,828] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-08-01 16:58:23,335] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:58:23,335] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:58:23,343] [INFO]: po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:517]
+[2020-08-01 16:58:23,416] [INFO]: http://3.215.183.155/static/po/po_5f157208ea95723b48ff59f7.pdf [in /home/ubuntu/SIH-2020/app/routes.py:523]
+[2020-08-01 16:58:24,600] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:58:24,601] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:58:24,605] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
     content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
@@ -78,13 +78,13 @@ Traceback (most recent call last):
   File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-30 09:52:01,096] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
-[2020-07-30 09:52:01,097] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
-[2020-07-30 09:52:01,102] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-08-01 16:58:45,453] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:58:45,454] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:58:45,458] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
-    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
-KeyError: 'so_id'
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
 
 During handling of the above exception, another exception occurred:
 
@@ -101,16 +101,20 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-30 09:52:27,336] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
-[2020-07-30 09:52:27,336] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
-[2020-07-30 09:52:27,341] [ERROR]: Exception on /api/services/v1/get_so_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
+[2020-08-01 16:59:12,637] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:59:12,637] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:59:12,645] [INFO]: po_5f114408e257dd728e757d66.pdf [in /home/ubuntu/SIH-2020/app/routes.py:517]
+[2020-08-01 16:59:12,717] [INFO]: http://3.215.183.155/static/po/po_5f114408e257dd728e757d66.pdf [in /home/ubuntu/SIH-2020/app/routes.py:523]
+[2020-08-01 16:59:13,812] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_po_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:505]
+[2020-08-01 16:59:13,813] [INFO]: reached po invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:511]
+[2020-08-01 16:59:13,817] [ERROR]: Exception on /api/services/v1/get_po_invoice [POST] [in /usr/local/lib/python3.6/dist-packages/flask/app.py:1560]
 Traceback (most recent call last):
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 549, in get_so_invoice
-    cont = db.so.find_one({'_id':ObjectId(data['Data']['so_id'])})
-KeyError: 'so_id'
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 514, in get_po_invoice
+    content = db.po.find_one({'_id':ObjectId(data['Data']['po_id'])})
+KeyError: 'po_id'
 
 During handling of the above exception, another exception occurred:
 
@@ -127,19 +131,14 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/ubuntu/SIH-2020/app/routes.py", line 564, in get_so_invoice
+  File "/home/ubuntu/SIH-2020/app/routes.py", line 528, in get_po_invoice
     logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
 NameError: name 'logger' is not defined
-[2020-07-30 09:52:53,657] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
-[2020-07-30 09:52:53,658] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
-[2020-07-30 09:52:53,666] [INFO]: so_5f157065719e10c7e20f4506.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
-[2020-07-30 09:52:53,742] [INFO]: http://3.215.183.155/static/so/so_5f157065719e10c7e20f4506.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
-[2020-07-30 09:53:07,642] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
-[2020-07-30 09:53:07,642] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
-[2020-07-30 09:53:07,655] [INFO]: so_5f1081f44cc54199378c7b2e.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
-[2020-07-30 09:53:07,724] [INFO]: http://3.215.183.155/static/so/so_5f1081f44cc54199378c7b2e.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
-[2020-07-30 09:53:21,484] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
-[2020-07-30 09:53:21,484] [INFO]: reached so invoice 1 [in /home/ubuntu/SIH-2020/app/routes.py:546]
-[2020-07-30 09:53:21,493] [INFO]: so_5f15d028719e10c7e20f4507.pdf [in /home/ubuntu/SIH-2020/app/routes.py:553]
-[2020-07-30 09:53:21,571] [INFO]: http://3.215.183.155/static/so/so_5f15d028719e10c7e20f4507.pdf [in /home/ubuntu/SIH-2020/app/routes.py:559]
-[2020-07-30 09:53:23,318] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
+[2020-08-01 18:00:50,824] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'PUCT8DkJNpU8vxgkALJGqd'}} [in /home/ubuntu/SIH-2020/app/routes.py:995]
+[2020-08-01 18:02:10,397] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:995]
+[2020-08-01 18:02:10,525] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:995]
+[2020-08-01 18:27:37,985] [INFO]: {'provider': 'username', 'Data': {'serial_no': ' '}} [in /home/ubuntu/SIH-2020/app/routes.py:995]
+[2020-08-02 01:42:12,007] [INFO]: {'provider': 'username', 'Data': {'serial_no': 'J9k7PV7m3uGocLPSbdJdYv'}} [in /home/ubuntu/SIH-2020/app/routes.py:995]
+[2020-08-02 02:49:39,308] [INFO]: Inside get asset api [in /home/ubuntu/SIH-2020/app/routes.py:930]
+[2020-08-02 02:49:39,309] [INFO]: {'provider': 'username', 'Data': {'username': 'manav_broker'}} [in /home/ubuntu/SIH-2020/app/routes.py:933]
+[2020-08-02 03:03:48,300] [INFO]: <Request 'http://3.215.183.155/api/services/v1/get_so_invoice' [POST]> [in /home/ubuntu/SIH-2020/app/routes.py:540]
