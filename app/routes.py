@@ -1105,9 +1105,10 @@ def create_asset_api():
             or "cost" not in data["Data"]
             or "username" not in data["Data"]
             or "private_key" not in data["Data"]
+            or 'bag_type' not in data["Data"]
         ):
             response,status_code = bad_request("One or more missing fields")
-        serial_no = "12345"
+        serial_no = data["Data"]["bag_type"]
         responses = create_asset_async(
             data["Data"]["username"],
             serial_no,

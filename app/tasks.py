@@ -13,7 +13,8 @@ ASSETS_PER_TRANS = app.config.get("ASSETS_PER_TRANS", 2000)
 
 def create_n_assets(username, serial_no, cost, priv_key, n):
     for i in range(n):
-        serial_no = str(shortuuid.uuid())
+        uuid_no = str(shortuuid.uuid())
+        serial_no = serial_no +"-"+ uuid_no
         createasset(username, serial_no, cost, priv_key)
     # time.sleep(10)
     # mongo.db.tasks.update({"id":task_id},{'$set': {"complete":True}})
