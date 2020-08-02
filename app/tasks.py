@@ -15,7 +15,8 @@ def create_n_assets(username, serial_no, cost, priv_key, n):
     for i in range(n):
         uuid_no = str(shortuuid.uuid())
         temp = serial_no +"-"+ uuid_no
-        createasset(username, temp, cost, priv_key)
+        createasset(username, temp, cost, priv_key,serial_no)
+    
     # time.sleep(10)
     # mongo.db.tasks.update({"id":task_id},{'$set': {"complete":True}})
 

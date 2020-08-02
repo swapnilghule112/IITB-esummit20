@@ -82,7 +82,6 @@ def bad_request(error_str):
     return response, 400
 
 
-# #buggy code starts here
 def transfer_asset(username, serial_no, priv_key):
     results = bdb.assets.get(search=serial_no)
     try:
@@ -124,8 +123,6 @@ def transfer_asset(username, serial_no, priv_key):
                 commit_json = bdb.transactions.send_commit(fulfilled_transfer_tx)
                 return commit_json
             else:
-                # print(tx_results)
-                # print(type(tx_results))
                 transfer_tx = tx_results[-1]
                 asset_id = transfer_tx["asset"]["id"]
                 t = datetime.utcnow()
@@ -187,7 +184,7 @@ def search_asset(serial_no):
         return bad_request(info)
 
 
-def createasset(username, serial_no, cost, private_key):
+def createasset(username, serial_no, cost, private_key,bag_type):
 
     try:
         app.logger.info("Into create asset")
@@ -196,7 +193,7 @@ def createasset(username, serial_no, cost, private_key):
         app.logger.info("cost: " + str(cost))
         t = datetime.utcnow()
         sack = {
-            "data": {"sack": {"serial_number": serial_no, "manufacturer": username}}
+            "data": {"sack": {"serial_number": serial_no, "manufacturer": username,"bag_type":bag_type}}
         }
         metadata = {"cost": cost, "timestamp": str(t)}
 
@@ -216,7 +213,7 @@ def createasset(username, serial_no, cost, private_key):
 
             commit_json = bdb.transactions.send_async(fulfilled_creation_tx)
             db.users.update_one(
-                {"username": username}, {"$addToSet": {"owned": serial_no}}
+                {"username": username}, {"$addToSet": {f"owned.{bag_type}": serial_no}}
             )
             return commit_json
         except:

@@ -377,9 +377,7 @@ def get_priv_key_by_username(username):
     #urls = ["http://35.172.121.202/api/services/v1/get_priv_key"]
     # headers = {"Content-Type":"application/json"}
     data = {"username": username}
-    print("Inside get_priv_key fun")
     data = json.dumps(data)
-    print(data)
     for url in urls:
         api_resp = requests.post(url, data)
         print(api_resp)
@@ -532,6 +530,7 @@ def order_finalize():
         usern = data["Data"]["username"]
         po_id = doc["po_id"]
         assets = db.po.find_one({"_id": ObjectId(po_id)})
+        bag_type = assets["prod_name"]
         assets = assets["assets"]
         so_sx = doc["so_sx"]
         priv_key = get_priv_key_by_username(so_sx)
@@ -547,10 +546,17 @@ def order_finalize():
                 lock.pop(i)
                 break
         ast = db.users.find_one({"username": usern})
-        ast = ast["owned"]
+        if bag_type in ast["owned"]:
+            ast = ast["owned"][bag_type]
+        else:
+            db.users.update_one(
+                {"username": usern}, {"$set": {f"owned.{bag_type}": []}}
+            )
+            ast = db.users.find_one({"username": usern})
+            ast = ast["owned"][bag_type]
         assets.extend(ast)
         db.users.update({"username": so_sx}, {"$set": {"lock": lock}})
-        db.users.update({"username": usern}, {"$set": {"owned": assets}})
+        db.users.update({"username": usern}, {"$set": {f"owned.{bag_type}": assets}})
         db.po.update({"_id": ObjectId(po_id)}, {"$set": {"Status": "Completed"}})
         db.so.update({"_id": ObjectId(so_id)}, {"$set": {"Status": "Completed"}})
         user_obj = {}
@@ -560,7 +566,7 @@ def order_finalize():
         status_code = 200
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        app.logger.info(str(e) + "on line no: " + str(exc_tb.tb_lineno))
         response,status_code = bad_request(
             str(sys.exc_info()[0])
             + " error on line no: "
@@ -598,7 +604,7 @@ def get_sales_order():
             quant = pos["quantity"]
             amount = pos["amount"]
             own = db.users.find_one({"username": usern})
-            own = own["owned"]
+            own = own["owned"][pos["prod_name"]]
             ownt = own
             poid = []
             date = str(datetime.utcnow())
@@ -621,7 +627,8 @@ def get_sales_order():
             for i in range(0, int(quant)):
                 poid.append(own[i])
                 ownt.remove(own[i])
-            db.users.update({"username": usern}, {"$set": {"owned": ownt}})
+            bag_type = pos['prod_name']
+            db.users.update({"username": usern}, {"$set": {f"owned.{bag_type}": ownt}})
             data = {po_id: poid}
             db.users.update_one({"username": usern}, {"$push": {"lock": data}})
             db.po.update({"_id": ObjectId(po_id)}, {"$set": {"assets": poid}})
@@ -648,10 +655,17 @@ def rollback_ast(po_id):
     try:
         rolb = db.po.find_one({"_id": ObjectId(po_id)})
         assets = rolb["assets"]
+        bag_type = rolb["prod_name"]
         ast = db.users.find_one({"username": rolb["po_rx"]})
-        ast = ast["owned"]
+        lock = ast["lock"]
+        ast = ast["owned"][bag_type]
         assets.extend(ast)
-        db.users.update({"username": rolb["po_rx"]}, {"$set": {"owned": assets}})
+        for i in range(0, len(lock)):
+            if po_id in lock[i]:
+                lock.pop(i)
+                break
+        db.users.update({"username": rolb["po_rx"]}, {"$set": {"lock": lock}})
+        db.users.update({"username": rolb["po_rx"]}, {"$set": {f"owned.{bag_type}": assets}})
         return True
     except:
         exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -669,10 +683,10 @@ def so_cancel():
         if not ("so_id" in data["Data"]):
             response,status_code = bad_request("Sales Order Not Found")
         id = data["Data"]["so_id"]
-        db.so.update({"_id": ObjectId(id)}, {"$set": {"Status": "Cancelled"}})
         doc = db.so.find_one({"_id": ObjectId(id)})
         po_id = doc["po_id"]
         rol = rollback_ast(po_id)
+        db.so.update({"_id": ObjectId(id)}, {"$set": {"Status": "Cancelled"}})
         db.po.update({"po_id": ObjectId(id)}, {"$set": {"Status": "Cancelled SO"}})
         response = make_response(
             jsonify({"ReturnMsg": "Success", "Status": "Sales order cancelled"})
@@ -758,13 +772,7 @@ def po_cancel():
         if not ("po_id" in data["Data"]):
             response,status_code = bad_request("Purchase Order Not Found")
         id = data["Data"]["po_id"]
-        rolb = db.po.find_one({"_id": ObjectId(id)})
-        assets = rolb["assets"]
         db.po.update({"_id": ObjectId(id)}, {"$set": {"Status": "Cancelled"}})
-        ast = db.users.find_one({"username": rolb["po_rx"]})
-        ast = ast["owned"]
-        assets.extend(ast)
-        db.users.update({"username": rolb["po_rx"]}, {"$set": {"owned": assets}})
         response = make_response(
             jsonify({"ReturnMsg": "Success", "Status": "Purchased order cancelled"})
         )
@@ -797,7 +805,7 @@ def po_accept():
         amount = db.po.find_one({"_id": ObjectId(id)})
         usern = amount["po_rx"]
         own = db.users.find_one({"username": usern})
-        owned = len(own["owned"])
+        owned = len(own["owned"][amount["prod_name"]])
         quantity = int(amount["quantity"])
         if owned < quantity:
             response = make_response(
@@ -806,7 +814,7 @@ def po_accept():
             status_code = 200
             response = add_headers(response)
             return response, status_code
-        response = make_response(jsonify({"ReturnMsg": "Success", "Status": "true"}))
+        response = make_response(jsonify({"ReturnMsg": "Success", "Status": "true","length":owned}))
         status_code = 200
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1313,7 +1321,7 @@ def get_register():
                 "location": data['Data']['City'],
                 "State": data['Data']['State'],
                 "details": data['Data']['Zip'],
-                "owned": [],
+                "owned": {},
                 "lock": [],
             }
         )
@@ -1333,9 +1341,10 @@ def get_register():
 
 
 @app.route('/api/services/v1/sold', methods = ['POST'])
+@jwt_required
 def sold():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info("Inside Sold API")
         data = json.loads(request.data)
@@ -1347,16 +1356,19 @@ def sold():
             return bad_request("User not found")
         response = transfer_asset("NJB",data['Data']['serial_no'],priv_key)
         if response is not None:
-            db.users.update_one({'username':"NJB" },{ '$addToSet': { 'owned':data['Data']['serial_no'] } } )
-            db.users.update_one({'username':data['Data']["username"] },{ '$pull': { 'owned':data['Data']['serial_no'] } } )
-            response = jsonify({"ReturnMsg":"Success", "transact":"true"})
-            response.status_code = 200
+            asset = bdb.assets.get(search=data["Data"]["serial_no"])[0]
+            bag_type = asset["data"]["sack"]["bag_type"]
+            
+            db.users.update_one({'username':"NJB" },{ '$addToSet': { f'owned.{bag_type}':data['Data']['serial_no'] } } )
+            db.users.update_one({'username':data['Data']["username"] },{ '$pull': { f'owned.{bag_type}':data['Data']['serial_no'] } } )
+            response = make_response(jsonify({"ReturnMsg":"Success", "transact":"true"}))
+            status_code = 200
         else:
-            response = jsonify(response)
-            response.status_code = 400
+            response = make_response(jsonify(response))
+            status_code = 400
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        app.logger.error(str(e) + "on line no: " + str(exc_tb.tb_lineno))
         response,status_code = bad_request(
             str(sys.exc_info()[0])
             + " error on line no: "
@@ -1364,14 +1376,17 @@ def sold():
             + " Data received: "
             + json.dumps(data)
         )
-    return response
+    finally:
+        response = add_headers(response)
+        return response,status_code
 
 
 
 @app.route('/api/services/v1/acquire', methods = ['POST'])
+@jwt_required
 def acquire():
-    response = jsonify({})
-    response.status_code = 404
+    response = make_response(jsonify({}))
+    status_code = 404
     try:
         app.logger.info("Inside Acquire api")
         data = json.loads(request.data)
@@ -1385,16 +1400,19 @@ def acquire():
             return bad_request("User not found")
         response = transfer_asset(username,serial_no,priv_key)
         if response is not None:
-            db.users.update_one({'username':username },{ '$addToSet': { 'owned':serial_no } } )
-            db.users.update_one({'username':"NJB" },{ '$pull': { 'owned':serial_no } } )
+            bag_type = serial_no.split("-")[0]
+            db.users.update_one({'username':username },{ '$addToSet': { f'owned.{bag_type}':serial_no } } )
+            db.users.update_one({'username':"NJB" },{ '$pull': { f'owned.{bag_type}':serial_no } } )
             response = jsonify({"ReturnMsg":"Success", "transact":"true"})
             response.status_code = 200
         else:
-            response = jsonify(response)
-            response.status_code = 400
+            response = make_response(jsonify(response))
+            status_code = 400
     except Exception as e:
         eror = str(e)
         app.logger.info("Error")
         app.logger.info(eror)
         return bad_request(eror)
-    return response
+    finally:
+        response = add_headers(response)
+        return response,status_code
