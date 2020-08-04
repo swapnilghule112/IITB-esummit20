@@ -1,0 +1,14 @@
+[Unit]
+Description=Redis queue for handling load of bigchaindb transactions
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/SIH-2020/
+#Environment="PATH=/home/sammy/myproject/myprojectenv/bin"
+ExecStart=/home/ubuntu/.local/bin/rq worker jute-tasks
+
+[Install]
+WantedBy=multi-user.target
+

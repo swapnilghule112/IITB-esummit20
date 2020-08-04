@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve flask app
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/SIH-2020/
+#Environment="PATH=/home/sammy/myproject/myprojectenv/bin"
+ExecStart=/usr/local/bin/gunicorn --workers 3 --bind unix:supply_chain.sock -m 007 supply_chain:app
+
+[Install]
+WantedBy=multi-user.target
