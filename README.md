@@ -1,6 +1,6 @@
 # Jute Supply Chain Management system
 
-## Team Houdini
+## Team RestFull
 
 ## Clone this repository and do:
 
