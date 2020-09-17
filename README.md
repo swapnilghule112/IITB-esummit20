@@ -1,4 +1,4 @@
-# Jute Supply Chain Management system
+# Supply Chain Management system
 
 ## Team RestFull
 
