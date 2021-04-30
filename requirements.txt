@@ -105,7 +105,7 @@ reportlab==3.4.0
 requests==2.22.0
 requests-unixsocket==0.1.5
 roman==2.0.0
-rsa==3.4.2
+rsa==4.7
 s3transfer==0.1.13
 SecretStorage==2.3.1
 setproctitle==1.1.10
