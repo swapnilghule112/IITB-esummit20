@@ -31,7 +31,7 @@ from werkzeug.http import HTTP_STATUS_CODES
 from bson.objectid import ObjectId
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt, get_jwt_identity
 
-
+from flask_cors import cross_origin
 import sys
 import json
 import requests
@@ -48,6 +48,8 @@ from xhtml2pdf import pisa
 # jwt = JWT(app, authenticate, identity)
 jwt = JWTManager(app)
 
+#constants
+manufacturer_url = "52.86.187.150"
 
 @app.route("/")
 @app.route("/home")
@@ -373,8 +375,8 @@ def sales_order():
 
 
 def get_priv_key_by_username(username):
-    urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key","http://3.215.183.155/api/services/v1/get_priv_key"]
-    #urls = ["http://35.172.121.202/api/services/v1/get_priv_key"]
+    #urls = ["http://35.172.121.202/api/services/v1/get_priv_key","http://3.92.96.170/api/services/v1/get_priv_key","http://3.215.183.155/api/services/v1/get_priv_key"]
+    urls = ["http://"+manufacturer_url+"/api/services/v1/get_priv_key"]
     # headers = {"Content-Type":"application/json"}
     data = {"username": username}
     print("Inside get_priv_key fun")
@@ -429,7 +431,7 @@ def ends():
 
 # 5f15d368acea408be5a1964b.pdf
 @app.route("/api/services/v1/get_po_invoice", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_po_invoice():
     response = make_response(jsonify({}))
     status_code = 404
@@ -439,7 +441,7 @@ def get_po_invoice():
         if not ("username" in data["Data"]) or not ("po_id" in data["Data"]):
             response,status_code = bad_request("Content Incomplete")
         templateLoader = jinja2.FileSystemLoader(
-            searchpath="/home/ubuntu/SIH-2020/app/templates"
+            searchpath="/home/ubuntu/supply-chain/app/templates"
         )
         templateEnv = jinja2.Environment(loader=templateLoader)
         app.logger.info("reached po invoice 1")
@@ -450,10 +452,10 @@ def get_po_invoice():
         ids = "po_" + data["Data"]["po_id"] + ".pdf"
         app.logger.info(ids)
         sourceHtml = template.render(content=content, user=user, io="Purchase Order")
-        resultFile = open("/home/ubuntu/SIH-2020/app/static/po/" + ids, "w+b")
+        resultFile = open("/home/ubuntu/supply-chain/app/static/po/" + ids, "w+b")
         pisaStatus = pisa.CreatePDF(sourceHtml, dest=resultFile)
         resultFile.close()
-        url = "http://35.172.121.202/static/po/" + ids  # change ip
+        url = "http://"+manufacturer_url+"/static/po/" + ids  # change ip
         app.logger.info(url)
         response = make_response(jsonify({"ReturnMsg": "Success", "url": url}))
         status_code = 200
@@ -474,7 +476,7 @@ def get_po_invoice():
 
 
 @app.route("/api/services/v1/get_so_invoice", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_so_invoice():
     response = make_response(jsonify({}))
     status_code = 404
@@ -484,7 +486,7 @@ def get_so_invoice():
         if not ("username" in data["Data"]) or not ("so_id" in data["Data"]):
             response,status_code = bad_request("Content Incomplete")
         templateLoader = jinja2.FileSystemLoader(
-            searchpath="/home/ubuntu/SIH-2020/app/templates"
+            searchpath="/home/ubuntu/supply-chain/app/templates"
         )
         templateEnv = jinja2.Environment(loader=templateLoader)
         app.logger.info("reached so invoice 1")
@@ -496,16 +498,26 @@ def get_so_invoice():
         ids = "so_" + data["Data"]["so_id"] + ".pdf"
         app.logger.info(ids)
         sourceHtml = template.render(content=content, user=user, io="Sales Order")
-        resultFile = open("/home/ubuntu/SIH-2020/app/static/so/" + ids, "w+b")
-        pisaStatus = pisa.CreatePDF(sourceHtml, dest=resultFile)
+        app.logger.info("before resultFile")
+        resultFile = open("/home/ubuntu/supply-chain/app/static/so/" + ids, "w+b")
+        app.logger.info("after resultFile")
+        try:
+            pisaStatus = pisa.CreatePDF(sourceHtml, dest=resultFile)
+        except Exception as e:
+            app.logger.error(pisaStatus)
+            app.logger.error(e)
+        app.logger.info("after pisa")
         resultFile.close()
-        url = "http://35.172.121.202/static/so/" + ids  # change ip
+        app.logger.info("after resultfile close")
+        app.logger.error("manufacturer url")
+        app.logger.error(manufacturer_url)
+        url = "http://"+manufacturer_url+"/static/so/" + ids  # change ip
         app.logger.info(url)
         response = make_response(jsonify({"ReturnMsg": "Success", "url": url}))
         status_code = 200
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
+        app.logger.error(str(e) + "on line no: " + exc_tb.tb_lineno)
         response,status_code =  bad_request(
             str(sys.exc_info()[0])
             + " error on line no: "
@@ -519,11 +531,13 @@ def get_so_invoice():
 
 
 @app.route("/api/services/v1/order_finalize", methods=["POST"])
-@jwt_required
+#@cross_origin()
+#@jwt_required
 def order_finalize():
     response = make_response(jsonify({}))
     status_code = 404
     try:
+        app.logger.error("inside order finalize")
         data = json.loads(request.data)
         if not ("username" in data["Data"]) or not ("so_id" in data["Data"]):
             response,status_code =  bad_request("Content Incomplete Not Found")
@@ -574,7 +588,7 @@ def order_finalize():
 
 
 @app.route("/api/services/v1/get_sales_order", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_sales_order():
     response = make_response(jsonify({}))
     status_code = 404
@@ -660,7 +674,7 @@ def rollback_ast(po_id):
 
 
 @app.route("/api/services/v1/so_cancel", methods=["POST"])
-@jwt_required
+#@jwt_required
 def so_cancel():
     response = make_response(jsonify({}))
     status_code = 404
@@ -694,7 +708,7 @@ def so_cancel():
 
 
 @app.route("/api/services/v1/get_purchase_order", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_purchase_order():
     response = make_response(jsonify({}))
     status_code = 404
@@ -749,7 +763,7 @@ def get_purchase_order():
 
 
 @app.route("/api/services/v1/po_cancel", methods=["POST"])
-@jwt_required
+#@jwt_required
 def po_cancel():
     response = make_response(jsonify({}))
     status_code = 404
@@ -785,7 +799,7 @@ def po_cancel():
 
 
 @app.route("/api/services/v1/po_accept", methods=["POST"])
-@jwt_required
+#@jwt_required
 def po_accept():
     response = make_response(jsonify({}))
     status_code = 404
@@ -824,7 +838,7 @@ def po_accept():
 
 
 @app.route("/api/services/v1/po_notify_r", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_po_notify_r():
     response = make_response(jsonify({}))
     status_code = 404
@@ -867,7 +881,7 @@ def get_po_notify_r():
 
 
 @app.route("/api/services/v1/po_notify_s", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_po_notify_s():
     response = make_response(jsonify({}))
     status_code = 404
@@ -909,7 +923,7 @@ def get_po_notify_s():
 
 
 @app.route("/api/services/v1/so_notify_s", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_so_notify_s():
     response = make_response(jsonify({}))
     status_code = 404
@@ -953,7 +967,7 @@ def get_so_notify_s():
 
 
 @app.route("/api/services/v1/so_notify_r", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_so_notify_r():
     response = make_response(jsonify({}))
     status_code = 404
@@ -997,7 +1011,7 @@ def get_so_notify_r():
 
 
 @app.route("/api/services/v1/getUserDetails", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_user_details_api():
     response = make_response(jsonify({}))
     status_code = 400
@@ -1060,7 +1074,7 @@ def get_user_details_api():
 
 
 @app.route("/api/services/v1/get_asset_list", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_asset_list():
     response = make_response(jsonify({}))
     status_code = 404
@@ -1090,7 +1104,7 @@ def get_asset_list():
 
 
 @app.route("/api/services/v1/createAsset", methods=["POST"])
-@jwt_required
+#@jwt_required
 def create_asset_api():
     response = make_response(jsonify({}))
     status_code = 404
@@ -1135,7 +1149,7 @@ def create_asset_api():
 
 
 @app.route("/api/services/v1/transferAsset", methods=["POST"])
-@jwt_required
+#@jwt_required
 def transfer_asset_api():
     app.logger.info("Into Transfer asset API ")
     data = request.data
@@ -1186,7 +1200,7 @@ def search_api():
 
 
 @app.route("/api/services/v1/getCurrentOwnedAssets", methods=["POST"])
-@jwt_required
+#@jwt_required
 def get_current_owned_assets():
     response = bdb.outputs.get(
         "7gu4F9eUNAWG5y1Dc61mis3JSWHqayEVnHYNrjzSjHYL", spent=True
@@ -1259,7 +1273,9 @@ def auth():
             return response, 401
 
         # Identity can be any data that is json serializable
-        ret = {"jwt": create_jwt(identity=username)}
+        app.logger.error("here")
+        app.logger.error(username);
+        ret = {'jwt': create_jwt(identity=username)}
         response = make_response(jsonify(ret))
         response = add_headers(response)
         status_code = 200

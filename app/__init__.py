@@ -9,21 +9,23 @@ import logging
 from logging.handlers import SMTPHandler
 from pymongo import MongoClient
 from redis import Redis
+from flask_cors import CORS
 import rq
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(Config)
 login = LoginManager(app)
 login.login_view = "login"
 mongo = PyMongo(app)
 client = MongoClient(
-    "mongodb+srv://Houdini:Houdini@clustermain-0hrue.mongodb.net/Houdini?retryWrites=true&w=majority"
+        "mongodb+srv://Houdini:Houdini1234@cluster0.qo4h9.mongodb.net/Houdini?retryWrites=true&w=majority"
 )
 db = client.get_database("trans")
 bootstrap = Bootstrap(app)
 redis_app = app.config.get("REDIS_URL", "redis://")
-# task_queue = rq.Queue('jute-tasks', connection='redis://')
-task_queue = rq.Queue("jute-tasks", connection=Redis.from_url("redis://"))
+#task_queue = rq.Queue('jute-tasks', connection='redis://')
+task_queue = rq.Queue('jute-tasks',connection=Redis())
 
 from app import routes, models, errors
 

@@ -18,3 +18,4 @@ class Config(object):
     REDIS_URL = os.environ.get("REDIS_URL") or "redis://"
     ASSETS_PER_TRANS = 40
     JWT_SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
+    manufacturer_url = "52.86.202.117"
